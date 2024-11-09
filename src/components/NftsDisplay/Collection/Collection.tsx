@@ -17,7 +17,7 @@ export const Collection = ({ collection, nfts }: Props) => {
         P.string.and(P.when((endTime) =>
             new Date(Number((BigInt(endTime as string) / 1000000n).toString())) < new Date())
         )], () => <></>)
-        .with([CollectionMintStatus.Minting, P._], () => <a target="_blank" referrerPolicy="no-referrer"
+        .with([CollectionMintStatus.Minting, P._], () => <a target="_blank" referrerPolicy="no-referrer" rel="noreferrer"
             href={`https://www.stargaze.zone/l/${collection.contractAddress}`}>Mint Now!</a>)
         .with([CollectionMintStatus.Upcoming, P._], () => <>Coming Soon</>)
 

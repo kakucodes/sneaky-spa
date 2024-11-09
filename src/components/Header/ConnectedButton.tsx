@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuerySneakyTokens } from "../../hooks/useQuerySneakyTokens"
-import { useAccount, useDisconnect } from "graz";
+import { useAccount } from "graz";
 import { useQueryStargazeName } from "../../hooks/useQueryStargazeName/useQueryStargazeName";
 import { shortenAddress } from "../../utils/shortenAddress";
 import { match, P } from "ts-pattern";
@@ -8,7 +8,6 @@ import { formatTokenAmount } from "../../utils/format";
 
 export const ConnectedButton = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const { disconnect } = useDisconnect()
     const { data: walletData } = useAccount()
     const { data: sneakyBalance, isLoading: isSneakyBalanceLoading } = useQuerySneakyTokens()
 
