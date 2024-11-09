@@ -8,6 +8,7 @@
     "@cosmjs/proto-signing": "^0.32.4",
     "@cosmjs/stargate": "^0.32.4",
     "@cosmjs/tendermint-rpc": "^0.32.4",
+    "@leapwallet/cosmos-social-login-capsule-provider": "^0.0.44",
     "@tanstack/react-query": "^5.59.20",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
