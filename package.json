@@ -2,6 +2,7 @@
   "name": "sneaky-spa",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://kakucodes.github.io/sneaky-spa",
   "dependencies": {
     "@babel/core": "^7.16.0",
     "@cosmjs/cosmwasm-stargate": "^0.32.4",
@@ -89,7 +90,9 @@
     "test": "node scripts/test.js",
     "graz-gen": "graz generate -g -b -M osmosis,stargaze",
     "gql-codegen": "graphql-codegen --config gql-codegen.ts",
-    "codegen": "yarn gql-codegen && yarn graz-gen"
+    "codegen": "yarn gql-codegen && yarn graz-gen",
+    "preinstall": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -115,7 +118,8 @@
     "@graphql-codegen/graphql-modules-preset": "^4.0.11",
     "@graphql-codegen/typescript": "^4.1.1",
     "@graphql-codegen/typescript-resolvers": "^4.4.0",
-    "@parcel/watcher": "^2.5.0"
+    "@parcel/watcher": "^2.5.0",
+    "gh-pages": "^6.2.0"
   },
   "jest": {
     "roots": [
