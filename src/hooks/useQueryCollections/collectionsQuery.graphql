@@ -1,0 +1,24 @@
+query CollectionsQuery($filtersByAddrs: [String!]) {
+  collections(filterByAddrs: $filtersByAddrs, limit: 50) {
+    collections {
+      contractAddress
+      name
+      description
+      floor {
+        amount
+        amountUsd
+        denom
+        symbol
+      }
+      mintStatus
+      highestOffer {
+        offerPrice {
+          amountUsd
+          amount
+          denom
+          symbol
+        }
+      }
+    }
+  }
+}

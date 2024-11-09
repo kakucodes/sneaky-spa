@@ -1,0 +1,64 @@
+query UserNftsQuery(
+  $tokensOwnerAddrOrName: String
+  $filterByCollectionAddrs: [String!]
+) {
+  tokens(
+    ownerAddrOrName: $tokensOwnerAddrOrName
+    filterByCollectionAddrs: $filterByCollectionAddrs
+    limit: 200
+  ) {
+    tokens {
+      ...Nft
+      name
+      collection {
+        contractAddress
+        ...NftCollection
+      }
+      tokenId
+
+      # traits {
+      #   name
+      # }
+      # metadata
+    }
+  }
+  collections(filterByAddrs: $filterByCollectionAddrs, limit: 50) {
+    collections {
+      contractAddress
+      name
+      description
+      floor {
+        amount
+        amountUsd
+        denom
+        symbol
+      }
+      mintStatus
+      highestOffer {
+        offerPrice {
+          amountUsd
+          amount
+          denom
+          symbol
+        }
+      }
+      minter {
+        publicSale {
+          endTime
+        }
+      }
+    }
+  }
+}
+
+# {
+#   "tokensOwnerAddrOrName": "stars1ewdttrv2ph7762egx4n2309h3m9r4z9plckjev",
+#   "filterByCollectionAddrs": [
+#     "stars1axa9hddj5p5vr4agt9ftr957fkxl2accss4e0x70u3882rc2zt5q97gvxs",
+#     "stars1429tk3pj6nrta2y34gx0njrm8zum53v05dyjawlsk6w84wqugsnshf2n3x",
+#     "stars1zyh20slfdscdxdxqxmfhjnt3zdeh3hmv0zhlmtrp7p5zvntturasdhw057",
+#     "stars1n4vuu7kr5cv793jh8t0htnr5wvkjywg452yp6y03f7q6w3747aaqxfkjch"
+#   ],
+#   "offset": 5,
+#   "limit": 200
+# }

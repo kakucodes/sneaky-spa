@@ -1,0 +1,10 @@
+fragment Nft on Token {
+  name
+  description
+  metadata
+  rarityScore
+  tokenId
+  collection {
+    contractAddress
+  }
+}

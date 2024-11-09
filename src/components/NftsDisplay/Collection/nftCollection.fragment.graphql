@@ -1,0 +1,25 @@
+fragment NftCollection on Collection {
+  contractAddress
+  name
+  description
+  floor {
+    amount
+    amountUsd
+    denom
+    symbol
+  }
+  mintStatus
+  highestOffer {
+    offerPrice {
+      amountUsd
+      amount
+      denom
+      symbol
+    }
+  }
+  minter {
+    publicSale {
+      endTime
+    }
+  }
+}
