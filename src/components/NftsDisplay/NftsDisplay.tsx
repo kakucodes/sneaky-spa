@@ -2,9 +2,11 @@ import { COLLECTION_ADDRS } from "../../config";
 import { Collection } from "./Collection/Collection";
 import { useQueryNfts } from "./useQueryUserNfts";
 import "./nftsDisplay.css";
+import { useAccount } from "graz";
 
 export const NftsDisplay = () => {
   const { data: userNfts } = useQueryNfts();
+  const { isDisconnected } = useAccount();
 
   const collections =
     userNfts &&
@@ -31,6 +33,8 @@ export const NftsDisplay = () => {
               nfts={nfts}
             />
           ))
+        : isDisconnected
+        ? "Connect your wallet please"
         : "Loading Collections..."}
     </div>
   );
