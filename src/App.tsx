@@ -1,10 +1,9 @@
-import React from 'react';
-import './App.css';
-import { Header } from './components/Header/Header';
-import { NftsDisplay } from './components/NftsDisplay/NftsDisplay';
+import React from "react";
+import "./App.css";
+import { Header } from "./components/Header/Header";
+import { NftsDisplay } from "./components/NftsDisplay/NftsDisplay";
 
 function App() {
-
   return (
     <div className="App">
       <Header />
