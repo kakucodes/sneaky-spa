@@ -5,12 +5,7 @@
   "homepage": "https://kakucodes.github.io/sneaky-spa",
   "dependencies": {
     "@babel/core": "^7.16.0",
-    "@cosmjs/cosmwasm-stargate": "^0.32.4",
-    "@cosmjs/launchpad": "^0.27.1",
-    "@cosmjs/proto-signing": "^0.32.4",
-    "@cosmjs/stargate": "^0.32.4",
-    "@cosmjs/tendermint-rpc": "^0.32.4",
-    "@leapwallet/cosmos-social-login-capsule-provider": "^0.0.44",
+    "@leapwallet/cosmos-social-login-capsule-provider": "^0.0.41",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
     "@svgr/webpack": "^5.5.0",
     "@tanstack/react-query": "^5.59.20",
@@ -90,8 +85,7 @@
     "test": "node scripts/test.js",
     "graz-gen": "graz generate -g -b -M osmosis,stargaze",
     "gql-codegen": "graphql-codegen --config gql-codegen.ts",
-    "codegen": "yarn gql-codegen && yarn graz-gen",
-    "preinstall": "yarn build",
+    "codegen": "npm run gql-codegen && npm run graz-gen",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
@@ -119,7 +113,8 @@
     "@graphql-codegen/typescript": "^4.1.1",
     "@graphql-codegen/typescript-resolvers": "^4.4.0",
     "@parcel/watcher": "^2.5.0",
-    "gh-pages": "^6.2.0"
+    "gh-pages": "^6.2.0",
+    "react-dev-utils": "^12.0.1"
   },
   "jest": {
     "roots": [
