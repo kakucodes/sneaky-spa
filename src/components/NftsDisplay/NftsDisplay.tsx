@@ -24,7 +24,6 @@ export const NftsDisplay = () => {
 
   return (
     <div>
-      <h2>Collections</h2>
       {userNfts && collections
         ? collections.map(({ collectionInfo, nfts }) => (
             <Collection
