@@ -1,25 +1,17 @@
 import React from "react";
-import "./App.css";
 import { Header } from "./components/Header/Header";
-import { NftsDisplay } from "./components/NftsDisplay/NftsDisplay";
+import { Main } from "./components/Main/Main";
+import { Footer } from "./components/Footer/Footer";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import "./App.css";
 
 function App() {
   return (
-    <div className="App">
+    <div className="container py-4">
       <Header />
-      <header className="App-header">
-        <NftsDisplay />
-
-        {/* <ul>
-          {collections?.collections?.collections.map((collection) =>
-            <li key={collection.contractAddress}>
-              <h3>{collection.name}</h3>
-              <p>{collection.description}</p>
-
-            </li>
-          )}
-        </ul> */}
-      </header>
+      <Main />
+      <Footer />
     </div>
   );
 }

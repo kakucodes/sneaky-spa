@@ -8,15 +8,15 @@ export const Nft = ({
   token: { name, description, metadata, rarityScore, tokenId },
 }: Props) => {
   return (
-    <span>
-      <h5>
+    <div className="col">
+      <h4>
         #{tokenId} {name} {rarityScore && `(${rarityScore.toFixed(0)})`}
-      </h5>
+      </h4>
       <img
         alt={name || ""}
         src={"https://ipfs.io/ipfs/" + metadata?.image?.replace("ipfs://", "")}
-        height={200}
+        width={320}
       />
-    </span>
+    </div>
   );
 };

@@ -1,10 +1,9 @@
 import { COLLECTION_ADDRS } from "../../config";
 import { Collection } from "./Collection/Collection";
 import { useQueryNfts } from "./useQueryUserNfts";
-import "./nftsDisplay.css";
 import { useAccount } from "graz";
 
-export const NftsDisplay = () => {
+export const Main = () => {
   const { data: userNfts } = useQueryNfts();
   const { isDisconnected } = useAccount();
 
@@ -23,18 +22,22 @@ export const NftsDisplay = () => {
     });
 
   return (
-    <div>
-      {userNfts && collections
-        ? collections.map(({ collectionInfo, nfts }) => (
-            <Collection
-              key={collectionInfo.contractAddress}
-              collection={collectionInfo}
-              nfts={nfts}
-            />
-          ))
-        : isDisconnected
-        ? "Connect your wallet please"
-        : "Loading Collections..."}
-    </div>
+    <main>
+      {userNfts && collections ? (
+        collections.map(({ collectionInfo, nfts }) => (
+          <Collection
+            key={collectionInfo.contractAddress}
+            collection={collectionInfo}
+            nfts={nfts}
+          />
+        ))
+      ) : isDisconnected ? (
+        ""
+      ) : (
+        <div className="spinner-border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      )}
+    </main>
   );
 };

@@ -13,9 +13,11 @@ type Props = {
 
 export const Collection = ({ collection, nfts }: Props) => {
   return (
-    <div>
-      <div>
-        {collection.name}{" "}
+    <>
+      <h3 className="fw-bold">{collection.name}</h3>
+      <p className="text-capitalize">{collection.description}</p>
+
+      <div className="row">
         {match([collection.mintStatus, collection.minter?.publicSale?.endTime])
           .with([CollectionMintStatus.FullyMinted, P._], () => <></>)
           .with([P.nullish, P._], () => <></>)
@@ -44,15 +46,12 @@ export const Collection = ({ collection, nfts }: Props) => {
             </a>
           ))
           .with([CollectionMintStatus.Upcoming, P._], () => <>Coming Soon</>)
-
           .exhaustive()}
-      </div>
-      <div className="collectionNfts">
+
         {nfts.length === 0
           ? "None :("
           : nfts.map((nft) => <Nft key={`${nft.tokenId}`} token={nft} />)}
       </div>
-      <br />
-    </div>
+    </>
   );
 };

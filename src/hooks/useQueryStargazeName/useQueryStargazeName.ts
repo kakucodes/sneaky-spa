@@ -13,12 +13,12 @@ export const useQueryStargazeName = () => {
     queryFn: () =>
       request(STARGAZE_ENDPOINT, StargazeNameQueryDocument, {
         ownerAddr: stargazeAddr,
-      }).then(
-        ({ names }) =>
-          names?.names.find(
-            ({ associatedAddr }) => associatedAddr === stargazeAddr
-          )?.name
-      ),
+      }).then(({ names }) => {
+        const name = names?.names.find(
+          ({ associatedAddr }) => associatedAddr === stargazeAddr
+        )?.name;
+        return name || null; // Return null if name is not found, to avoid console error.
+      }),
     enabled: !!stargazeAddr,
-  });
+  });  
 };

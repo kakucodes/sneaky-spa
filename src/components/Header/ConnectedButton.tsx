@@ -7,54 +7,52 @@ import { match, P } from "ts-pattern";
 import { formatTokenAmount } from "../../utils/format";
 
 export const ConnectedButton = () => {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   const { data: walletData } = useAccount();
   const { disconnect } = useDisconnect();
-  const { data: sneakyBalance, isLoading: isSneakyBalanceLoading } =
-    useQuerySneakyTokens();
-
+  const { data: sneakyBalance, isLoading: isSneakyBalanceLoading } = useQuerySneakyTokens();
   const { data: sgName } = useQueryStargazeName();
-
-  const name =
-    sgName ||
-    (walletData &&
-      (walletData.name || shortenAddress(walletData.bech32Address))) ||
-    "";
+  const name = sgName || (walletData && (walletData.name || shortenAddress(walletData.bech32Address))) || "";
+  const address = walletData?.bech32Address;
 
   return (
     <div>
-      <p onClick={() => setDropdownOpen((open) => !open)}>
-        <span>Hi, {name}!</span>
-        <br />(
-        {isSneakyBalanceLoading || !sneakyBalance
-          ? "..."
-          : sneakyBalance.totalFormattedAmount}{" "}
-        $SNEAKY)
+      <button className="btn btn-outline-dark" onClick={() => disconnect()}>Disconnect</button>
+      <p className="mb-0"><strong>Wallet Name</strong>: {name}</p>
+      <p>{address}</p>
+      <p className="fw-bold mb-0">
+        {isSneakyBalanceLoading || !sneakyBalance ? (
+          <span className="spinner-border spinner-border-sm" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </span>
+        ) : (
+          <>
+            {sneakyBalance.totalFormattedAmount} $SNEAKY
+          </>
+        )}
       </p>
-      {dropdownOpen && sneakyBalance && (
-        <ul>
-          {Object.entries(sneakyBalance.chainBalances).map((bal) =>
-            match(bal)
-              .with(["stargaze-1", P._], ([chainId, { formattedAmount }]) => (
-                <li key={chainId}>
-                  Stargaze: {formatTokenAmount(formattedAmount)} $SNEAKY
-                </li>
-              ))
-              .with(["osmosis-1", P._], ([chainId, { formattedAmount }]) => (
-                <li key={chainId}>
-                  Osmosis: {formatTokenAmount(formattedAmount)} $SNEAKY
-                </li>
-              ))
-              .otherwise(([chainId, { formattedAmount }]) => (
-                <li key={chainId}>
-                  Unknown Chain (chainId): {formatTokenAmount(formattedAmount)}{" "}
-                  $SNEAKY
-                </li>
-              ))
-          )}
-        </ul>
+      <p className="small">($X,XXX.xx)</p>
+      {sneakyBalance && (
+      <ul className="list-unstyled">
+        {Object.entries(sneakyBalance.chainBalances).map((bal) =>
+          match(bal)
+            .with(["stargaze-1", P._], ([chainId, { formattedAmount }]) => (
+              <li key={chainId}>
+                <strong>Stargaze</strong>: {formatTokenAmount(formattedAmount)} $SNEAKY
+              </li>
+            ))
+            .with(["osmosis-1", P._], ([chainId, { formattedAmount }]) => (
+              <li key={chainId}>
+                <strong>Osmosis</strong>: {formatTokenAmount(formattedAmount)} $SNEAKY
+              </li>
+            ))
+            .otherwise(([chainId, { formattedAmount }]) => (
+              <li key={chainId}>
+                Unknown Chain (chainId): {formatTokenAmount(formattedAmount)} $SNEAKY
+              </li>
+            ))
+        )}
+      </ul>
       )}
-      <button onClick={() => disconnect()}>Disconnect</button>
     </div>
   );
 };
