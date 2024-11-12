@@ -36,7 +36,17 @@ export const ConnectedButton = () => {
           <>{sneakyBalance.totalFormattedAmount} $SNEAKY</>
         )}
       </p>
-      <p className="small">($X,XXX.xx)</p>
+      <p className="small">
+        (
+        {sneakyBalance?.usd
+          ? new Intl.NumberFormat("en-US", {
+              style: "currency",
+              currency: "USD",
+              trailingZeroDisplay: "stripIfInteger",
+            }).format(sneakyBalance.usd)
+          : "$X,XXX.xx"}
+        )
+      </p>
       {sneakyBalance && (
         <ul className="list-unstyled">
           {Object.entries(sneakyBalance.chainBalances).map((bal) =>

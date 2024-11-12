@@ -3,6 +3,7 @@ import { SNEAKY_TOKEN_CHAINS } from "../config";
 import { bech32 } from "bech32";
 import { useQuery } from "@tanstack/react-query";
 import { formatTokenAmount } from "../utils/format";
+import { useQueryOsmosisToken } from "./useQueryOsmosisToken";
 
 const changeHrp = (address: string, hrp: string): string | undefined => {
   try {
@@ -47,22 +48,25 @@ const useQuerySkipBalances = (addresses: UserSneakyAddresses | undefined) =>
   });
 
 const getBalancesWithTotals = (
-  balances: BalancesResp["chains"]
+  balances: BalancesResp["chains"],
+  usdValue: number | undefined
 ): BalancesWithTotals => {
   const condensedBalances = Object.entries(balances).map(
     ([chainId, chainBalances]): [
       chainId: SneakyTokenChain,
-      amounts: { amount: bigint; formattedAmount: number }
+      amounts: { amount: bigint; formattedAmount: number; usd?: number }
     ] => {
       const sneakyChainId = chainId as SneakyTokenChain;
       const { amount, formatted_amount } =
         chainBalances.denoms[SNEAKY_TOKEN_CHAINS[sneakyChainId]]!;
+      const formattedAmount = parseFloat(formatted_amount);
 
       return [
         sneakyChainId,
         {
           amount: BigInt(amount),
-          formattedAmount: parseFloat(formatted_amount),
+          formattedAmount,
+          usd: usdValue !== undefined ? usdValue * formattedAmount : undefined,
         },
       ];
     }
@@ -71,18 +75,28 @@ const getBalancesWithTotals = (
   const totals = condensedBalances.reduce<{
     totalAmount: bigint;
     totalFormattedAmount: number;
+    usd?: number;
   }>(
     (
-      { totalAmount, totalFormattedAmount },
-      [_, { amount: chainAmount, formattedAmount: chainFormattedAmount }]
+      { totalAmount, totalFormattedAmount, usd: totalUsd },
+      [
+        _,
+        {
+          amount: chainAmount,
+          formattedAmount: chainFormattedAmount,
+          usd: chainUsd,
+        },
+      ]
     ) => ({
       totalAmount: totalAmount + chainAmount,
       totalFormattedAmount: totalFormattedAmount + chainFormattedAmount,
+      usd: chainUsd !== undefined ? (totalUsd || 0) + chainUsd : undefined,
     }),
-    { totalAmount: 0n, totalFormattedAmount: 0 }
+    { totalAmount: 0n, totalFormattedAmount: 0, usd: undefined }
   );
 
   return {
+    usd: totals.usd,
     totalAmount: totals.totalAmount,
     totalFormattedAmount: formatTokenAmount(totals.totalFormattedAmount),
     // TODO: fix this stubborn type to avoid the cast. it's logically right but as is not ideal
@@ -96,12 +110,14 @@ const getBalancesWithTotals = (
       [ChainId in SneakyTokenChain]: {
         amount: bigint;
         formattedAmount: number;
+        usd?: number;
       };
     },
   };
 };
 
 export const useQuerySneakyTokens = () => {
+  const { data: sneakyTokenData } = useQueryOsmosisToken("SNEAKY");
   const { data: account } = useAccount();
 
   const stargazeAddress = account?.bech32Address;
@@ -117,7 +133,7 @@ export const useQuerySneakyTokens = () => {
   return {
     ...sneakyBalanceQuery,
     data: sneakyBalanceQuery.data
-      ? getBalancesWithTotals(sneakyBalanceQuery.data)
+      ? getBalancesWithTotals(sneakyBalanceQuery.data, sneakyTokenData?.price)
       : undefined,
   };
 };
@@ -143,10 +159,12 @@ type BalancesResp = {
 export type BalancesWithTotals = {
   totalAmount: bigint;
   totalFormattedAmount: string;
+  usd?: number;
   chainBalances: {
     [ChainId in SneakyTokenChain]: {
       amount: bigint;
       formattedAmount: number;
+      usd?: number;
     };
   };
 };
