@@ -13,6 +13,12 @@ query UserNftsQuery(
       collection {
         contractAddress
         ...NftCollection
+        floor {
+          amount
+          amountUsd
+          denom
+          symbol
+        }
       }
       tokenId
 
@@ -45,6 +51,23 @@ query UserNftsQuery(
       minter {
         publicSale {
           endTime
+        }
+      }
+      media {
+        fallbackUrl
+        height
+        type
+        urls
+        width
+        visualAssets {
+          sm {
+            staticUrl
+            type
+            url
+            webpUrl
+            width
+            height
+          }
         }
       }
     }

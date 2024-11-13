@@ -22,4 +22,21 @@ fragment NftCollection on Collection {
       endTime
     }
   }
+  media {
+    fallbackUrl
+    height
+    type
+    urls
+    width
+    visualAssets {
+      sm {
+        staticUrl
+        type
+        url
+        webpUrl
+        width
+        height
+      }
+    }
+  }
 }
