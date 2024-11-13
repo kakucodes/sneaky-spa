@@ -24,15 +24,23 @@ export const Main = () => {
   return (
     <main>
       {userNfts && collections ? (
-        collections.map(({ collectionInfo, nfts }) => (
-          <Collection
-            key={collectionInfo.contractAddress}
-            collection={collectionInfo}
-            nfts={nfts}
-          />
-        ))
+        <div>
+          {collections.map(({ collectionInfo, nfts }) => (
+            <Collection
+              key={collectionInfo.contractAddress}
+              collection={collectionInfo}
+              nfts={nfts}
+            />
+          ))}
+        </div>
       ) : isDisconnected ? (
-        ""
+        <div
+          className="d-flex flex-column justify-content-center align-items-center text-center"
+          style={{ height: "85vh" }}
+        >
+          <h1 className="display-5 lh-1 mb-2">Sneaky <br /><span className="fw-bold">Dashboard</span></h1>
+          <p className="lead lh-sm">All of your Sneaky assets,<br /> all in one place.</p>
+        </div>
       ) : (
         <div className="spinner-border" role="status">
           <span className="visually-hidden">Loading...</span>

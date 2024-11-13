@@ -15,7 +15,7 @@ export const Nft = ({
       <img
         alt={name || ""}
         src={"https://ipfs.io/ipfs/" + metadata?.image?.replace("ipfs://", "")}
-        width={320}
+        width={296}
       />
     </div>
   );

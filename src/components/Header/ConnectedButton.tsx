@@ -16,17 +16,17 @@ export const ConnectedButton = () => {
     (walletData &&
       (walletData.name || shortenAddress(walletData.bech32Address))) ||
     "";
-  const address = walletData?.bech32Address;
+  const fullAddress = walletData?.bech32Address || "";
+  const shortAddress = walletData?.bech32Address
+  ? shortenAddress(walletData.bech32Address)
+  : "";
 
   return (
     <div>
-      <button className="btn btn-outline-dark" onClick={() => disconnect()}>
-        Disconnect
-      </button>
       <p className="mb-0">
         <strong>Wallet Name</strong>: {name}
       </p>
-      <p>{address}</p>
+      <p>{shortAddress}</p>
       <p className="fw-bold mb-0">
         {isSneakyBalanceLoading || !sneakyBalance ? (
           <span className="spinner-border spinner-border-sm" role="status">
@@ -72,6 +72,10 @@ export const ConnectedButton = () => {
           )}
         </ul>
       )}
+      <div className="d-grid gap-2">
+        <button className="btn btn-outline-dark" onClick={() => disconnect()}>Disconnect</button>
+        <button type="button" className="btn btn-dark" data-bs-dismiss="modal">Continue</button>
+      </div>
     </div>
   );
 };
