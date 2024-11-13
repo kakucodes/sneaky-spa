@@ -16,7 +16,6 @@ export const ConnectedButton = () => {
     (walletData &&
       (walletData.name || shortenAddress(walletData.bech32Address))) ||
     "";
-  const fullAddress = walletData?.bech32Address || "";
   const shortAddress = walletData?.bech32Address
   ? shortenAddress(walletData.bech32Address)
   : "";
