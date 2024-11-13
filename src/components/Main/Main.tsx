@@ -5,7 +5,7 @@ import { useQueryNfts } from "./useQueryUserNfts";
 import { useAccount } from "graz";
 
 export const Main = () => {
-  const { data: userNfts, isLoading: isUserNftsLoading } = useQueryNfts();
+  const { data: userNfts } = useQueryNfts();
   const { isDisconnected } = useAccount();
 
   const collections =

@@ -68,7 +68,6 @@ export const Collection = ({ collection, nfts }: Props) => {
           collection.media?.fallbackUrl ||
           ""
         }
-        alt={`${collection.name} Collection Banner Image`}
       />
       <div>
         <h3 className="fw-bold">{collection.name}</h3>
