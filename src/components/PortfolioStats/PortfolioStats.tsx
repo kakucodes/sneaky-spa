@@ -117,43 +117,42 @@ export const PortfolioStats = ({ tokens }: Props) => {
                   {formatTokenAmount(formattedAmount)} $SNEAKY
                 </li>
               ))
-              .with(["osmosis-1", P._], ([chainId, { formattedAmount }]) => (
-                <li key={chainId}>
-                  <strong>Osmosis</strong>: {formatTokenAmount(formattedAmount)}{" "}
-                  $SNEAKY
-                  {sneakyBalance.poolBalances && (
-                    <div>
+              .with(
+                ["osmosis-1", P._],
+                ([chainId, { formattedAmount, walletBalance }]) => (
+                  <li key={chainId}>
+                    <strong>Osmosis</strong>:{" "}
+                    {formatTokenAmount(formattedAmount)} $SNEAKY
+                    {sneakyBalance.poolBalances && (
                       <div>
-                        Wallet Balance:{" "}
-                        {formatTokenAmount(
-                          formattedAmount -
-                            Number(sneakyBalance.poolBalances.total.amount) /
-                              1_000_000
-                        )}
+                        <div>
+                          Wallet Balance:{" "}
+                          {formatTokenAmount(walletBalance.formattedAmount)}
+                        </div>
+                        <div>
+                          Pool 1910:{" "}
+                          {formatTokenAmount(
+                            Number(
+                              sneakyBalance.poolBalances.clPoolShare.amount
+                            ) / 1_000_000
+                          )}{" "}
+                          $SNEAKY
+                        </div>
+                        <div>
+                          Pool 1403:{" "}
+                          {formatTokenAmount(
+                            Number(
+                              sneakyBalance.poolBalances.balancerPoolShare
+                                .sneakyTokens.amount
+                            ) / 1_000_000
+                          )}{" "}
+                          $SNEAKY
+                        </div>
                       </div>
-                      <div>
-                        Pool 1910:{" "}
-                        {formatTokenAmount(
-                          Number(
-                            sneakyBalance.poolBalances.clPoolShare.amount
-                          ) / 1_000_000
-                        )}{" "}
-                        $SNEAKY
-                      </div>
-                      <div>
-                        Pool 1403:{" "}
-                        {formatTokenAmount(
-                          Number(
-                            sneakyBalance.poolBalances.balancerPoolShare
-                              .sneakyTokens.amount
-                          ) / 1_000_000
-                        )}{" "}
-                        $SNEAKY
-                      </div>
-                    </div>
-                  )}
-                </li>
-              ))
+                    )}
+                  </li>
+                )
+              )
               .otherwise(([chainId, { formattedAmount }]) => (
                 <li key={chainId}>
                   Unknown Chain (chainId): {formatTokenAmount(formattedAmount)}{" "}
