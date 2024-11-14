@@ -4,6 +4,10 @@ import { bech32 } from "bech32";
 import { useQuery } from "@tanstack/react-query";
 import { formatTokenAmount } from "../utils/format";
 import { useQueryOsmosisToken } from "./useQueryOsmosisToken";
+import { Coin, osmosis } from "osmojs";
+import { bigint } from "ts-pattern/dist/patterns";
+import { coin } from "@cosmjs/stargate";
+import { Pool } from "osmojs/osmosis/gamm/v1beta1/balancerPool";
 
 const changeHrp = (address: string, hrp: string): string | undefined => {
   try {
@@ -18,6 +22,154 @@ export type SneakyTokenChain = keyof typeof SNEAKY_TOKEN_CHAINS;
 export type SneakyTokenDenom = (typeof SNEAKY_TOKEN_CHAINS)[SneakyTokenChain];
 
 type UserSneakyAddresses = { [ChainId in SneakyTokenChain]: string };
+
+type SneakyPoolShares = {
+  total: Coin;
+  clPoolShare: Coin;
+  balancerPoolShare: {
+    sneakyTokens: Coin;
+    totalGamms: Coin;
+    locked: {
+      sneakyTokens: Coin;
+      gamms: Coin;
+    };
+    liquid: {
+      sneakyTokens: Coin;
+      gamms: Coin;
+    };
+  };
+};
+
+export type OsmojsQueryClient = Awaited<
+  ReturnType<typeof osmosis.ClientFactory.createRPCQueryClient>
+>;
+
+const getUserCLPoolShare = (
+  client: OsmojsQueryClient,
+  address: string,
+  poolId: number,
+  denom: string
+) =>
+  client.osmosis.concentratedliquidity.v1beta1
+    .userPositions({ address, poolId: BigInt(poolId) })
+    .then(({ positions }) =>
+      positions
+        .map(
+          ({ asset0, asset1 }): Coin =>
+            asset0.denom === denom ? asset0 : asset1
+        )
+        .reduce(
+          ({ denom, amount: prevAmount }, { amount: nextAmount }) =>
+            coin(Number(prevAmount) + Number(nextAmount), denom),
+          coin(0, denom)
+        )
+    );
+
+const getUserBalancerPoolShare = (
+  client: OsmojsQueryClient,
+  address: string,
+  poolId: number,
+  targetDenom: string
+) =>
+  Promise.all([
+    client.osmosis.gamm.v1beta1
+      .pool({ poolId: BigInt(poolId) })
+      .then(({ pool }) =>
+        pool && "totalShares" in pool && "poolAssets" in pool ? pool : undefined
+      )
+      .then((pool) => ({
+        totalShares: {
+          denom: pool?.totalShares.denom,
+          amount: Number(pool?.totalShares.amount),
+        },
+        asset: pool?.poolAssets
+          .filter(({ token: { denom } }) => denom === targetDenom)
+          .map(({ token, weight }) => ({ token, weight: Number(weight) }))?.[0],
+        totalWeight: Number(pool?.totalWeight),
+      })),
+    client.cosmos.bank.v1beta1
+      .balance({ address, denom: `gamm/pool/${poolId}` })
+      .then(({ balance }) => balance),
+    client.osmosis.lockup
+      .accountLockedCoins({ owner: address })
+      .then(({ coins }) =>
+        coins
+          .filter(({ denom }) => denom === `gamm/pool/${poolId}`)
+          .reduce(
+            ({ denom, amount: prevAmount }, { amount: nextAmount }) =>
+              coin((BigInt(prevAmount) + BigInt(nextAmount)).toString(), denom),
+            coin(0, `gamm/pool/${poolId}`)
+          )
+      ),
+  ]).then(([pool, liquidGamms, lockedGamms]) => {
+    const sneakyTokenWeight = (pool.asset?.weight || 0) / pool.totalWeight;
+    const lockedSneakyTokens = parseInt(
+      (
+        Number(pool.asset?.token.amount) *
+        (Number(lockedGamms.amount) / pool.totalShares.amount)
+      ).toString(),
+      10
+    );
+    const liquidSneakyTokens = parseInt(
+      (
+        Number(pool.asset?.token.amount) *
+        (Number(liquidGamms?.amount) / pool.totalShares.amount)
+      ).toString(),
+      10
+    );
+
+    return {
+      sneakyTokens: coin(lockedSneakyTokens + liquidSneakyTokens, targetDenom),
+      totalGamms: coin(
+        (
+          BigInt(lockedGamms.amount) + BigInt(liquidGamms?.amount || 0)
+        ).toString(),
+        `gamm/pool/${poolId}`
+      ),
+      locked: {
+        sneakyTokens: coin(lockedSneakyTokens, targetDenom),
+        gamms: lockedGamms,
+      },
+      liquid: {
+        sneakyTokens: coin(liquidSneakyTokens, targetDenom),
+        gamms: liquidGamms || coin(0, `gamm/pool/${poolId}`),
+      },
+    };
+  });
+
+const getSneakyPoolShares = (
+  client: OsmojsQueryClient,
+  address: string
+): Promise<SneakyPoolShares> =>
+  Promise.all([
+    getUserCLPoolShare(client, address, 1910, SNEAKY_TOKEN_CHAINS["osmosis-1"]),
+    getUserBalancerPoolShare(
+      client,
+      address,
+      1403,
+      SNEAKY_TOKEN_CHAINS["osmosis-1"]
+    ),
+  ]).then(([clPoolShare, balancerPoolShare]) => ({
+    total: coin(
+      Number(clPoolShare.amount) +
+        Number(balancerPoolShare.sneakyTokens.amount),
+      SNEAKY_TOKEN_CHAINS["osmosis-1"]
+    ),
+    clPoolShare,
+    balancerPoolShare,
+  }));
+
+const useQuerySneakyPools = (address: string | undefined) =>
+  useQuery({
+    queryKey: ["sneakyPools", address],
+    queryFn: () =>
+      address
+        ? osmosis.ClientFactory.createRPCQueryClient({
+            rpcEndpoint: "https://rpc.cosmos.directory/osmosis",
+          }).then((client) => getSneakyPoolShares(client, address))
+        : undefined,
+    enabled: !!address,
+  });
 
 const useQuerySkipBalances = (addresses: UserSneakyAddresses | undefined) =>
   useQuery({
@@ -49,7 +201,8 @@ const useQuerySkipBalances = (addresses: UserSneakyAddresses | undefined) =>
 
 const getBalancesWithTotals = (
   balances: BalancesResp["chains"],
-  usdValue: number | undefined
+  usdValue: number | undefined,
+  poolBalances: SneakyPoolShares | undefined
 ): BalancesWithTotals => {
   const condensedBalances = Object.entries(balances).map(
     ([chainId, chainBalances]): [
@@ -59,12 +212,19 @@ const getBalancesWithTotals = (
       const sneakyChainId = chainId as SneakyTokenChain;
       const { amount, formatted_amount } =
         chainBalances.denoms[SNEAKY_TOKEN_CHAINS[sneakyChainId]]!;
-      const formattedAmount = parseFloat(formatted_amount);
+      const formattedAmount =
+        parseFloat(formatted_amount) +
+        (sneakyChainId === "osmosis-1"
+          ? Number(poolBalances?.total?.amount || 0) / 1_000_000
+          : 0);
 
       return [
         sneakyChainId,
         {
-          amount: BigInt(amount),
+          amount:
+            sneakyChainId === "osmosis-1"
+              ? BigInt(amount + (poolBalances?.total?.amount || 0))
+              : BigInt(amount),
           formattedAmount,
           usd: usdValue !== undefined ? usdValue * formattedAmount : undefined,
         },
@@ -113,6 +273,7 @@ const getBalancesWithTotals = (
         usd?: number;
       };
     },
+    poolBalances,
   };
 };
 
@@ -124,16 +285,22 @@ export const useQuerySneakyTokens = () => {
   const osmosisAddress = stargazeAddress
     ? changeHrp(stargazeAddress, "osmo")
     : undefined;
+
   const sneakyBalanceQuery = useQuerySkipBalances(
     stargazeAddress && osmosisAddress
       ? { "osmosis-1": osmosisAddress, "stargaze-1": stargazeAddress }
       : undefined
   );
+  const { data: poolTokens } = useQuerySneakyPools(osmosisAddress);
 
   return {
     ...sneakyBalanceQuery,
     data: sneakyBalanceQuery.data
-      ? getBalancesWithTotals(sneakyBalanceQuery.data, sneakyTokenData?.price)
+      ? getBalancesWithTotals(
+          sneakyBalanceQuery.data,
+          sneakyTokenData?.price,
+          poolTokens
+        )
       : undefined,
   };
 };
@@ -167,4 +334,5 @@ export type BalancesWithTotals = {
       usd?: number;
     };
   };
+  poolBalances: SneakyPoolShares | undefined;
 };

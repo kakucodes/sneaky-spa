@@ -13,13 +13,15 @@ export const PortfolioStats = ({ tokens }: Props) => {
   const { data: sneakyBalance, isLoading: isSneakyBalanceLoading } =
     useQuerySneakyTokens();
 
+  console.log({ sneakyBalance });
+
   const usdSneakyValue = sneakyBalance?.usd
     ? new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD",
         trailingZeroDisplay: "stripIfInteger",
       }).format(sneakyBalance.usd)
-    : "$X,XXX.xx";
+    : "$X,XXX";
 
   const totalNftsCount = tokens?.length || 0;
   const allNftsCombinedFloor = tokens
@@ -119,6 +121,37 @@ export const PortfolioStats = ({ tokens }: Props) => {
                 <li key={chainId}>
                   <strong>Osmosis</strong>: {formatTokenAmount(formattedAmount)}{" "}
                   $SNEAKY
+                  {sneakyBalance.poolBalances && (
+                    <div>
+                      <div>
+                        Wallet Balance:{" "}
+                        {formatTokenAmount(
+                          formattedAmount -
+                            Number(sneakyBalance.poolBalances.total.amount) /
+                              1_000_000
+                        )}
+                      </div>
+                      <div>
+                        Pool 1910:{" "}
+                        {formatTokenAmount(
+                          Number(
+                            sneakyBalance.poolBalances.clPoolShare.amount
+                          ) / 1_000_000
+                        )}{" "}
+                        $SNEAKY
+                      </div>
+                      <div>
+                        Pool 1403:{" "}
+                        {formatTokenAmount(
+                          Number(
+                            sneakyBalance.poolBalances.balancerPoolShare
+                              .sneakyTokens.amount
+                          ) / 1_000_000
+                        )}{" "}
+                        $SNEAKY
+                      </div>
+                    </div>
+                  )}
                 </li>
               ))
               .otherwise(([chainId, { formattedAmount }]) => (
