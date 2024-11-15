@@ -24,7 +24,6 @@ export const Collection = ({ collection, nfts }: Props) => {
     new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "USD",
-      trailingZeroDisplay: "stripIfInteger",
     }).format(collection.floor.amountUsd);
 
   const MintInfo = match([
@@ -62,32 +61,32 @@ export const Collection = ({ collection, nfts }: Props) => {
 
   return (
     <>
+      <h3 className="fw-bold">{collection.name}</h3>
       <img
+        alt={""}
         src={
           collection.media?.visualAssets?.sm?.webpUrl ||
           collection.media?.fallbackUrl ||
           ""
         }
+        width={296}
       />
       <div>
-        <h3 className="fw-bold">{collection.name}</h3>
         <p className="text-capitalize">{collection.description}</p>
 
-        <div className="row">{MintInfo}</div>
+        <div className="row">
+          {MintInfo}
+        </div>
         {collectionFloor && (
-          <div>
+          <p>
             Floor: {collectionFloor}{" "}
             {collectionFloorUsd && `(${collectionFloorUsd})`}
-          </div>
+          </p>
         )}
-        <div>Nfts Owned: {nfts.length}</div>
+        <p>Nfts Owned: {nfts.length}</p>
       </div>
       <div className="row">
-        {nfts.length === 0 ? (
-          <></>
-        ) : (
-          nfts.map((nft) => <Nft key={`${nft.tokenId}`} token={nft} />)
-        )}
+        {nfts.length > 0 && nfts.map((nft) => <Nft key={nft.tokenId} token={nft} />)}
       </div>
     </>
   );
