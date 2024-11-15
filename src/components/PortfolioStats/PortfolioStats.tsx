@@ -63,7 +63,7 @@ export const PortfolioStats = ({ tokens }: Props) => {
   return (
     <>
       <div className="d-flex flex-column justify-content-center align-items-center text-center" style={{ height: "85vh" }}>
-        <p className="display-1 dokdo lh-1 mb-0">
+        <p className="display-1 dokdo lh-1 mb-2">
           {(() => {
             const formattedValue = new Intl.NumberFormat('en-US', {
               style: 'currency',
@@ -81,7 +81,7 @@ export const PortfolioStats = ({ tokens }: Props) => {
                 <span className="fw-bold display-6 text-body-secondary"><small>&asymp;</small></span>
                 <span>{mainPart}</span>
                 <span className="display-6 text-dark-emphasis link-offset-2 link-body-emphasis">.<u>{decimalPart}</u> </span>
-                <span className="display-6">USD</span>
+                <span className="fs-2 bg-dark rounded-3 text-light px-2">USD</span>
               </>
             );
           })()}
