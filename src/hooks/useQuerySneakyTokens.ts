@@ -207,7 +207,16 @@ const getBalancesWithTotals = (
   const condensedBalances = Object.entries(balances).map(
     ([chainId, chainBalances]): [
       chainId: SneakyTokenChain,
-      amounts: { amount: bigint; formattedAmount: number; usd?: number }
+      amounts: {
+        amount: bigint;
+        formattedAmount: number;
+        usd?: number;
+        walletBalance: {
+          amount: bigint;
+          formattedAmount: number;
+          usd?: number;
+        };
+      }
     ] => {
       const sneakyChainId = chainId as SneakyTokenChain;
       const { amount, formatted_amount } =
@@ -223,10 +232,18 @@ const getBalancesWithTotals = (
         {
           amount:
             sneakyChainId === "osmosis-1"
-              ? BigInt(amount + (poolBalances?.total?.amount || 0))
+              ? BigInt(amount) + BigInt(poolBalances?.total?.amount || 0)
               : BigInt(amount),
           formattedAmount,
           usd: usdValue !== undefined ? usdValue * formattedAmount : undefined,
+          walletBalance: {
+            amount: BigInt(amount),
+            formattedAmount: parseFloat(formatted_amount),
+            usd:
+              usdValue !== undefined
+                ? usdValue * parseFloat(formatted_amount)
+                : 0,
+          },
         },
       ];
     }
@@ -271,6 +288,11 @@ const getBalancesWithTotals = (
         amount: bigint;
         formattedAmount: number;
         usd?: number;
+        walletBalance: {
+          amount: bigint;
+          formattedAmount: number;
+          usd?: number;
+        };
       };
     },
     poolBalances,
@@ -332,6 +354,11 @@ export type BalancesWithTotals = {
       amount: bigint;
       formattedAmount: number;
       usd?: number;
+      walletBalance: {
+        amount: bigint;
+        formattedAmount: number;
+        usd?: number;
+      };
     };
   };
   poolBalances: SneakyPoolShares | undefined;
