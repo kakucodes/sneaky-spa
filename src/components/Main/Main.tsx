@@ -44,13 +44,13 @@ export const Main = () => {
             className="d-flex flex-column justify-content-center align-items-center text-center"
             style={{ height: "85vh" }}
           >
-            <h1 className="display-5 lh-1 mb-2">
+            <h1 className="dokdo text-uppercase display-3 mb-0">
               <span>Sneaky</span> <br />
               <span className="fw-bold">Dashboard</span>
             </h1>
-            <p className="lead lh-sm">
-              All your Sneaky assets,
-              <br /> all in one place. 👍
+            <p className="lead lh-base">
+              <span className="fw-bold fst-italic">All</span> your Sneaky assets
+              <br /> <i>all in one place</i>. 😊
             </p>
           </div>
         ) : (

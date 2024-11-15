@@ -62,8 +62,9 @@ export const PortfolioStats = ({ tokens }: Props) => {
 
   return (
     <>
-      <div className="d-flex flex-column justify-content-center align-items-center text-center" style={{ height: "85vh" }}>
-        <p className="display-1 dokdo lh-1 mb-2">
+      <div className="d-flex flex-column justify-content-center align-items-center text-center dokdo" style={{ height: "85vh" }}>
+        <h3 className="text-uppercase fw-bold h4 mb-0">Sneaky Portfolio</h3>
+        <p className="display-1 lh-1 mb-0">
           {(() => {
             const formattedValue = new Intl.NumberFormat('en-US', {
               style: 'currency',
@@ -86,6 +87,7 @@ export const PortfolioStats = ({ tokens }: Props) => {
             );
           })()}
         </p>
+        <p className="text-uppercase fw-bold fs-4 mb-0">Total</p>
       </div>
       <div className="row">
         <div className="col">
