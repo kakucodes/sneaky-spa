@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { match, P } from "ts-pattern";
 import { useQuerySneakyTokens } from "../../hooks/useQuerySneakyTokens";
 import { formatTokenAmount, formatUsd } from "../../utils/format";
@@ -62,6 +63,9 @@ export const PortfolioStats = ({ tokens }: Props) => {
     (allNftsCombinedFloor?.usdValue || 0) + sneakyUsdValue
   );
 
+  const [totalPortfolioDollars, totalPortfolioDecimals = "00"] =
+    totalPortfolioUsdValue.split(".");
+
   const nftsUsdValue =
     tokens !== undefined &&
     allNftsCombinedFloor &&
@@ -69,69 +73,79 @@ export const PortfolioStats = ({ tokens }: Props) => {
 
   return (
     <>
-      <h2>
-        Total Sneaky Portfolio Value (Nft floors + $SNEAKY):{" "}
-        {totalPortfolioUsdValue}
-      </h2>
-      {tokens !== undefined && (
-        <>
-          <h2>Sneaky NFTs Count: {totalNftsCount}</h2>
-          {allNftsCombinedFloor && (
-            <div>
-              NFTs Floor Value:{" "}
-              {Object.values(allNftsCombinedFloor.tokenFloors)
+      <div
+        className="d-flex flex-column justify-content-center align-items-center text-center dokdo"
+        style={{ height: "85vh" }}
+      >
+        <h3 className="text-uppercase fw-bold h4 mb-0">Sneaky Portfolio</h3>
+        <p className="display-1 lh-1 mb-0">
+          <span className="fw-bold display-6 text-body-secondary">
+            <small>&asymp;</small>
+          </span>
+          <span>{totalPortfolioDollars}</span>
+          <span className="display-6 text-dark-emphasis link-offset-2 link-body-emphasis">
+            .<u>{totalPortfolioDecimals}</u>{" "}
+          </span>
+          <span className="fs-2 bg-dark rounded-3 text-light px-2">USD</span>
+        </p>
+        <p className="text-uppercase fw-bold fs-4 mb-0">Total</p>
+      </div>
+      <div className="row">
+        <div className="col">
+          <p>{totalNftsCount}</p>
+          <p>${allNftsCombinedFloor?.usdValue?.toFixed(2)}</p>
+          <p>
+            {allNftsCombinedFloor?.tokenFloors &&
+              Object.values(allNftsCombinedFloor.tokenFloors)
                 .map(
                   ({ amount, symbol }) =>
                     `${formatTokenAmount(amount, 6)} ${symbol}`
                 )
                 .join(", ")}
-              ({nftsUsdValue})
-            </div>
-          )}
-        </>
-      )}
-      <hr />
-      <p className="fw-bold mb-0">
-        {isSneakyBalanceLoading || !sneakyBalance ? (
-          <span className="spinner-border spinner-border-sm" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </span>
-        ) : (
-          <>{sneakyBalance.totalFormattedAmount} $SNEAKY</>
-        )}
-      </p>
-      <p className="small">({usdSneakyValue})</p>
-      {sneakyBalance && !isSneakyBalanceLoading && (
-        <ul className="list-unstyled">
+          </p>
+        </div>
+        <div className="col">
+          <p>
+            {isSneakyBalanceLoading || !sneakyBalance ? (
+              <span className="spinner-border spinner-border-sm" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </span>
+            ) : (
+              <>{sneakyBalance.totalFormattedAmount}</>
+            )}{" "}
+            SNEAKY
+          </p>
+          <p>{usdSneakyValue}</p>
+        </div>
+      </div>
+
+      {sneakyBalance && (
+        <>
           {Object.entries(sneakyBalance.chainBalances).map((bal) =>
             match(bal)
-              .with(["stargaze-1", P._], ([chainId, { formattedAmount }]) => (
-                <li key={chainId}>
-                  <strong>Stargaze</strong>:{" "}
-                  {formatTokenAmount(formattedAmount)} $SNEAKY
-                </li>
-              ))
               .with(
                 ["osmosis-1", P._],
                 ([chainId, { formattedAmount, walletBalance }]) => (
-                  <li key={chainId}>
-                    <strong>Osmosis</strong>:{" "}
-                    {formatTokenAmount(formattedAmount)} $SNEAKY
+                  <Fragment key={chainId}>
+                    <p>
+                      <strong>Osmosis</strong>:{" "}
+                      {formatTokenAmount(formattedAmount)} $SNEAKY
+                    </p>
                     {sneakyBalance.poolBalances && (
-                      <div>
-                        <div>
+                      <>
+                        <p>
                           Wallet Balance:{" "}
                           {formatTokenAmount(walletBalance.formattedAmount)}
-                        </div>
-                        <div>
+                        </p>
+                        <p>
                           Pool 1910:{" "}
                           {formatTokenAmount(
                             sneakyBalance.poolBalances.clPoolShare.amount,
                             6
                           )}{" "}
                           $SNEAKY
-                        </div>
-                        <div>
+                        </p>
+                        <p>
                           Pool 1403:{" "}
                           {formatTokenAmount(
                             sneakyBalance.poolBalances.balancerPoolShare
@@ -139,20 +153,27 @@ export const PortfolioStats = ({ tokens }: Props) => {
                             6
                           )}{" "}
                           $SNEAKY
-                        </div>
-                      </div>
+                        </p>
+                      </>
                     )}
-                  </li>
+                  </Fragment>
                 )
               )
+              .with(["stargaze-1", P._], ([chainId, { formattedAmount }]) => (
+                <p key={chainId}>
+                  <strong>Stargaze</strong>:{" "}
+                  {formatTokenAmount(formattedAmount)} $SNEAKY
+                </p>
+              ))
+
               .otherwise(([chainId, { formattedAmount }]) => (
-                <li key={chainId}>
-                  Unknown Chain (chainId): {formatTokenAmount(formattedAmount)}{" "}
-                  $SNEAKY
-                </li>
+                <p key={chainId}>
+                  Unknown Chain ({chainId}):{" "}
+                  {formatTokenAmount(formattedAmount)} $SNEAKY
+                </p>
               ))
           )}
-        </ul>
+        </>
       )}
     </>
   );

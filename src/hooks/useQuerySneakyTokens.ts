@@ -5,9 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { formatTokenAmount } from "../utils/format";
 import { useQueryOsmosisToken } from "./useQueryOsmosisToken";
 import { Coin, osmosis } from "osmojs";
-import { bigint } from "ts-pattern/dist/patterns";
 import { coin } from "@cosmjs/stargate";
-import { Pool } from "osmojs/osmosis/gamm/v1beta1/balancerPool";
 
 const changeHrp = (address: string, hrp: string): string | undefined => {
   try {

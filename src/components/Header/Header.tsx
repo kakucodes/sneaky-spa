@@ -25,7 +25,7 @@ export const Header = () => {
       <div className="row">
         <div className="col-6"></div>
         <div className="col-6 text-end">
-          <button type="button" className={`btn ${isConnected ? "btn-dark" : "btn-outline-dark"}`} data-bs-toggle="modal" data-bs-target="#exampleModal">{isConnected ? "Connected" : "Connect"}</button>
+          <button type="button" className={`btn ${isConnected ? "btn-dark" : "btn-dark"}`} data-bs-toggle="modal" data-bs-target="#exampleModal">{isConnected ? "Connected" : "Connect"}</button>
         </div>
       </div>
 

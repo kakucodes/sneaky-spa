@@ -10,6 +10,8 @@ export const formatTokenNumber = (n: number): string =>
 const usdFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
   trailingZeroDisplay: "stripIfInteger",
 });
 
