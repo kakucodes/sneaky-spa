@@ -93,7 +93,7 @@ export const PortfolioStats = ({ tokens }: Props) => {
       <div className="row">
         <div className="col">
           <p>{totalNftsCount}</p>
-          <p>${allNftsCombinedFloor?.usdValue?.toFixed(2)}</p>
+          <p>{nftsUsdValue}</p>
           <p>
             {allNftsCombinedFloor?.tokenFloors &&
               Object.values(allNftsCombinedFloor.tokenFloors)
