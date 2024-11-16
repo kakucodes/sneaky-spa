@@ -4,6 +4,7 @@ import { Collection } from "./Collection/Collection";
 import { useQueryNfts } from "../../hooks/useQueryNfts/useQueryUserNfts";
 import { useAccount } from "graz";
 import { useQueryCollections } from "../../hooks/useQueryCollections/useQueryCollections";
+import { WalletConnectionModal } from "../WalletConnectionModal/WalletConnectionModal";
 
 export const Main = () => {
   const { data: userNfts } = useQueryNfts();
@@ -27,6 +28,7 @@ export const Main = () => {
 
   return (
     <main>
+      <WalletConnectionModal />
       {isConnected && userNfts && (
         <div>
           <PortfolioStats tokens={userNfts} />
@@ -43,14 +45,20 @@ export const Main = () => {
           ))}
         </div>
       ) : isDisconnected ? (
-        <div className="d-flex flex-column justify-content-center align-items-center text-center" style={{ height: "85vh" }}>
+        <div
+          className="d-flex flex-column justify-content-center align-items-center text-center"
+          style={{ height: "85vh" }}
+        >
           <h1 className="dokdo text-uppercase display-3 mb-0">
             <span>Sneaky</span> <br />
             <span className="fw-bold">Dashboard</span>
           </h1>
         </div>
       ) : (
-        <div className="d-flex flex-column justify-content-center align-items-center text-center" style={{ height: "85vh" }}>
+        <div
+          className="d-flex flex-column justify-content-center align-items-center text-center"
+          style={{ height: "85vh" }}
+        >
           <div className="spinner-border" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
