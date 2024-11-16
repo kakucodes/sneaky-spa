@@ -1,26 +1,20 @@
 import { match, P } from "ts-pattern";
 import { useQuerySneakyTokens } from "../../hooks/useQuerySneakyTokens";
-import { formatTokenAmount } from "../../utils/format";
-import { queryNfts } from "../Main/useQueryUserNfts";
+import { formatTokenAmount, formatUsd } from "../../utils/format";
+import { queryNfts } from "../../hooks/useQueryNfts/useQueryUserNfts";
 
 type Props = {
-  tokens:
-    | NonNullable<Awaited<ReturnType<typeof queryNfts>>>["tokens"]
-    | undefined;
+  tokens: NonNullable<Awaited<ReturnType<typeof queryNfts>>> | undefined;
 };
 
 export const PortfolioStats = ({ tokens }: Props) => {
-  const { data: sneakyBalance, isLoading: isSneakyBalanceLoading } =
+  const { data: sneakyBalance, areAnyLoading: isSneakyBalanceLoading } =
     useQuerySneakyTokens();
 
-  console.log({ sneakyBalance });
+  console.log({ sneakyBalance, isSneakyBalanceLoading });
 
   const usdSneakyValue = sneakyBalance?.usd
-    ? new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-        trailingZeroDisplay: "stripIfInteger",
-      }).format(sneakyBalance.usd)
+    ? formatUsd(sneakyBalance.usd)
     : "$X,XXX";
 
   const totalNftsCount = tokens?.length || 0;
@@ -59,17 +53,25 @@ export const PortfolioStats = ({ tokens }: Props) => {
       { tokenFloors: {}, usdValue: 0 }
     );
 
+  const sneakyUsdValue =
+    !isSneakyBalanceLoading && sneakyBalance && sneakyBalance.usd
+      ? sneakyBalance.usd
+      : 0;
+
+  const totalPortfolioUsdValue = formatUsd(
+    (allNftsCombinedFloor?.usdValue || 0) + sneakyUsdValue
+  );
+
+  const nftsUsdValue =
+    tokens !== undefined &&
+    allNftsCombinedFloor &&
+    formatUsd(allNftsCombinedFloor?.usdValue);
+
   return (
     <>
       <h2>
         Total Sneaky Portfolio Value (Nft floors + $SNEAKY):{" "}
-        {new Intl.NumberFormat("en-US", {
-          style: "currency",
-          currency: "USD",
-          trailingZeroDisplay: "stripIfInteger",
-        }).format(
-          (allNftsCombinedFloor?.usdValue || 0) + (sneakyBalance?.usd || 0)
-        )}
+        {totalPortfolioUsdValue}
       </h2>
       {tokens !== undefined && (
         <>
@@ -80,18 +82,10 @@ export const PortfolioStats = ({ tokens }: Props) => {
               {Object.values(allNftsCombinedFloor.tokenFloors)
                 .map(
                   ({ amount, symbol }) =>
-                    `${new Intl.NumberFormat(navigator.languages, {
-                      maximumSignificantDigits: 3,
-                    }).format(Number(amount) / 1_000_000)} ${symbol}`
+                    `${formatTokenAmount(amount, 6)} ${symbol}`
                 )
                 .join(", ")}
-              (
-              {new Intl.NumberFormat("en-US", {
-                style: "currency",
-                currency: "USD",
-                trailingZeroDisplay: "stripIfInteger",
-              }).format(allNftsCombinedFloor.usdValue)}
-              )
+              ({nftsUsdValue})
             </div>
           )}
         </>
@@ -107,7 +101,7 @@ export const PortfolioStats = ({ tokens }: Props) => {
         )}
       </p>
       <p className="small">({usdSneakyValue})</p>
-      {sneakyBalance && (
+      {sneakyBalance && !isSneakyBalanceLoading && (
         <ul className="list-unstyled">
           {Object.entries(sneakyBalance.chainBalances).map((bal) =>
             match(bal)
@@ -132,19 +126,17 @@ export const PortfolioStats = ({ tokens }: Props) => {
                         <div>
                           Pool 1910:{" "}
                           {formatTokenAmount(
-                            Number(
-                              sneakyBalance.poolBalances.clPoolShare.amount
-                            ) / 1_000_000
+                            sneakyBalance.poolBalances.clPoolShare.amount,
+                            6
                           )}{" "}
                           $SNEAKY
                         </div>
                         <div>
                           Pool 1403:{" "}
                           {formatTokenAmount(
-                            Number(
-                              sneakyBalance.poolBalances.balancerPoolShare
-                                .sneakyTokens.amount
-                            ) / 1_000_000
+                            sneakyBalance.poolBalances.balancerPoolShare
+                              .sneakyTokens.amount,
+                            6
                           )}{" "}
                           $SNEAKY
                         </div>

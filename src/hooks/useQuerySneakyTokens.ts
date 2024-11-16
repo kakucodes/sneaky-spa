@@ -102,7 +102,7 @@ const getUserBalancerPoolShare = (
           )
       ),
   ]).then(([pool, liquidGamms, lockedGamms]) => {
-    const sneakyTokenWeight = (pool.asset?.weight || 0) / pool.totalWeight;
+    // const sneakyTokenWeight = (pool.asset?.weight || 0) / pool.totalWeight;
     const lockedSneakyTokens = parseInt(
       (
         Number(pool.asset?.token.amount) *
@@ -300,7 +300,8 @@ const getBalancesWithTotals = (
 };
 
 export const useQuerySneakyTokens = () => {
-  const { data: sneakyTokenData } = useQueryOsmosisToken("SNEAKY");
+  const { data: sneakyTokenData, isLoading: isSneakyTokenDataLoading } =
+    useQueryOsmosisToken("SNEAKY");
   const { data: account } = useAccount();
 
   const stargazeAddress = account?.bech32Address;
@@ -313,7 +314,9 @@ export const useQuerySneakyTokens = () => {
       ? { "osmosis-1": osmosisAddress, "stargaze-1": stargazeAddress }
       : undefined
   );
-  const { data: poolTokens } = useQuerySneakyPools(osmosisAddress);
+  const { isLoading: areSneakyBalancesLoading } = sneakyBalanceQuery;
+  const { data: poolTokens, isLoading: areSneakyPoolsLoading } =
+    useQuerySneakyPools(osmosisAddress);
 
   return {
     ...sneakyBalanceQuery,
@@ -324,6 +327,11 @@ export const useQuerySneakyTokens = () => {
           poolTokens
         )
       : undefined,
+    areAnyLoading:
+      isSneakyTokenDataLoading ||
+      areSneakyBalancesLoading ||
+      areSneakyBalancesLoading ||
+      areSneakyPoolsLoading,
   };
 };
 

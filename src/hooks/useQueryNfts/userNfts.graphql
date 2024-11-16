@@ -1,0 +1,31 @@
+query UserNftsQuery(
+  $tokensOwnerAddrOrName: String
+  $filterByCollectionAddrs: [String!]
+) {
+  tokens(
+    ownerAddrOrName: $tokensOwnerAddrOrName
+    filterByCollectionAddrs: $filterByCollectionAddrs
+    limit: 200
+  ) {
+    tokens {
+      ...Nft
+      name
+      collection {
+        contractAddress
+        ...NftCollection
+        floor {
+          amount
+          amountUsd
+          denom
+          symbol
+        }
+      }
+      tokenId
+
+      # traits {
+      #   name
+      # }
+      # metadata
+    }
+  }
+}

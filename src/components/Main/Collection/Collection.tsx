@@ -5,6 +5,7 @@ import {
   NftFragment,
 } from "../../../gql/graphql";
 import { Nft } from "../Nft/Nft";
+import { formatTokenAmount, formatUsd } from "../../../utils/format";
 
 type Props = {
   collection: NftCollectionFragment;
@@ -14,18 +15,11 @@ type Props = {
 export const Collection = ({ collection, nfts }: Props) => {
   const collectionFloor =
     collection.floor &&
-    `${new Intl.NumberFormat(navigator.languages, {
-      maximumSignificantDigits: 3,
-    }).format(Number(collection.floor.amount) / 1_000_000)} ${
+    `${formatTokenAmount(collection.floor.amount, 6)} ${
       collection.floor.symbol
     }`;
   const collectionFloorUsd =
-    collection.floor?.amountUsd &&
-    new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-      trailingZeroDisplay: "stripIfInteger",
-    }).format(collection.floor.amountUsd);
+    collection.floor?.amountUsd && formatUsd(collection.floor.amountUsd);
 
   const MintInfo = match([
     collection.mintStatus,

@@ -1,21 +1,24 @@
 import { COLLECTION_ADDRS } from "../../config";
 import { PortfolioStats } from "../PortfolioStats/PortfolioStats";
 import { Collection } from "./Collection/Collection";
-import { useQueryNfts } from "./useQueryUserNfts";
+import { useQueryNfts } from "../../hooks/useQueryNfts/useQueryUserNfts";
 import { useAccount } from "graz";
+import { useQueryCollections } from "../../hooks/useQueryCollections/useQueryCollections";
 
 export const Main = () => {
   const { data: userNfts } = useQueryNfts();
-  const { isDisconnected } = useAccount();
+
+  const { data: collectionsData } = useQueryCollections();
+  const { isDisconnected, isConnected } = useAccount();
 
   const collections =
     userNfts &&
     COLLECTION_ADDRS.flatMap((collectionAddr) => {
-      const collectionInfo = userNfts.collections?.find(
+      const collectionInfo = collectionsData?.find(
         ({ contractAddress }) => contractAddress === collectionAddr
       );
       const nfts =
-        userNfts.tokens?.filter(
+        userNfts?.filter(
           ({ collection }) => collection?.contractAddress === collectionAddr
         ) || [];
 
@@ -24,7 +27,7 @@ export const Main = () => {
 
   return (
     <main>
-      <PortfolioStats tokens={userNfts?.tokens} />
+      {isConnected && <PortfolioStats tokens={userNfts} />}
 
       {userNfts && collections ? (
         <div>

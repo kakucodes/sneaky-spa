@@ -5,7 +5,7 @@ type Props = {
 };
 
 export const Nft = ({
-  token: { name, description, metadata, rarityScore, tokenId },
+  token: { name, metadata, rarityScore, tokenId },
 }: Props) => {
   return (
     <div className="col">

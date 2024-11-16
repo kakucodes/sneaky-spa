@@ -1,6 +1,7 @@
 query CollectionsQuery($filtersByAddrs: [String!]) {
   collections(filterByAddrs: $filtersByAddrs, limit: 50) {
     collections {
+      ...UserNftCollection
       contractAddress
       name
       description

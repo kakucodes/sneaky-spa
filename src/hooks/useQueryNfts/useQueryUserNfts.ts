@@ -8,10 +8,7 @@ export const queryNfts = (address: string) =>
   request(STARGAZE_ENDPOINT, UserNftsQueryDocument, {
     tokensOwnerAddrOrName: address,
     filterByCollectionAddrs: COLLECTION_ADDRS,
-  }).then(({ tokens, collections }) => ({
-    tokens: tokens?.tokens,
-    collections: collections?.collections,
-  }));
+  }).then(({ tokens }) => tokens?.tokens);
 
 export const useQueryNfts = () => {
   const { data: account } = useAccount();
