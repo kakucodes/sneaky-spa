@@ -5,9 +5,12 @@ import { useQueryNfts } from "../../hooks/useQueryNfts/useQueryUserNfts";
 import { useAccount } from "graz";
 import { useQueryCollections } from "../../hooks/useQueryCollections/useQueryCollections";
 import { WalletConnectionModal } from "../WalletConnectionModal/WalletConnectionModal";
+import { useQuerySneakyTokens } from "../../hooks/useQuerySneakyTokens";
 
 export const Main = () => {
   const { data: userNfts } = useQueryNfts();
+  const { data: sneakyBalance, areAnyLoading: isSneakyBalanceLoading } =
+    useQuerySneakyTokens();
 
   const { data: collectionsData } = useQueryCollections();
   const { isDisconnected, isConnected } = useAccount();
@@ -29,9 +32,9 @@ export const Main = () => {
   return (
     <main>
       <WalletConnectionModal />
-      {isConnected && userNfts && (
+      {isConnected && userNfts && !isSneakyBalanceLoading && sneakyBalance && (
         <div>
-          <PortfolioStats tokens={userNfts} />
+          <PortfolioStats tokens={userNfts} sneakyBalance={sneakyBalance} />
         </div>
       )}
       {userNfts && collections ? (

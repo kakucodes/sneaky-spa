@@ -1,26 +1,15 @@
 import { Fragment } from "react";
-import { match, P } from "ts-pattern";
-import { useQuerySneakyTokens } from "../../hooks/useQuerySneakyTokens";
+import { BalancesWithTotals } from "../../hooks/useQuerySneakyTokens";
 import { formatTokenAmount, formatUsd } from "../../utils/format";
 import { queryNfts } from "../../hooks/useQueryNfts/useQueryUserNfts";
 import { nftsValueSummary, sneakyTokensSummary } from "./portfolioHelpers";
 
 type Props = {
   tokens: NonNullable<Awaited<ReturnType<typeof queryNfts>>> | undefined;
+  sneakyBalance: BalancesWithTotals;
 };
 
-export const PortfolioStats = ({ tokens }: Props) => {
-  const { data: sneakyBalance, areAnyLoading: isSneakyBalanceLoading } =
-    useQuerySneakyTokens();
-
-  if (!sneakyBalance || isSneakyBalanceLoading) {
-    return (
-      <span className="spinner-border spinner-border-sm" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </span>
-    );
-  }
-
+export const PortfolioStats = ({ tokens, sneakyBalance }: Props) => {
   const {
     sneakyTokenUsdFormatted,
     sneakyTokenUsd,
@@ -28,7 +17,7 @@ export const PortfolioStats = ({ tokens }: Props) => {
     pool1910SneakyFormatted,
   } = sneakyTokensSummary(sneakyBalance);
 
-  console.log({ sneakyBalance, isSneakyBalanceLoading });
+  console.log({ sneakyBalance });
 
   const totalNftsCount = tokens?.length || 0;
   const { usdValueFormatted: allNftsUsd, ...allNftsCombinedFloor } =
