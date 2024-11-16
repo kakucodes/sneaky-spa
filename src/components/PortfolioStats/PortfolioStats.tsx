@@ -73,38 +73,22 @@ export const PortfolioStats = ({ tokens }: Props) => {
 
   return (
     <>
-      <div
-        className="d-flex flex-column justify-content-center align-items-center text-center dokdo"
-        style={{ height: "85vh" }}
-      >
+      <div className="d-flex flex-column justify-content-center align-items-center text-center dokdo" style={{ height: "85vh" }}>
         <h3 className="text-uppercase fw-bold h4 mb-0">Sneaky Portfolio</h3>
-        <p className="display-1 lh-1 mb-0">
-          <span className="fw-bold display-6 text-body-secondary">
+        <p className="display-1 lh-1 mb-1">
+          <span className="display-6 text-body-secondary">
             <small>&asymp;</small>
           </span>
           <span>{totalPortfolioDollars}</span>
           <span className="display-6 text-dark-emphasis link-offset-2 link-body-emphasis">
-            .<u>{totalPortfolioDecimals}</u>{" "}
+            . <u>{totalPortfolioDecimals}</u>{" "}
           </span>
           <span className="fs-2 bg-dark rounded-3 text-light px-2">USD</span>
         </p>
-        <p className="text-uppercase fw-bold fs-4 mb-0">Total</p>
+        <p className="text-uppercase fw-bold fs-4 mb-3">Total</p>
       </div>
       <div className="row">
-        <div className="col">
-          <p>{totalNftsCount}</p>
-          <p>{nftsUsdValue}</p>
-          <p>
-            {allNftsCombinedFloor?.tokenFloors &&
-              Object.values(allNftsCombinedFloor.tokenFloors)
-                .map(
-                  ({ amount, symbol }) =>
-                    `${formatTokenAmount(amount, 6)} ${symbol}`
-                )
-                .join(", ")}
-          </p>
-        </div>
-        <div className="col">
+        <div className="col-sm-12 col-md-4">
           <p>
             {isSneakyBalanceLoading || !sneakyBalance ? (
               <span className="spinner-border spinner-border-sm" role="status">
@@ -117,64 +101,51 @@ export const PortfolioStats = ({ tokens }: Props) => {
           </p>
           <p>{usdSneakyValue}</p>
         </div>
-      </div>
+        <div className="col-sm-12 col-md-4">
+          {sneakyBalance && (
+            <>
+              {Object.entries(sneakyBalance.chainBalances).map(([chainId, balance]) => {
+                const { formattedAmount, walletBalance } = balance;
+                const chainName =
+                  chainId === "osmosis-1"
+                    ? "Osmosis"
+                    : chainId === "stargaze-1"
+                    ? "Stargaze"
+                    : `Unknown Chain (${chainId})`;
 
-      {sneakyBalance && (
-        <>
-          {Object.entries(sneakyBalance.chainBalances).map((bal) =>
-            match(bal)
-              .with(
-                ["osmosis-1", P._],
-                ([chainId, { formattedAmount, walletBalance }]) => (
+                return (
                   <Fragment key={chainId}>
                     <p>
-                      <strong>Osmosis</strong>:{" "}
-                      {formatTokenAmount(formattedAmount)} $SNEAKY
+                      <strong>{chainName}</strong>: {formatTokenAmount(formattedAmount)} $SNEAKY
                     </p>
-                    {sneakyBalance.poolBalances && (
+
+                    {chainId === "osmosis-1" && sneakyBalance.poolBalances && (
                       <>
-                        <p>
-                          Wallet Balance:{" "}
-                          {formatTokenAmount(walletBalance.formattedAmount)}
-                        </p>
-                        <p>
-                          Pool 1910:{" "}
-                          {formatTokenAmount(
-                            sneakyBalance.poolBalances.clPoolShare.amount,
-                            6
-                          )}{" "}
-                          $SNEAKY
-                        </p>
-                        <p>
-                          Pool 1403:{" "}
-                          {formatTokenAmount(
-                            sneakyBalance.poolBalances.balancerPoolShare
-                              .sneakyTokens.amount,
-                            6
-                          )}{" "}
-                          $SNEAKY
-                        </p>
+                        <p>Wallet Balance: {formatTokenAmount(walletBalance.formattedAmount)}</p>
+                        <p>Pool 1910:{" "}{formatTokenAmount(sneakyBalance.poolBalances.clPoolShare.amount, 6)}{" "}$SNEAKY</p>
+                        <p>Pool 1403:{" "}{formatTokenAmount(sneakyBalance.poolBalances.balancerPoolShare.sneakyTokens.amount, 6)}{" "}$SNEAKY</p>
                       </>
                     )}
                   </Fragment>
-                )
-              )
-              .with(["stargaze-1", P._], ([chainId, { formattedAmount }]) => (
-                <p key={chainId}>
-                  <strong>Stargaze</strong>:{" "}
-                  {formatTokenAmount(formattedAmount)} $SNEAKY
-                </p>
-              ))
-
-              .otherwise(([chainId, { formattedAmount }]) => (
-                <p key={chainId}>
-                  Unknown Chain ({chainId}):{" "}
-                  {formatTokenAmount(formattedAmount)} $SNEAKY
-                </p>
-              ))
+                );
+              })}
+            </>
           )}
-        </>
-      )}
+        </div>
+        <div className="col-sm-12 col-md-4">
+          <p>{totalNftsCount}</p>
+            <p>{nftsUsdValue}</p>
+            <p>
+              {allNftsCombinedFloor?.tokenFloors &&
+                Object.values(allNftsCombinedFloor.tokenFloors)
+                  .map(
+                    ({ amount, symbol }) =>
+                      `${formatTokenAmount(amount, 6)} ${symbol}`
+                  )
+                  .join(", ")}
+          </p>
+        </div>
+      </div>
     </>
   );
 };
