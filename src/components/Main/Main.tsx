@@ -32,11 +32,13 @@ export const Main = () => {
   return (
     <main>
       <WalletConnectionModal />
+      {/* Can show the portfolio value when the sneaky token info is all finished loading and so is the user's nfts */}
       {isConnected && userNfts && !isSneakyBalanceLoading && sneakyBalance && (
         <div>
           <PortfolioStats tokens={userNfts} sneakyBalance={sneakyBalance} />
         </div>
       )}
+      {/* Can show the user's nfts when all the nfts and the collections are loaded */}
       {userNfts && collections ? (
         <div>
           {collections.map(({ collectionInfo, nfts }) => (
