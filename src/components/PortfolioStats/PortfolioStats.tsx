@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import { BalancesWithTotals } from "../../hooks/useQuerySneakyTokens";
 import { formatTokenAmount, formatUsd } from "../../utils/format";
 import { queryNfts } from "../../hooks/useQueryNfts/useQueryUserNfts";
@@ -32,9 +31,9 @@ export const PortfolioStats = ({ tokens, sneakyBalance }: Props) => {
 
   return (
     <>
-      <div className="d-flex flex-column justify-content-center align-items-center text-center dokdo" style={{ height: "100vh" }}>
+      <div className="d-flex flex-column justify-content-center align-items-center text-center" style={{ height: "100vh" }}>
         <h3 className="text-uppercase fw-bold h4 mb-0">Sneaky Portfolio</h3>
-        <p className="display-1 lh-1 mb-1">
+        <p className="dokdo display-1 lh-1 mb-1">
           <span className="display-6 text-body-secondary">
             <small>&asymp;</small>
           </span>
@@ -44,7 +43,7 @@ export const PortfolioStats = ({ tokens, sneakyBalance }: Props) => {
           </span>
           <span className="fs-2 bg-dark rounded-3 text-light px-2">USD</span>
         </p>
-        <p className="text-uppercase fw-bold fs-4 mb-3">Total</p>
+        <p className="dokdo text-uppercase fw-bold fs-4 mb-3">Total</p>
       </div>
       <div className="row">
         <div className="col-sm-12 col-lg-4">
@@ -87,7 +86,8 @@ export const PortfolioStats = ({ tokens, sneakyBalance }: Props) => {
             <>
               <p>Pool 1910: {pool1910SneakyFormatted} $SNEAKY</p>
               <p>Pool 1403: {pool1403SneakyFormatted} $SNEAKY</p>
-              <p>Stargaze Pool</p>
+              <p>Stargaze Pool: x SNEAKY</p>
+              <p>Total Pools Value USD</p>
             </>
           )}
         </div>

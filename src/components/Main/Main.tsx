@@ -54,7 +54,7 @@ export const Main = () => {
           className="d-flex flex-column justify-content-center align-items-center text-center"
           style={{ height: "85vh" }}
         >
-          <h1 className="dokdo text-uppercase display-3 mb-0">
+          <h1 className="text-uppercase display-3 mb-0">
             <span>Sneaky</span> <br />
             <span className="fw-bold">Dashboard</span>
           </h1>
