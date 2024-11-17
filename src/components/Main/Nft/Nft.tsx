@@ -10,13 +10,16 @@ export const Nft = ({
   return (
     <div className="col">
       <h4>
-        #{tokenId} {name} {rarityScore && `(${rarityScore.toFixed(0)})`}
+        {name} (#{tokenId})
+        <span className="text-uppercase small">{rarityScore && `(${rarityScore.toFixed(0)})`}</span>
       </h4>
+      {/*
       <img
         alt={name || ""}
         src={"https://ipfs.io/ipfs/" + metadata?.image?.replace("ipfs://", "")}
         width={296}
       />
+      */}
     </div>
   );
 };

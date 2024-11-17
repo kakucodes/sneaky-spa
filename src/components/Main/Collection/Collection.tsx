@@ -57,6 +57,7 @@ export const Collection = ({ collection, nfts }: Props) => {
   return (
     <>
       <h3 className="fw-bold">{collection.name}</h3>
+      {/*
       <img
         alt={""}
         src={
@@ -66,6 +67,7 @@ export const Collection = ({ collection, nfts }: Props) => {
         }
         width={296}
       />
+      */}
       <div>
         <p className="text-capitalize">{collection.description}</p>
 
