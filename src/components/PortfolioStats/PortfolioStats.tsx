@@ -48,6 +48,7 @@ export const PortfolioStats = ({ tokens, sneakyBalance }: Props) => {
       </div>
       <div className="row">
         <div className="col-sm-12 col-lg-4">
+          <h4>SNEAKY Balances</h4>
           {sneakyBalance &&
             Object.entries(sneakyBalance.chainBalances).map(
               ([chainId, balance]) => {
@@ -67,7 +68,7 @@ export const PortfolioStats = ({ tokens, sneakyBalance }: Props) => {
                     </p>
                     <p>
                       Wallet Balance:{" "}
-                      {formatTokenAmount(walletBalance.formattedAmount)}
+                      {formatTokenAmount(walletBalance.formattedAmount)} SNEAKY
                     </p>
                   </div>
                 );
@@ -75,12 +76,13 @@ export const PortfolioStats = ({ tokens, sneakyBalance }: Props) => {
             )}
           {sneakyBalance && (
             <>
-              <p>{sneakyBalance.totalFormattedAmount} SNEAKY</p>
-              <p>{sneakyTokenUsdFormatted}</p>
+              <p>Total SNEAKY: {sneakyBalance.totalFormattedAmount}</p>
+              <p>Total Sneaky Value: {sneakyTokenUsdFormatted}</p>
             </>
           )}
         </div>
         <div className="col-sm-12 col-lg-4">
+          <h4>SNEAKY Pools</h4>
           {sneakyBalance && sneakyBalance.poolBalances && (
             <>
               <p>Pool 1910: {pool1910SneakyFormatted} $SNEAKY</p>
@@ -90,14 +92,16 @@ export const PortfolioStats = ({ tokens, sneakyBalance }: Props) => {
           )}
         </div>
         <div className="col-sm-12 col-lg-4">
-          <p>{totalNftsCount}</p>
-          <p>{allNftsUsd}</p>
-          <p>
+          <h4>SNEAKY NFTs</h4>
+          <p>Total NFT Collections Held: </p>
+          <p>Total NFTs: {totalNftsCount}</p>
+          <p>NFTs USD Value: {allNftsUsd}</p>
+          <p>NFTs STARS Value:
             {allNftsCombinedFloor.tokenFloors &&
               Object.values(allNftsCombinedFloor.tokenFloors)
                 .map(
                   ({ amount, symbol }) =>
-                    `${formatTokenAmount(amount, 6)} ${symbol}`
+                    ` ${formatTokenAmount(amount, 6)}`
                 )
                 .join(", ")}
           </p>
