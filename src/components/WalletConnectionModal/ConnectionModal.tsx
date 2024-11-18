@@ -1,6 +1,6 @@
 import { useAccount, useConnect, WalletType } from "graz";
 import { useState } from "react";
-import { ConnectedButton } from "../Header/ConnectedButton";
+import { ConnectedButton } from "./WalletConnected";
 import { useWalletConnectModal } from "./ConnectionModalProvider";
 import Modal from "react-bootstrap/Modal";
 
