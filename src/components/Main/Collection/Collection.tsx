@@ -56,6 +56,7 @@ export const Collection = ({ collection, nfts }: Props) => {
 
   return (
     <>
+      <h2>NFT Collections</h2>
       <h3 className="fw-bold">{collection.name}</h3>
       {/*
       <img
