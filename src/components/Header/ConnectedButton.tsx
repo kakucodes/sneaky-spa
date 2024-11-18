@@ -26,9 +26,6 @@ export const ConnectedButton = () => {
         <button className="btn btn-outline-dark" onClick={() => disconnect()}>
           Disconnect
         </button>
-        <button type="button" className="btn btn-dark" data-bs-dismiss="modal">
-          Continue
-        </button>
       </div>
     </div>
   );

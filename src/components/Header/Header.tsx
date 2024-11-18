@@ -1,6 +1,8 @@
 import { useAccount } from "graz";
+import { useWalletConnectModal } from "../WalletConnectionModal/ConnectionModalProvider";
 
 export const Header = () => {
+  const { openModal } = useWalletConnectModal();
   const { isConnected } = useAccount();
 
   return (
@@ -14,8 +16,7 @@ export const Header = () => {
               className={`btn ${
                 isConnected ? "btn-outline-dark" : "btn-outline-dark"
               }`}
-              data-bs-toggle="modal"
-              data-bs-target="#walletModal"
+              onClick={openModal}
             >
               {isConnected ? "Connected" : "Connect"}
             </button>

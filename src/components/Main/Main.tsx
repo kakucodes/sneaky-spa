@@ -4,7 +4,7 @@ import { Collection } from "./Collection/Collection";
 import { useQueryNfts } from "../../hooks/useQueryNfts/useQueryUserNfts";
 import { useAccount } from "graz";
 import { useQueryCollections } from "../../hooks/useQueryCollections/useQueryCollections";
-import { WalletConnectionModal } from "../WalletConnectionModal/WalletConnectionModal";
+import { ConnectionModal } from "../WalletConnectionModal/ConnectionModal";
 import { useQuerySneakyTokens } from "../../hooks/useQuerySneakyTokens";
 
 export const Main = () => {
@@ -31,7 +31,7 @@ export const Main = () => {
 
   return (
     <main>
-      <WalletConnectionModal />
+      <ConnectionModal />
       {/* Can show the portfolio value when the sneaky token info is all finished loading and so is the user's nfts */}
       {isConnected && userNfts && !isSneakyBalanceLoading && sneakyBalance && (
         <div>
