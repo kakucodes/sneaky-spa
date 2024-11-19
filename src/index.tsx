@@ -77,7 +77,7 @@ root.render(
                 description: "Your view into the Sneakyverse",
                 url: "https://dashboard.sneaky.productions",
                 icons: [
-                  "https://sneaky.productions/img/sneaky-productions-logo.png",
+                  `https://pbs.twimg.com/profile_images/1687567309613715456/f1hzFs5A_400x400.jpg`,
                 ],
               },
             },

@@ -12,10 +12,10 @@ export const ConnectionModal = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const handleConnect = () => {
     // Check if Keplr is available
-    if (!(availableWallets.keplr || availableWallets.wc_keplr_mobile)) {
-      setErrorMessage("Enable your browser wallet.");
-      return;
-    }
+    // if (!(availableWallets.keplr || availableWallets.wc_keplr_mobile)) {
+    //   setErrorMessage("Enable your browser wallet.");
+    //   return;
+    // }
 
     connect({
       chainId: "stargaze-1",
