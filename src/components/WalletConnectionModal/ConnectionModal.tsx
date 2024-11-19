@@ -55,6 +55,7 @@ export const ConnectionModal = () => {
             >
               Leap Wallet
             </button>
+            <button type="button" className="btn btn-dark" data-bs-dismiss="modal" onClick={closeModal}>Close</button>
             {errorMessage && (
               <div
                 className="alert alert-light alert-dismissible fade show mb-0"

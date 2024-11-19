@@ -10,7 +10,7 @@ import { usePrefetchQueries } from "./hooks/usePrefetchQueries";
 function App() {
   usePrefetchQueries();
   return (
-    <div className="container-xxl py-3">
+    <div className="container-xxl">
       <Header />
       <Main />
       <Footer />

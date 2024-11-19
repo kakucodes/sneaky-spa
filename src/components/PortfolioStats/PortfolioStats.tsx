@@ -39,16 +39,16 @@ export const PortfolioStats = ({ tokens, sneakyBalance }: Props) => {
       >
         <h3 className="text-uppercase fw-bold h4 mb-2">Sneaky Portfolio</h3>
         <p className="dokdo display-1 lh-1 mb-2">
-          <span className="display-6 text-body-secondary">
+          <span className="display-6">
             <small>&asymp;</small>
           </span>
           <span>{totalPortfolioDollars}</span>
-          <span className="display-6 text-dark-emphasis link-offset-2 link-body-emphasis">
-            . <u>{totalPortfolioDecimals}</u>{" "}
+          <span className="display-6 link-offset-2">
+            &nbsp;.&nbsp;<u>{totalPortfolioDecimals}</u>{" "}
           </span>
           <span className="fs-2 bg-dark rounded-3 text-light px-2">USD</span>
         </p>
-        <p className="dokdo text-uppercase fw-bold fs-4 mb-3">Total</p>
+        <p className="dokdo text-uppercase fw-bold fs-4">Total</p>
       </div>
       <div className="row">
         <div className="col-sm-12 col-xl-4">

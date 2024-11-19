@@ -9,8 +9,14 @@ export const Header = () => {
     <header className="fixed-top">
       <div className="container-xxl pt-3">
         <div className="row">
-          <div className="col-6"></div>
-          <div className="col-6 text-end">
+          <div className="col-9">
+            <h1 className="fw-bold fs-3 pt-2 lh-1">
+              <span className="text-stroke text-white"> Sneaky</span>
+              <span className="fs-4 grayscale"> · </span>
+              <span className="text-stroke text-white">Productions</span>
+            </h1>
+          </div>
+          <div className="col-3 text-end">
             <button
               type="button"
               className={`btn ${

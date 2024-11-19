@@ -34,25 +34,49 @@ body {
 	font-weight: 400;
 	font-style: normal;
 	line-height: 0.8 !important;
-	letter-spacing: -0.06em;
+	letter-spacing: -0.05em;
+}
+@-moz-document url-prefix() {
+	.dokdo, h1, h2, h3, h4, h5, h6 {
+		letter-spacing: -0.06em;
+	}
+  }
+.shantell {
+	font-family: "Shantell Sans", cursive;
+	letter-spacing: 0.05em;
 }
 h1, h2, h3, h4, h5, h6 {
 	text-transform: uppercase;
 }
+.text-stroke {
+	text-shadow: 
+    1px 1px 0 black, 
+   -1px 1px 0 black, 
+    1px -1px 0 black, 
+   -1px -1px 0 black;
+}
+
+.grayscale {
+	filter: grayscale(100%);
+  }
 
 /* Custom Button (Paper Look) */
 button, .btn {
+	font-family: "Dokdo", system-ui;
 	border-bottom-left-radius: 15px 255px;
 	border-bottom-right-radius: 225px 15px;
 	border-top-left-radius: 255px 15px;
 	border-top-right-radius: 15px 225px;
 	transition: all 235ms ease 0s;
-	box-shadow: 15px 28px 25px -18px rgba(0, 0, 0, 0.2);
+	box-shadow: 2px 8px 8px -5px rgba(0, 0, 0, 0.1);
 	transition: all 235ms ease-in-out 0s;
 	border-style: solid;
 	border-width: 1px;
-	border-right-width: 2px;
+	border-right-width: 3px;
 	border-bottom-width: 2px;
+	text-transform: uppercase;
+	font-weight: 500;
+	padding-bottom: 0.2em;
 }
 button:hover,
 .paper-btn:hover,
@@ -65,7 +89,7 @@ button:focus,
 [type=button]:focus {
   border-style: solid;
   border-width: 1px;
-  border-right-width: 2px;
+  border-right-width: 3px;
   border-bottom-width: 2px;
   box-shadow: 2px 8px 4px -6px rgba(0, 0, 0, 0.3);
 }

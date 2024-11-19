@@ -52,17 +52,17 @@ export const Main = () => {
       ) : isDisconnected ? (
         <div
           className="d-flex flex-column justify-content-center align-items-center text-center"
-          style={{ height: "85vh" }}
+          style={{ height: "100vh" }}
         >
-          <h1 className="text-uppercase display-3 mb-0">
+          <h2 className="text-uppercase display-4 text-nowrap fw-bold mb-2">
             <span>Sneaky</span> <br />
-            <span className="fw-bold">Dashboard</span>
-          </h1>
+            <span>Dashboard</span><br />
+          </h2>
         </div>
       ) : (
         <div
           className="d-flex flex-column justify-content-center align-items-center text-center"
-          style={{ height: "85vh" }}
+          style={{ height: "100vh" }}
         >
           <div className="spinner-border" role="status">
             <span className="visually-hidden">Loading...</span>
