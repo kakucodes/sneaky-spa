@@ -71,6 +71,15 @@ root.render(
           walletConnect: {
             options: {
               projectId: "34b07e7cd516d7da87accd8ce536a80b",
+              name: "Sneaky Dashboard",
+              metadata: {
+                name: "Sneaky Dashboard",
+                description: "Your view into the Sneakyverse",
+                url: "https://dashboard.sneaky.productions",
+                icons: [
+                  "https://sneaky.productions/img/sneaky-productions-logo.png",
+                ],
+              },
             },
           },
         }}
