@@ -10,18 +10,10 @@ export const ConnectionModal = () => {
   const { connect } = useConnect();
   const { isConnected, isConnecting } = useAccount();
   const [errorMessage, setErrorMessage] = useState("");
-  const handleConnect = () => {
-    // Check if Keplr is available
-    // if (!(availableWallets.keplr || availableWallets.wc_keplr_mobile)) {
-    //   setErrorMessage("Enable your browser wallet.");
-    //   return;
-    // }
-
+  const handleConnectModal = (walletType: WalletType) => () => {
     connect({
       chainId: "stargaze-1",
-      walletType: availableWallets.keplr
-        ? WalletType.KEPLR
-        : WalletType.WC_KEPLR_MOBILE,
+      walletType,
     });
     closeModal();
   };
@@ -37,13 +29,29 @@ export const ConnectionModal = () => {
           </div>
         ) : (
           <div className="d-grid gap-2">
-            <button className="btn btn-outline-dark" onClick={handleConnect}>
+            <button
+              className="btn btn-outline-dark"
+              disabled={
+                !(availableWallets.keplr || availableWallets.wc_keplr_mobile)
+              }
+              onClick={handleConnectModal(
+                availableWallets.keplr
+                  ? WalletType.KEPLR
+                  : WalletType.WC_KEPLR_MOBILE
+              )}
+            >
               Keplr Wallet
             </button>
             <button
               className="btn btn-outline-dark"
-              onClick={handleConnect}
-              disabled
+              onClick={handleConnectModal(
+                availableWallets.leap
+                  ? WalletType.LEAP
+                  : WalletType.WC_LEAP_MOBILE
+              )}
+              disabled={
+                !(availableWallets.leap || availableWallets.wc_leap_mobile)
+              }
             >
               Leap Wallet
             </button>

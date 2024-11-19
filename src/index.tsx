@@ -74,11 +74,10 @@ root.render(
               name: "Sneaky Dashboard",
               metadata: {
                 name: "Sneaky Dashboard",
-                description: "Your view into the Sneakyverse",
+                description:
+                  "Sneaky Productions Dashboard - All your Sneaky Productions' assets in one place.",
                 url: "https://dashboard.sneaky.productions",
-                icons: [
-                  `https://pbs.twimg.com/profile_images/1687567309613715456/f1hzFs5A_400x400.jpg`,
-                ],
+                icons: [`https://kakucodes.github.io/sneaky-spa/wenmoon.png`],
               },
             },
           },
