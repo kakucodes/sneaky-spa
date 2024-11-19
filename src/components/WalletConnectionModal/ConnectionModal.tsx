@@ -1,24 +1,27 @@
-import { useAccount, useConnect, WalletType } from "graz";
+import { getAvailableWallets, useAccount, useConnect, WalletType } from "graz";
 import { useState } from "react";
 import { ConnectedButton } from "./WalletConnected";
 import { useWalletConnectModal } from "./ConnectionModalProvider";
 import Modal from "react-bootstrap/Modal";
 
 export const ConnectionModal = () => {
+  const availableWallets = getAvailableWallets();
   const { isModalOpen, closeModal } = useWalletConnectModal();
   const { connect } = useConnect();
   const { isConnected, isConnecting } = useAccount();
   const [errorMessage, setErrorMessage] = useState("");
   const handleConnect = () => {
     // Check if Keplr is available
-    if (typeof window.keplr === "undefined") {
+    if (!(availableWallets.keplr || availableWallets.wc_keplr_mobile)) {
       setErrorMessage("Enable your browser wallet.");
       return;
     }
 
     connect({
       chainId: "stargaze-1",
-      walletType: WalletType.KEPLR,
+      walletType: availableWallets.keplr
+        ? WalletType.KEPLR
+        : WalletType.WC_KEPLR_MOBILE,
     });
     closeModal();
   };

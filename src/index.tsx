@@ -68,6 +68,11 @@ root.render(
               ],
             },
           ],
+          walletConnect: {
+            options: {
+              projectId: "34b07e7cd516d7da87accd8ce536a80b",
+            },
+          },
         }}
       >
         <WalletModalContextProvider>
