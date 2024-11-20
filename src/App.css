@@ -4,6 +4,10 @@
 
 body {
 
+	font-family: "Shantell Sans", cursive;
+	letter-spacing: 0.03em;
+	font-weight: 100;
+
 	background-image: 
 		radial-gradient(
 			circle 64em at 4em 4em,

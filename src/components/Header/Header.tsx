@@ -12,7 +12,7 @@ export const Header = () => {
           <div className="col-9">
             <h1 className="fw-bold fs-3 pt-2 lh-1">
               <span className="text-stroke text-white"> Sneaky</span>
-              <span className="fs-4 grayscale"> · </span>
+              <span className="fs-4 grayscale">&nbsp;</span>
               <span className="text-stroke text-white">Productions</span>
             </h1>
           </div>
