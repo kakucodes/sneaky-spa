@@ -6,8 +6,11 @@ import { useAccount } from "graz";
 import { useQueryCollections } from "../../hooks/useQueryCollections/useQueryCollections";
 import { ConnectionModal } from "../WalletConnectionModal/ConnectionModal";
 import { useQuerySneakyTokens } from "../../hooks/useQuerySneakyTokens";
+import { useWalletConnectModal } from "../WalletConnectionModal/ConnectionModalProvider";
 
 export const Main = () => {
+  const { openModal } = useWalletConnectModal();
+
   const { data: userNfts } = useQueryNfts();
   const { data: sneakyBalance, areAnyLoading: isSneakyBalanceLoading } =
     useQuerySneakyTokens();
@@ -51,14 +54,28 @@ export const Main = () => {
         </div>
       ) : isDisconnected ? (
         <div
-          className="d-flex flex-column justify-content-center align-items-center text-center"
+          className="d-flex flex-column justify-content-center align-items-center text-center pt-4"
           style={{ height: "100vh" }}
         >
           <h2 className="text-uppercase display-3 text-nowrap fw-bold mb-0">
             <span>Sneaky</span> <br />
-            <span>Dashboard</span><br />
+            <span>Dashboard</span>
+            <br />
           </h2>
-          <p><strong>All</strong> your Sneaky assets,<br />all in one place. 🐽</p>
+          <p>
+            <strong>All</strong> your Sneaky assets,
+            <br />
+            all in one place.
+          </p>
+          <button
+            type="button"
+            className={`btn ${
+              isConnected ? "btn-outline-dark" : "btn-outline-dark"
+            }`}
+            onClick={openModal}
+          >
+            {isConnected ? "Connected" : "Connect"}
+          </button>
         </div>
       ) : (
         <div

@@ -1,9 +1,8 @@
-import { useAccount } from "graz";
-import { useWalletConnectModal } from "../WalletConnectionModal/ConnectionModalProvider";
+import { useAccount, useDisconnect } from "graz";
 
 export const Header = () => {
-  const { openModal } = useWalletConnectModal();
   const { isConnected } = useAccount();
+  const { disconnect } = useDisconnect();
 
   return (
     <header className="fixed-top">
@@ -11,21 +10,19 @@ export const Header = () => {
         <div className="row">
           <div className="col-9">
             <h1 className="fw-bold fs-3 pt-2 lh-1">
-              <span className="text-stroke text-white"> Sneaky</span>
-              <span className="fs-4 grayscale">&nbsp;</span>
-              <span className="text-stroke text-white">Productions</span>
+
             </h1>
           </div>
           <div className="col-3 text-end">
+          {isConnected && (
             <button
               type="button"
-              className={`btn ${
-                isConnected ? "btn-outline-dark" : "btn-outline-dark"
-              }`}
-              onClick={openModal}
+              className="btn btn-outline-dark"
+              onClick={() => disconnect()}
             >
-              {isConnected ? "Connected" : "Connect"}
+              Disconnect
             </button>
+          )}
           </div>
         </div>
       </div>
