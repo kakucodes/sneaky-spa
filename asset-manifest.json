@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/sneaky-spa/static/css/main.cf7556a1.css",
+    "main.js": "/sneaky-spa/static/js/main.77266dcf.js",
+    "static/js/213.b6ec438d.chunk.js": "/sneaky-spa/static/js/213.b6ec438d.chunk.js",
+    "static/js/658.486c6bf3.chunk.js": "/sneaky-spa/static/js/658.486c6bf3.chunk.js",
+    "static/js/453.8e4f0a8e.chunk.js": "/sneaky-spa/static/js/453.8e4f0a8e.chunk.js",
+    "static/js/541.c427ddb1.chunk.js": "/sneaky-spa/static/js/541.c427ddb1.chunk.js",
+    "static/js/350.b619e04d.chunk.js": "/sneaky-spa/static/js/350.b619e04d.chunk.js",
+    "static/media/axios.cjs": "/sneaky-spa/static/media/axios.693cfcc9e5223535a0dc.cjs",
+    "index.html": "/sneaky-spa/index.html",
+    "main.cf7556a1.css.map": "/sneaky-spa/static/css/main.cf7556a1.css.map",
+    "main.77266dcf.js.map": "/sneaky-spa/static/js/main.77266dcf.js.map",
+    "658.486c6bf3.chunk.js.map": "/sneaky-spa/static/js/658.486c6bf3.chunk.js.map",
+    "453.8e4f0a8e.chunk.js.map": "/sneaky-spa/static/js/453.8e4f0a8e.chunk.js.map",
+    "541.c427ddb1.chunk.js.map": "/sneaky-spa/static/js/541.c427ddb1.chunk.js.map",
+    "350.b619e04d.chunk.js.map": "/sneaky-spa/static/js/350.b619e04d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cf7556a1.css",
+    "static/js/main.77266dcf.js"
+  ]
+}
