@@ -15,6 +15,8 @@ export const Main = () => {
   const { data: sneakyBalance, areAnyLoading: isSneakyBalanceLoading } =
     useQuerySneakyTokens();
 
+  console.log("sneaky balance: ", sneakyBalance);
+
   const { data: collectionsData } = useQueryCollections();
   const { isDisconnected, isConnected } = useAccount();
 

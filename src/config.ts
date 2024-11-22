@@ -36,3 +36,6 @@ export const COLLECTION_ADDRS = [
 
 export const STARGAZE_ENDPOINT =
   "https://graphql.mainnet.stargaze-apis.com/graphql";
+
+export const STARGAZE_POOL =
+  "stars1w5zlwwz5p0jth89ps64tt9mu9lzx6w450acshlu4tce856f3uxyq3y4sq9";

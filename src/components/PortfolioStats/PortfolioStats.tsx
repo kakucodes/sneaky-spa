@@ -9,8 +9,8 @@ type Props = {
 };
 
 export const PortfolioStats = ({ tokens, sneakyBalance }: Props) => {
-
   const {
+    stargazePoolSneakyFormatted,
     sneakyTokenUsdFormatted,
     sneakyTokenUsd,
     pool1403SneakyFormatted,
@@ -59,24 +59,37 @@ export const PortfolioStats = ({ tokens, sneakyBalance }: Props) => {
           <p>************************************</p>
           <h4>Osmosis</h4>
           {osmosisBalance && (
-            <p>Osmosis SNEAKY Wallet Balance: {formatTokenAmount(osmosisBalance.walletBalance.formattedAmount)}</p>
+            <p>
+              Osmosis SNEAKY Wallet Balance:{" "}
+              {formatTokenAmount(osmosisBalance.walletBalance.formattedAmount)}
+            </p>
           )}
-          {sneakyBalance && sneakyBalance.poolBalances && (
+          {sneakyBalance && sneakyBalance.osmoPoolBalances && (
             <p>Pool 1910: {pool1910SneakyFormatted} $SNEAKY</p>
           )}
 
-          {sneakyBalance && sneakyBalance.poolBalances && (
+          {sneakyBalance && sneakyBalance.osmoPoolBalances && (
             <p>Pool 1403: {pool1403SneakyFormatted} $SNEAKY</p>
           )}
           {osmosisBalance && (
-            <p><strong>Osmosis Total: </strong>: {formatTokenAmount(osmosisBalance.formattedAmount)} SNEAKY</p>
+            <p>
+              <strong>Osmosis Total: </strong>:{" "}
+              {formatTokenAmount(osmosisBalance.formattedAmount)} SNEAKY
+            </p>
           )}
           <h4>Stargaze</h4>
           {stargazeBalance && (
-            <p>Wallet Balance: {formatTokenAmount(stargazeBalance.walletBalance.formattedAmount)} SNEAKY</p>
+            <p>
+              Wallet Balance:{" "}
+              {formatTokenAmount(stargazeBalance.walletBalance.formattedAmount)}{" "}
+              SNEAKY
+            </p>
           )}
-          <p>Pool: x SNEAKY</p>
-          <p>Stargaze Total: x SNEAKY</p>
+          <p>Pool: {stargazePoolSneakyFormatted} SNEAKY</p>
+          <p>
+            Stargaze Total: {formatTokenAmount(stargazeBalance.formattedAmount)}{" "}
+            SNEAKY
+          </p>
           <h4>Sneaky Total</h4>
           {sneakyBalance && (
             <p>Total SNEAKY: {sneakyBalance.totalFormattedAmount}</p>

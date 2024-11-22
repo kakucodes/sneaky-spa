@@ -8,15 +8,21 @@ export const sneakyTokensSummary = (balance: BalancesWithTotals) => {
   const sneakyTokenUsd = balance.usd || 0;
 
   const pool1910SneakyFormatted = formatTokenAmount(
-    balance.poolBalances?.clPoolShare.amount || 0,
+    balance.osmoPoolBalances?.clPoolShare.amount || 0,
     6
   );
   const pool1403SneakyFormatted = formatTokenAmount(
-    balance.poolBalances?.balancerPoolShare.sneakyTokens.amount || 0,
+    balance.osmoPoolBalances?.balancerPoolShare.sneakyTokens.amount || 0,
+    6
+  );
+
+  const stargazePoolSneakyFormatted = formatTokenAmount(
+    balance.stargazePoolBalance?.amount,
     6
   );
 
   return {
+    stargazePoolSneakyFormatted,
     sneakyTokenUsdFormatted,
     sneakyTokenUsd,
     pool1403SneakyFormatted,

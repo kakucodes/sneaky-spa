@@ -9,9 +9,9 @@ const queryCollection = {
     request(STARGAZE_ENDPOINT, CollectionsQueryDocument, {
       filtersByAddrs: COLLECTION_ADDRS,
     }).then(({ collections }) => collections?.collections),
+  staleTime: 1000 * 60 * 30,
 };
 
-export const useQueryCollections = () =>
-  useQuery({ ...queryCollection, staleTime: 1000 * 60 * 30 });
+export const useQueryCollections = () => useQuery(queryCollection);
 
 export const usePrefetchCollections = () => usePrefetchQuery(queryCollection);

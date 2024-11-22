@@ -6,6 +6,8 @@ import { formatTokenAmount } from "../utils/format";
 import { useQueryOsmosisToken } from "./useQueryOsmosisToken";
 import { Coin, osmosis } from "osmojs";
 import { coin } from "@cosmjs/stargate";
+import { useQueryStardexSneakyPoolShare } from "./useQueryStardexPoolPair";
+import { match } from "ts-pattern";
 
 const changeHrp = (address: string, hrp: string): string | undefined => {
   try {
@@ -200,7 +202,8 @@ const useQuerySkipBalances = (addresses: UserSneakyAddresses | undefined) =>
 const getBalancesWithTotals = (
   balances: BalancesResp["chains"],
   usdValue: number | undefined,
-  poolBalances: SneakyPoolShares | undefined
+  poolBalances: SneakyPoolShares | undefined,
+  stargazePoolBalance = coin(0, SNEAKY_TOKEN_CHAINS["stargaze-1"])
 ): BalancesWithTotals => {
   const condensedBalances = Object.entries(balances).map(
     ([chainId, chainBalances]): [
@@ -219,19 +222,26 @@ const getBalancesWithTotals = (
       const sneakyChainId = chainId as SneakyTokenChain;
       const { amount, formatted_amount } =
         chainBalances.denoms[SNEAKY_TOKEN_CHAINS[sneakyChainId]]!;
-      const formattedAmount =
-        parseFloat(formatted_amount) +
-        (sneakyChainId === "osmosis-1"
-          ? Number(poolBalances?.total?.amount || 0) / 1_000_000
-          : 0);
+      const { formattedAmount, preparedAmount } = match(sneakyChainId)
+        .with("osmosis-1", () => ({
+          formattedAmount:
+            parseFloat(formatted_amount) +
+            Number(poolBalances?.total?.amount || 0) / 10 ** 6,
+          preparedAmount:
+            BigInt(amount) + BigInt(poolBalances?.total?.amount || 0),
+        }))
+        .with("stargaze-1", () => ({
+          formattedAmount:
+            parseFloat(formatted_amount) +
+            Number(stargazePoolBalance.amount) / 10 ** 6,
+          preparedAmount: BigInt(amount) + BigInt(stargazePoolBalance.amount),
+        }))
+        .exhaustive();
 
       return [
         sneakyChainId,
         {
-          amount:
-            sneakyChainId === "osmosis-1"
-              ? BigInt(amount) + BigInt(poolBalances?.total?.amount || 0)
-              : BigInt(amount),
+          amount: preparedAmount,
           formattedAmount,
           usd: usdValue !== undefined ? usdValue * formattedAmount : undefined,
           walletBalance: {
@@ -293,7 +303,8 @@ const getBalancesWithTotals = (
         };
       };
     },
-    poolBalances,
+    osmoPoolBalances: poolBalances,
+    stargazePoolBalance,
   };
 };
 
@@ -313,8 +324,11 @@ export const useQuerySneakyTokens = () => {
       : undefined
   );
   const { isLoading: areSneakyBalancesLoading } = sneakyBalanceQuery;
-  const { data: poolTokens, isLoading: areSneakyPoolsLoading } =
+  const { data: osmosisPoolTokens, isLoading: areOsmosisPoolsLoading } =
     useQuerySneakyPools(osmosisAddress);
+
+  const { data: stargazePoolTokens, isLoading: areStargazePoolsLoading } =
+    useQueryStardexSneakyPoolShare();
 
   return {
     ...sneakyBalanceQuery,
@@ -322,14 +336,16 @@ export const useQuerySneakyTokens = () => {
       ? getBalancesWithTotals(
           sneakyBalanceQuery.data,
           sneakyTokenData?.price,
-          poolTokens
+          osmosisPoolTokens,
+          stargazePoolTokens
         )
       : undefined,
     areAnyLoading:
       isSneakyTokenDataLoading ||
       areSneakyBalancesLoading ||
       areSneakyBalancesLoading ||
-      areSneakyPoolsLoading,
+      areOsmosisPoolsLoading ||
+      areStargazePoolsLoading,
   };
 };
 
@@ -367,5 +383,6 @@ export type BalancesWithTotals = {
       };
     };
   };
-  poolBalances: SneakyPoolShares | undefined;
+  osmoPoolBalances: SneakyPoolShares | undefined;
+  stargazePoolBalance: Coin;
 };

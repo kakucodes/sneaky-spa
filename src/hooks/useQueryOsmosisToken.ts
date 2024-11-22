@@ -36,4 +36,5 @@ export const usePrefetchOsmosisToken = (symbol: string) =>
       fetch(`https://public-osmosis-api.numia.xyz/tokens/v2/${symbol}`)
         .then((res) => res.json())
         .then((data: [OsmosisToken]) => data[0]),
+    staleTime: 1000 * 60 * 60 * 20,
   });
