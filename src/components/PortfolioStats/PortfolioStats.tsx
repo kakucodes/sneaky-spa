@@ -2,6 +2,7 @@ import { BalancesWithTotals } from "../../hooks/useQuerySneakyTokens";
 import { formatTokenAmount, formatUsd } from "../../utils/format";
 import { queryNfts } from "../../hooks/useQueryNfts/useQueryUserNfts";
 import { nftsValueSummary, sneakyTokensSummary } from "./portfolioHelpers";
+import { StatsBreakdown } from "./StatsBreakdown";
 
 type Props = {
   tokens: NonNullable<Awaited<ReturnType<typeof queryNfts>>> | undefined;
@@ -9,20 +10,14 @@ type Props = {
 };
 
 export const PortfolioStats = ({ tokens, sneakyBalance }: Props) => {
-  const {
-    stargazePoolSneakyFormatted,
-    sneakyTokenUsdFormatted,
-    sneakyTokenUsd,
-    pool1403SneakyFormatted,
-    pool1910SneakyFormatted,
-  } = sneakyTokensSummary(sneakyBalance);
+  const tokenSummary = sneakyTokensSummary(sneakyBalance);
 
   const totalNftsCount = tokens?.length || 0;
   const { usdValueFormatted: allNftsUsd, ...allNftsCombinedFloor } =
     nftsValueSummary(tokens || []);
 
   const totalPortfolioUsdValue = formatUsd(
-    (allNftsCombinedFloor?.usdValue || 0) + sneakyTokenUsd
+    (allNftsCombinedFloor?.usdValue || 0) + tokenSummary.sneakyTokenUsd
   );
 
   const [totalPortfolioDollars, totalPortfolioDecimals = "00"] =
@@ -52,64 +47,19 @@ export const PortfolioStats = ({ tokens, sneakyBalance }: Props) => {
         <p className="dokdo text-uppercase fw-bold fs-4">Total</p>
       </div>
 
-      <div className="d-flex flex-column align-items-center">
-        <div className="font-monospace small">
-          <p className="mb-0">************************************</p>
-          <p className="mb-0">#4304403920592-44-54959503 #44256346</p>
-          <p>************************************</p>
-          <h4>Osmosis</h4>
-          {osmosisBalance && (
-            <p>
-              Osmosis SNEAKY Wallet Balance:{" "}
-              {formatTokenAmount(osmosisBalance.walletBalance.formattedAmount)}
-            </p>
-          )}
-          {sneakyBalance && sneakyBalance.osmoPoolBalances && (
-            <p>Pool 1910: {pool1910SneakyFormatted} $SNEAKY</p>
-          )}
-
-          {sneakyBalance && sneakyBalance.osmoPoolBalances && (
-            <p>Pool 1403: {pool1403SneakyFormatted} $SNEAKY</p>
-          )}
-          {osmosisBalance && (
-            <p>
-              <strong>Osmosis Total: </strong>:{" "}
-              {formatTokenAmount(osmosisBalance.formattedAmount)} SNEAKY
-            </p>
-          )}
-          <h4>Stargaze</h4>
-          {stargazeBalance && (
-            <p>
-              Wallet Balance:{" "}
-              {formatTokenAmount(stargazeBalance.walletBalance.formattedAmount)}{" "}
-              SNEAKY
-            </p>
-          )}
-          <p>Pool: {stargazePoolSneakyFormatted} SNEAKY</p>
-          <p>
-            Stargaze Total: {formatTokenAmount(stargazeBalance.formattedAmount)}{" "}
-            SNEAKY
-          </p>
-          <h4>Sneaky Total</h4>
-          {sneakyBalance && (
-            <p>Total SNEAKY: {sneakyBalance.totalFormattedAmount}</p>
-          )}
-          {sneakyBalance && (
-            <p>Total Sneaky Value: {sneakyTokenUsdFormatted}</p>
-          )}
-          <h4>NFTs</h4>
-          <p>Total NFTs: {totalNftsCount}</p>
-          <p>
-            NFTs STARS Value:
-            {allNftsCombinedFloor.tokenFloors &&
-              Object.values(allNftsCombinedFloor.tokenFloors)
-                .map(({ amount, symbol }) => ` ${formatTokenAmount(amount, 6)}`)
-                .join(", ")}
-          </p>
-          <p>NFTs USD Value: {allNftsUsd}</p>
-          <p>************************************</p>
-        </div>
-      </div>
+      {osmosisBalance && stargazeBalance && (
+        <StatsBreakdown
+          {...{
+            ...tokenSummary,
+            totalNftsCount,
+            allNftsUsd,
+            tokenFloors: allNftsCombinedFloor.tokenFloors,
+            osmosisBalance,
+            stargazeBalance,
+            totalFormattedAmount: sneakyBalance.totalFormattedAmount,
+          }}
+        />
+      )}
     </>
   );
 };
