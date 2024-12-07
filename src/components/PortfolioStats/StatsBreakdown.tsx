@@ -35,56 +35,57 @@ export const StatsBreakdown = ({
   allNftsUsd,
 }: Props) => {
   return (
-    <div className="d-flex flex-column align-items-center">
-      <div className="font-monospace small">
-        <p className="mb-0">************************************</p>
-        <p className="mb-0">#4304403920592-44-54959503 #44256346</p>
-        <p>************************************</p>
-        <h4>Osmosis</h4>
-        {osmosisBalance && (
+    <div className="row gy-5">
+        <div className="col-12 col-md-6 col-xl-3">
+          <h4 className="fw-bold">Osmosis</h4>
+          {osmosisBalance && (
+            <p>
+              Osmosis SNEAKY Wallet Balance:{" "}
+              {formatTokenAmount(osmosisBalance.walletBalance.formattedAmount)}
+            </p>
+          )}
+          <p>Pool 1910: {pool1910SneakyFormatted} $SNEAKY</p>
+          <p>Pool 1403: {pool1403SneakyFormatted} $SNEAKY</p>
+
           <p>
-            Osmosis SNEAKY Wallet Balance:{" "}
-            {formatTokenAmount(osmosisBalance.walletBalance.formattedAmount)}
+            <strong>Osmosis Total: </strong>:{" "}
+            {formatTokenAmount(osmosisBalance.formattedAmount)} SNEAKY
           </p>
-        )}
-        <p>Pool 1910: {pool1910SneakyFormatted} $SNEAKY</p>
-        <p>Pool 1403: {pool1403SneakyFormatted} $SNEAKY</p>
+        </div>
+        <div className="col-12 col-md-6 col-xl-3">
+          <h4 className="fw-bold">Stargaze</h4>
 
-        <p>
-          <strong>Osmosis Total: </strong>:{" "}
-          {formatTokenAmount(osmosisBalance.formattedAmount)} SNEAKY
-        </p>
+          <p>
+            Wallet Balance:{" "}
+            {formatTokenAmount(stargazeBalance.walletBalance.formattedAmount)}{" "}
+            SNEAKY
+          </p>
 
-        <h4>Stargaze</h4>
+          <p>Pool: {stargazePoolSneakyFormatted} SNEAKY</p>
+          <p>
+            Stargaze Total: {formatTokenAmount(stargazeBalance.formattedAmount)}{" "}
+            SNEAKY
+          </p>
+        </div>
+        <div className="col-12 col-md-6 col-xl-3">
+          <h4 className="fw-bold">Sneaky Total</h4>
 
-        <p>
-          Wallet Balance:{" "}
-          {formatTokenAmount(stargazeBalance.walletBalance.formattedAmount)}{" "}
-          SNEAKY
-        </p>
+          <p>Total SNEAKY: {totalFormattedAmount}</p>
 
-        <p>Pool: {stargazePoolSneakyFormatted} SNEAKY</p>
-        <p>
-          Stargaze Total: {formatTokenAmount(stargazeBalance.formattedAmount)}{" "}
-          SNEAKY
-        </p>
-        <h4>Sneaky Total</h4>
-
-        <p>Total SNEAKY: {totalFormattedAmount}</p>
-
-        <p>Total Sneaky Value: {sneakyTokenUsdFormatted}</p>
-        <h4>NFTs</h4>
-        <p>Total NFTs: {totalNftsCount}</p>
-        <p>
-          NFTs STARS Value:
-          {tokenFloors &&
-            Object.values(tokenFloors)
-              .map(({ amount, symbol }) => ` ${formatTokenAmount(amount, 6)}`)
-              .join(", ")}
-        </p>
-        <p>NFTs USD Value: {allNftsUsd}</p>
-        <p>************************************</p>
-      </div>
+          <p>Total Sneaky Value: {sneakyTokenUsdFormatted}</p>
+        </div>
+        <div className="col-12 col-md-6 col-xl-3">
+          <h4 className="fw-bold">NFTs</h4>
+          <p>Total NFTs: {totalNftsCount}</p>
+          <p>
+            NFTs STARS Value:
+            {tokenFloors &&
+              Object.values(tokenFloors)
+                .map(({ amount, symbol }) => ` ${formatTokenAmount(amount, 6)}`)
+                .join(", ")}
+          </p>
+          <p>NFTs USD Value: {allNftsUsd}</p>
+        </div>
     </div>
   );
 };

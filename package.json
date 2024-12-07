@@ -2,7 +2,7 @@
   "name": "sneaky-spa",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://kakucodes.github.io/sneaky-spa",
+  "homepage": "/",
   "dependencies": {
     "@babel/core": "^7.16.0",
     "@cosmjs/cosmwasm-stargate": "^0.31.3",

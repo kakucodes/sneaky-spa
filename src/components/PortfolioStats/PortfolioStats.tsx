@@ -47,6 +47,10 @@ export const PortfolioStats = ({ tokens, sneakyBalance }: Props) => {
         <p className="dokdo text-uppercase fw-bold fs-4">Total</p>
       </div>
 
+      <div
+        className="d-flex flex-column justify-content-center align-items-center text-center"
+      
+      >
       {osmosisBalance && stargazeBalance && (
         <StatsBreakdown
           {...{
@@ -60,6 +64,7 @@ export const PortfolioStats = ({ tokens, sneakyBalance }: Props) => {
           }}
         />
       )}
+      </div>
     </>
   );
 };

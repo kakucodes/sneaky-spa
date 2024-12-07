@@ -43,7 +43,9 @@ export const Main = () => {
       )}
       {/* Can show the user's nfts when all the nfts and the collections are loaded */}
       {userNfts && collections ? (
-        <div>
+        <div className="row gy-5">
+          <h3 className="h1 text-center fw-bold mb-2">Sneaky NFT Collection</h3>
+          <p className="mb-5 text-center mt-0">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maiores fugiat vel rem necessitatibus qui sequi nostrum unde. Error iusto consectetur corrupti voluptates quam. Ullam, velit maiores dolorem culpa doloribus necessitatibus.</p>
           {collections.map(({ collectionInfo, nfts }) => (
             <Collection
               key={collectionInfo.contractAddress}

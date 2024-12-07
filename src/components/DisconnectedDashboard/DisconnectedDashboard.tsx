@@ -15,11 +15,7 @@ export const DisconnectedDashboard = () => {
         <span>Dashboard</span>
         <br />
       </h2>
-      <p>
-        <strong>All</strong> your Sneaky assets,
-        <br />
-        all in one place.
-      </p>
+      <p><strong>All</strong> your Sneaky assets, <br />all in one place.</p>
       <button
         type="button"
         className={`btn ${
