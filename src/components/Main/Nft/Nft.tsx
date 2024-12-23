@@ -4,16 +4,10 @@ type Props = {
   token: NftFragment & { count: number };
 };
 
-export const Nft = ({
-  token: { name, metadata, rarityScore, tokenId, count },
-}: Props) => {
+export const Nft = ({ token: { name, metadata } }: Props) => {
   return (
-    <div className="col-12 col-md-6 col-xl-4">
-      <h4>
-        {name} {count > 1 && `x${count}`} 
-        {count === 1 && ` (#${tokenId})`}
-        <span className="text-uppercase small">{rarityScore && ` (${rarityScore.toFixed(0)})`}</span>
-      </h4>
+    <div className="col-10 col-xxl-7 col-xl-6 col-lg-8 col-sm-12">
+      <h4>{name}</h4>
       <img
         className="img-fluid custom-border custom-border-width mb-2"
         alt={name || ""}

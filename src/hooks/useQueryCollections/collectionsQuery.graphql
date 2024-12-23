@@ -11,6 +11,9 @@ query CollectionsQuery($filtersByAddrs: [String!]) {
         denom
         symbol
       }
+      categories {
+        public
+      }
       mintStatus
       highestOffer {
         offerPrice {

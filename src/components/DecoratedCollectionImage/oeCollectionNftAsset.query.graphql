@@ -1,0 +1,5 @@
+query OeCollectionNftAssetQuery($collectionAddr: String!, $tokenId: String!) {
+  token(collectionAddr: $collectionAddr, tokenId: $tokenId) {
+    metadata
+  }
+}
