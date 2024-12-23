@@ -1,5 +1,5 @@
 import { BalancesWithTotals } from "../../hooks/useQuerySneakyTokens";
-import { formatTokenAmount, formatUsd } from "../../utils/format";
+import { formatUsd } from "../../utils/format";
 import { queryNfts } from "../../hooks/useQueryNfts/useQueryUserNfts";
 import { nftsValueSummary, sneakyTokensSummary } from "./portfolioHelpers";
 import { StatsBreakdown } from "./StatsBreakdown";
@@ -32,13 +32,12 @@ export const PortfolioStats = ({ tokens, sneakyBalance }: Props) => {
   return (
     <div className={`border-bottom ${showBreakdown ? "pb-4" : ""} mb-5`}>
       <div className="d-flex justify-content-end align-items-center py-1 px-3">
-        <a
-          href="#"
-          className=" "
+        <span
+          className="link-primary cursor"
           onClick={() => setShowBreakdown(!showBreakdown)}
         >
           ↻ {showBreakdown ? "Less" : "More"} Deets
-        </a>
+        </span>
       </div>
       <div
         className="d-flex flex-column justify-content-center align-items-center text-center "

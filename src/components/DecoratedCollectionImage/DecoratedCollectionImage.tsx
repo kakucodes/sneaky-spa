@@ -35,8 +35,8 @@ export const DecoratedCollectionImage = ({
     `${formatTokenAmount(collection.floor.amount, 6)} ${
       collection.floor.symbol
     }`;
-  const collectionFloorUsd =
-    collection.floor?.amountUsd && formatUsd(collection.floor.amountUsd);
+  // const collectionFloorUsd =
+  //   collection.floor?.amountUsd && formatUsd(collection.floor.amountUsd);
 
   const MintInfo = match([
     collection.mintStatus,
@@ -73,12 +73,12 @@ export const DecoratedCollectionImage = ({
     .with([CollectionMintStatus.Upcoming, P._], () => "Coming Soon")
     .exhaustive();
 
-  // Sanitization function
-  const sanitizeName = (name: string): string =>
-    name
-      .replace(/\s+/g, "-")
-      .replace(/[^a-zA-Z0-9-]/g, "")
-      .toLowerCase();
+  // // Sanitization function
+  // const sanitizeName = (name: string): string =>
+  //   name
+  //     .replace(/\s+/g, "-")
+  //     .replace(/[^a-zA-Z0-9-]/g, "")
+  //     .toLowerCase();
 
   const renderTooltip = (props: TooltipProps) => (
     <Tooltip id="button-tooltip" {...props}>
@@ -86,7 +86,12 @@ export const DecoratedCollectionImage = ({
         <strong>{collection.name}</strong> - {collection.description}
       </p>
       {oeCollectionAsset && (
-        <img width="100px" className="mb-1" src={oeCollectionAsset} />
+        <img
+          alt={`${collection.name} nft art asset`}
+          width="100px"
+          className="mb-1"
+          src={oeCollectionAsset}
+        />
       )}
     </Tooltip>
   );

@@ -1,9 +1,7 @@
 export const LoadingPorfolioStats = () => (
   <div className={`border-bottom mb-5`}>
     <div className="d-flex justify-content-end align-items-center py-1 px-3">
-      <a href="#" className=" ">
-        &nbsp;
-      </a>
+      <span>&nbsp;</span>
     </div>
     <div
       className="d-flex flex-column justify-content-center align-items-center text-center "

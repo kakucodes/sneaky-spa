@@ -5,7 +5,6 @@ import {
   PLUSHIE_COLLECTION_ADDRS,
 } from "../../config";
 import { PortfolioStats } from "../PortfolioStats/PortfolioStats";
-import { Collection } from "./Collection/Collection";
 import { useQueryNfts } from "../../hooks/useQueryNfts/useQueryUserNfts";
 import { useAccount } from "graz";
 import { useQueryCollections } from "../../hooks/useQueryCollections/useQueryCollections";
