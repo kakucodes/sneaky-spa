@@ -1,6 +1,6 @@
 import { match, P } from "ts-pattern";
 import { CollectionInfo } from "../../hooks/useQueryCollections/useQueryCollections";
-import { formatTokenAmount, formatUsd } from "../../utils/format";
+import { formatTokenAmount } from "../../utils/format";
 import { CollectionMintStatus } from "../../gql/graphql";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip, { TooltipProps } from "react-bootstrap/Tooltip";
