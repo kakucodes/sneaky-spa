@@ -1,9 +1,10 @@
-import { useAccount, useConnect, useDisconnect } from "graz";
+import { useAccount, useDisconnect } from "graz";
+import { useWalletConnectModal } from "../WalletConnectionModal/ConnectionModalProvider";
 
 export const Header = () => {
+  const { openModal } = useWalletConnectModal();
   const { isConnected } = useAccount();
   const { disconnect } = useDisconnect();
-  const { connect } = useConnect();
 
   console.log("isConnected: ", isConnected);
 
@@ -35,7 +36,7 @@ export const Header = () => {
             ) : (
               <button
                 type="button"
-                onClick={() => connect()}
+                onClick={openModal}
                 className="btn btn-outline-dark"
               >
                 Connect
