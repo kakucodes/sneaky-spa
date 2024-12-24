@@ -7,6 +7,7 @@ import Tooltip, { TooltipProps } from "react-bootstrap/Tooltip";
 
 import { useMemo } from "react";
 import { isOECollectionAddress, OE_ASSET_URLS } from "../../config";
+import { RoughLink } from "../RoughLink/RoughLink";
 
 type Props = {
   collection: CollectionInfo;
@@ -55,25 +56,23 @@ export const DecoratedCollectionImage = ({
       () => undefined
     )
     .with([CollectionMintStatus.Minting, P._], () => (
-      <a
-        className="link-offset-2 link-underline-opacity-0 link-dark"
-        target="_blank"
-        referrerPolicy="no-referrer"
-        rel="noreferrer"
+      // <a
+      //   className="link-offset-2 link-underline-opacity-0 link-dark"
+      //   target="_blank"
+      //   referrerPolicy="no-referrer"
+      //   rel="noreferrer"
+      //   href={`https://www.stargaze.zone/l/${collection.contractAddress}`}
+      // >
+      <RoughLink
         href={`https://www.stargaze.zone/l/${collection.contractAddress}`}
       >
         <span>Mint Now!</span>
-      </a>
+      </RoughLink>
+
+      // </a>
     ))
     .with([CollectionMintStatus.Upcoming, P._], () => "Coming Soon")
     .exhaustive();
-
-  // // Sanitization function
-  // const sanitizeName = (name: string): string =>
-  //   name
-  //     .replace(/\s+/g, "-")
-  //     .replace(/[^a-zA-Z0-9-]/g, "")
-  //     .toLowerCase();
 
   const renderTooltip = (props: TooltipProps) => (
     <Tooltip id="button-tooltip" {...props}>
