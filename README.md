@@ -1,46 +1,84 @@
-# Getting Started with Create React App
+# Sneaky SPA
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The Sneaky Dashboard is a single-page application (SPA) that allows users to view their holdings in the Sneakyverse.
 
-## Available Scripts
+## Prerequisites
 
-In the project directory, you can run:
+- Node.js (LTS version recommended)
+- npm
 
-### `yarn start`
+## Installation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Install all dependencies by running:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```bash
+npm i
+```
 
-### `yarn test`
+## Available Commands
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Development Server
 
-### `yarn build`
+Start the development server:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+npm start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Code Generation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Generate Graz and GraphQL code:
 
-### `yarn eject`
+```bash
+npm codegen
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Configuration
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The application configuration is managed in `src/config.ts`. This file needs to be updated when:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+1. Adding new collection contract addresses
+2. Adding art assets for open edition collections
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Collection Configuration Example
 
-## Learn More
+Collection addresses are organized into different arrays based on their type:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```typescript
+// Plushie Collections
+export const PLUSHIE_COLLECTION_ADDRS = [
+  // Sneaky Plushies - Happy Pig
+  "stars134kzejtqk2hpfzvzfh8lz9dreuf40lyz2ucz3qpls6mmczr2dwlqx3t0t8",
+  // Sneaky Plushies - Bitgirl
+  "stars170ff0vmv8adyp0gsxecpmaewfhg2w00pkdkpag3kwsh4yw8ftc4saxhy4x",
+  // Sneaky Plushies - Jack Penguin
+  "stars1ej3e2nhjgwhtmlsec3vkzw49566syyccl3f75ujr8m6t22ue07sqwz4vmp",
+  // Sneaky Plushies - Celestine Sloth 884
+  "stars1yrrhhz9k5tg9g76pfzu3px49urhyh7kn3tgp39n337chz29cpqqqqcaqcp",
+  // Mad Scientist Plushie
+  "stars18vf62p06ku5wzwqe2lr2jmzglhfvhdyal4p98emxf7x6q5v7u3cq5fxn23",
+];
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+// Combined Collections (determines render order)
+export const COLLECTION_ADDRS = [
+  ...MAIN_COLLECTION_ADDRS,
+  ...OPEN_EDITION_COLLECTION_ADDRS,
+  ...PLUSHIE_COLLECTION_ADDRS,
+];
+```
+
+### Open Edition Asset Configuration
+
+For open edition collections, asset URLs must be configured in the `OE_ASSET_URLS` object:
+
+```typescript
+export const OE_ASSET_URLS: Record<OpenEditionCollectionAddr, string> = {
+  stars1jfpej6sts325ww78u4m5g8gxdwuuw08rcspr707c43784jcrlqjs75ftxk: `${process.env.PUBLIC_URL}/oe/unluckypig-asset.jpg`,
+  stars1zyh20slfdscdxdxqxmfhjnt3zdeh3hmv0zhlmtrp7p5zvntturasdhw057: `${process.env.PUBLIC_URL}/oe/sneakyworld-asset.jpg`,
+  stars1n4vuu7kr5cv793jh8t0htnr5wvkjywg452yp6y03f7q6w3747aaqxfkjch: `${process.env.PUBLIC_URL}/oe/sneakyriddler-asset.jpg`,
+  stars1fpyg089fandugsvc6yhv3dlqtuhk2prh6f3xmxydj7mhdacaqv5svngnlk: `${process.env.PUBLIC_URL}/oe/sneakyheaven-asset.jpg`,
+  stars18ahxl5x0pmzg6hsrjy5d7kam9azxf53chm69pqn3trzx5as920vq20ts87: `${process.env.PUBLIC_URL}/oe/sneakyhell-asset.jpg`,
+};
+```
+
+Make sure to place the corresponding asset files in the `public/oe/` directory.
