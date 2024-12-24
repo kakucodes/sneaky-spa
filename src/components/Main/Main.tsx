@@ -94,6 +94,7 @@ export const Main = () => {
           <HorizontalCollectionRoll
             title="Open Editions"
             collections={oeCollections}
+            showCollectionTitles={false}
           />
           <HorizontalCollectionRoll
             title="Plushies"

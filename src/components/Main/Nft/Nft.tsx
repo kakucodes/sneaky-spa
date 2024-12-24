@@ -6,7 +6,7 @@ type Props = {
 
 export const Nft = ({ token: { name, metadata } }: Props) => {
   return (
-    <div className="col-10 col-xxl-7 col-xl-6 col-lg-8 col-sm-12">
+    <div className="col-10 col-xxl-9 col-xl-9 col-lg-10 col-md-11 col-sm-12">
       <h4>{name}</h4>
       <img
         className="img-fluid custom-border custom-border-width mb-2"

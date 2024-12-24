@@ -11,7 +11,7 @@ type Props = {
   collection: CollectionInfo;
   ownedCount: number | false;
   makeCollectionImageSquare?: boolean;
-
+  showCollectionTitle?: boolean;
   showCollectionImage?: boolean;
   descriptionTooltip?: boolean;
 };
@@ -22,6 +22,7 @@ export const DecoratedCollectionImage = ({
   makeCollectionImageSquare = false,
   showCollectionImage = true,
   descriptionTooltip = true,
+  showCollectionTitle = true,
 }: Props) => {
   const { data: oeCollectionAsset } = useQueryOeCollectionImage(
     collection.contractAddress,
@@ -43,8 +44,8 @@ export const DecoratedCollectionImage = ({
 
     collection.minter?.publicSale?.endTime,
   ])
-    .with([CollectionMintStatus.FullyMinted, P._], () => "Fully Minted")
-    .with([P.nullish, P._], () => "Unknown")
+    .with([CollectionMintStatus.FullyMinted, P._], () => undefined)
+    .with([P.nullish, P._], () => undefined)
     .with(
       [
         CollectionMintStatus.Minting,
@@ -57,7 +58,7 @@ export const DecoratedCollectionImage = ({
           )
         ),
       ],
-      () => "Mint Finished"
+      () => undefined
     )
     .with([CollectionMintStatus.Minting, P._], () => (
       <a
@@ -110,11 +111,13 @@ export const DecoratedCollectionImage = ({
         <div
           className={`d-flex flex-column align-items-center mt-md-${randomNumber}`}
         >
-          <h3
-            className={`h5 bg-white bg-opacity-75 fw-bold text-dark border border-dark custom-border custom-border-width text-nowrap test p-1 px-2 z-3 title-rotate-${randomNumber}`}
-          >
-            {collection.name}
-          </h3>
+          {showCollectionTitle && (
+            <h3
+              className={`h5 bg-white bg-opacity-75 fw-bold text-dark border border-dark custom-border custom-border-width text-nowrap test p-1 px-2 z-3 title-rotate-${randomNumber}`}
+            >
+              {collection.name}
+            </h3>
+          )}
           <div className={`mb-4 rotate-${randomNumber}`}>
             <div className="position-relative d-inline-block">
               {
@@ -134,9 +137,11 @@ export const DecoratedCollectionImage = ({
                   }
                 />
               }
-              <p className="position-absolute top-0 end-0 bg-white bg-opacity-75 small fw-bold text-dark border-dark custom-border custom-border-width-2 px-2 py-1 shadow-sm mt-3 me-3">
-                {MintInfo}
-              </p>
+              {MintInfo && (
+                <p className="position-absolute top-0 end-0 bg-white bg-opacity-75 small fw-bold text-dark border-dark custom-border custom-border-width-2 px-2 py-1 shadow-sm mt-3 me-3">
+                  {MintInfo}
+                </p>
+              )}
               {ownedCount !== false && (
                 <p className="position-absolute bottom-0 start-0 bg-white bg-opacity-75 small fw-bold text-dark border-dark custom-border custom-border-width-2 px-2 py-1 shadow-sm mb-3 ms-3">
                   <span>Owned: {ownedCount}</span>

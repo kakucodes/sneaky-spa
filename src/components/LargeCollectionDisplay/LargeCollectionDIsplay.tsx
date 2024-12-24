@@ -11,16 +11,21 @@ type Props = {
 export const LargeCollectionDisplay = ({ collection, nfts }: Props) => {
   console.log({ nfts });
   return (
-    <div className="row ">
-      <div className="col-4 col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12">
-        <DecoratedCollectionImage collection={collection} ownedCount={false} />
+    <div className="row">
+      <div className="col-4 col-xxl-3 col-xl-3 col-lg-3 col-md-5 col-xs-12">
+        <DecoratedCollectionImage
+          collection={collection}
+          ownedCount={false}
+          showCollectionTitle={false}
+        />
       </div>
-      <div className="row col-8 col-xxl-9 col-xl-9 col-lg-9 col-md-6 col-sm-12 col-xs-12 mb-2 border-bottom gx-1">
+
+      <div className="row col-8 col-xxl-9 col-xl-9 col-lg-9 col-md-7 col-sm-12 col-xs-12 mb-2 border-bottom gx-1 ">
         {nfts.length > 0 ? (
           nfts.map((nft) => (
             <div
               key={nft.tokenId}
-              className="col-4 col-xxl-3 col-lg-4 col-md-6 col-sm-6"
+              className="d-flex flex-column align-items-center col-4 col-xxl-3 col-lg-4 col-md-6 col-sm-6"
             >
               <Nft
                 // @ts-ignore

@@ -7,6 +7,7 @@ type Props = {
   collections: { collectionInfo: CollectionInfo; nfts: NftInfo[] }[];
   showCollectionImage?: boolean;
   makeCollectionImagesSquare?: boolean;
+  showCollectionTitles?: boolean;
 };
 
 export const HorizontalCollectionRoll = ({
@@ -14,6 +15,7 @@ export const HorizontalCollectionRoll = ({
   collections,
   showCollectionImage = true,
   makeCollectionImagesSquare = false,
+  showCollectionTitles = true,
 }: Props) => {
   return (
     <div>
@@ -27,6 +29,7 @@ export const HorizontalCollectionRoll = ({
             ownedCount={nfts.length}
             makeCollectionImageSquare={makeCollectionImagesSquare}
             showCollectionImage={showCollectionImage}
+            showCollectionTitle={showCollectionTitles}
           />
         ))}
       </div>
