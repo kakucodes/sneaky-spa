@@ -9,6 +9,7 @@ import { usePrefetchQueries } from "./hooks/usePrefetchQueries";
 
 function App() {
   usePrefetchQueries();
+
   return (
     <div className="container-xxl">
       <Header />
