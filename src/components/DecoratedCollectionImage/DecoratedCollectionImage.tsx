@@ -6,6 +6,7 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip, { TooltipProps } from "react-bootstrap/Tooltip";
 import { useQueryOeCollectionImage } from "./useQueryOeCollectionImage";
 import { useMemo } from "react";
+import { isOECollectionAddress, OE_ASSET_URLS } from "../../config";
 
 type Props = {
   collection: CollectionInfo;
@@ -24,12 +25,6 @@ export const DecoratedCollectionImage = ({
   descriptionTooltip = true,
   showCollectionTitle = true,
 }: Props) => {
-  const { data: oeCollectionAsset } = useQueryOeCollectionImage(
-    collection.contractAddress,
-    showCollectionImage &&
-      Boolean(collection.categories?.public?.includes("Open Edition"))
-  );
-
   const collectionFloor =
     collection.floor &&
     collection.floor.symbol &&
@@ -86,12 +81,12 @@ export const DecoratedCollectionImage = ({
       <p>
         <strong>{collection.name}</strong> - {collection.description}
       </p>
-      {oeCollectionAsset && (
+      {isOECollectionAddress(collection.contractAddress) && (
         <img
           alt={`${collection.name} nft art asset`}
           width="100px"
           className="mb-1"
-          src={oeCollectionAsset}
+          src={OE_ASSET_URLS[collection.contractAddress]}
         />
       )}
     </Tooltip>

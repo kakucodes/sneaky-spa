@@ -1,5 +1,6 @@
 import {
   COLLECTION_ADDRS,
+  isOECollectionAddress,
   MAIN_COLLECTION_ADDRS,
   OPEN_EDITION_COLLECTION_ADDRS,
   PLUSHIE_COLLECTION_ADDRS,
@@ -50,7 +51,7 @@ export const Main = () => {
 
   const oeCollections = (collections || []).filter(
     ({ collectionInfo: { contractAddress } }) =>
-      OPEN_EDITION_COLLECTION_ADDRS.includes(contractAddress)
+      isOECollectionAddress(contractAddress)
   );
 
   const plushieCollections = (collections || []).filter(
