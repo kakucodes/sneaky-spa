@@ -4,7 +4,7 @@ import { formatTokenAmount } from "../../utils/format";
 import { CollectionMintStatus } from "../../gql/graphql";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip, { TooltipProps } from "react-bootstrap/Tooltip";
-import { useQueryOeCollectionImage } from "./useQueryOeCollectionImage";
+
 import { useMemo } from "react";
 import { isOECollectionAddress, OE_ASSET_URLS } from "../../config";
 
@@ -13,7 +13,6 @@ type Props = {
   ownedCount: number | false;
   makeCollectionImageSquare?: boolean;
   showCollectionTitle?: boolean;
-  showCollectionImage?: boolean;
   descriptionTooltip?: boolean;
 };
 
@@ -21,7 +20,7 @@ export const DecoratedCollectionImage = ({
   collection,
   ownedCount,
   makeCollectionImageSquare = false,
-  showCollectionImage = true,
+
   descriptionTooltip = true,
   showCollectionTitle = true,
 }: Props) => {

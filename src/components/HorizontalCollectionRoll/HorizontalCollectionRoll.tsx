@@ -5,7 +5,6 @@ import { DecoratedCollectionImage } from "../DecoratedCollectionImage/DecoratedC
 type Props = {
   title: string;
   collections: { collectionInfo: CollectionInfo; nfts: NftInfo[] }[];
-  showCollectionImage?: boolean;
   makeCollectionImagesSquare?: boolean;
   showCollectionTitles?: boolean;
 };
@@ -13,7 +12,7 @@ type Props = {
 export const HorizontalCollectionRoll = ({
   title,
   collections,
-  showCollectionImage = true,
+
   makeCollectionImagesSquare = false,
   showCollectionTitles = true,
 }: Props) => {
@@ -28,7 +27,6 @@ export const HorizontalCollectionRoll = ({
             collection={collectionInfo}
             ownedCount={nfts.length}
             makeCollectionImageSquare={makeCollectionImagesSquare}
-            showCollectionImage={showCollectionImage}
             showCollectionTitle={showCollectionTitles}
           />
         ))}

@@ -2,7 +2,6 @@ import {
   COLLECTION_ADDRS,
   isOECollectionAddress,
   MAIN_COLLECTION_ADDRS,
-  OPEN_EDITION_COLLECTION_ADDRS,
   PLUSHIE_COLLECTION_ADDRS,
 } from "../../config";
 import { PortfolioStats } from "../PortfolioStats/PortfolioStats";
@@ -100,7 +99,6 @@ export const Main = () => {
           <HorizontalCollectionRoll
             title="Plushies"
             collections={plushieCollections}
-            showCollectionImage={false}
             makeCollectionImagesSquare
           />
         </div>

@@ -1,8 +1,4 @@
-import { useAccount } from "graz";
-
 export const Footer = () => {
-  const { isConnected } = useAccount();
-
   return (
     <footer className="fixed-bottom">
       <div className="container-xxl pb-3">
