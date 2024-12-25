@@ -3,6 +3,7 @@ import { Play, Pause, SkipForward, Volume2, VolumeX } from "lucide-react";
 import { useState } from "react";
 import MarqueeText from "react-marquee-text";
 import "react-marquee-text/dist/styles.css";
+import { SNEAKY_RADIO_TRACKS } from "../../config";
 
 export const AudioPlayer = () => {
   const [playing, setPlaying] = useState(false);
@@ -10,35 +11,7 @@ export const AudioPlayer = () => {
   const [currentTrack, setCurrentTrack] = useState(0);
   const [showArtwork, setShowArtwork] = useState(false);
 
-  const tracks: { src: string; cover: string; title: string }[] = [
-    {
-      src: `${process.env.PUBLIC_URL}/music/unicornqueen.aac`,
-      cover: `${process.env.PUBLIC_URL}/music/unicornqueen.jpg`,
-      title: "🎶Unicorn Queen🎶",
-    },
-    {
-      src: `${process.env.PUBLIC_URL}/music/thegrandescape.aac`,
-      cover: `${process.env.PUBLIC_URL}/music/thegrandescape.jpg`,
-      title: "🎵The Grand Escape🎵",
-    },
-    {
-      src: `${process.env.PUBLIC_URL}/music/animalechoes.aac`,
-      cover: `${process.env.PUBLIC_URL}/music/animalechoes.jpg`,
-      title: "🎶Animal Echoes🎶",
-    },
-    {
-      src: `${process.env.PUBLIC_URL}/music/smokersclub.aac`,
-      cover: `${process.env.PUBLIC_URL}/music/smokersclub.jpg`,
-      title: "🎶Smokers Club🎶",
-    },
-    {
-      src: `${process.env.PUBLIC_URL}/music/dremmettbrown.aac`,
-      cover: `${process.env.PUBLIC_URL}/music/dremmettbrown.jpg`,
-      title: "🎶Dr. Emmett Brown🎶",
-    },
-  ];
-
-  const currentlyPlaying = tracks[currentTrack];
+  const currentlyPlaying = SNEAKY_RADIO_TRACKS[currentTrack];
 
   return (
     <div
@@ -52,7 +25,7 @@ export const AudioPlayer = () => {
         playing={playing}
         mute={muted}
         onEnd={() =>
-          currentTrack < tracks.length - 1
+          currentTrack < SNEAKY_RADIO_TRACKS.length - 1
             ? setCurrentTrack((curr) => curr + 1)
             : setPlaying(false)
         }
@@ -89,7 +62,7 @@ export const AudioPlayer = () => {
           <button
             onClick={() =>
               setCurrentTrack((curr) =>
-                curr < tracks.length - 1 ? curr + 1 : 0
+                curr < SNEAKY_RADIO_TRACKS.length - 1 ? curr + 1 : 0
               )
             }
           >
