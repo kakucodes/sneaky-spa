@@ -59,6 +59,38 @@ export const OE_ASSET_URLS: Record<OpenEditionCollectionAddr, string> = {
   stars18ahxl5x0pmzg6hsrjy5d7kam9azxf53chm69pqn3trzx5as920vq20ts87: `${process.env.PUBLIC_URL}/oe/sneakyhell-asset.jpg`,
 };
 
+export const SNEAKY_RADIO_TRACKS: {
+  src: string;
+  cover: string;
+  title: string;
+}[] = [
+  {
+    src: `${process.env.PUBLIC_URL}/music/unicornqueen.aac`,
+    cover: `${process.env.PUBLIC_URL}/music/unicornqueen.jpg`,
+    title: "🎶Unicorn Queen🎶",
+  },
+  {
+    src: `${process.env.PUBLIC_URL}/music/thegrandescape.aac`,
+    cover: `${process.env.PUBLIC_URL}/music/thegrandescape.jpg`,
+    title: "🎵The Grand Escape🎵",
+  },
+  {
+    src: `${process.env.PUBLIC_URL}/music/animalechoes.aac`,
+    cover: `${process.env.PUBLIC_URL}/music/animalechoes.jpg`,
+    title: "🎶Animal Echoes🎶",
+  },
+  {
+    src: `${process.env.PUBLIC_URL}/music/smokersclub.aac`,
+    cover: `${process.env.PUBLIC_URL}/music/smokersclub.jpg`,
+    title: "🎶Smokers Club🎶",
+  },
+  {
+    src: `${process.env.PUBLIC_URL}/music/dremmettbrown.aac`,
+    cover: `${process.env.PUBLIC_URL}/music/dremmettbrown.jpg`,
+    title: "🎶Dr. Emmett Brown🎶",
+  },
+];
+
 export const isOECollectionAddress = (
   address: string
 ): address is OpenEditionCollectionAddr =>
