@@ -30,7 +30,7 @@ export const RoughLink = ({
         annotation.remove();
       }
     };
-  }, []);
+  }, [annotation]);
 
   const handleMouseEnter = () => {
     if (annotation) {
@@ -54,6 +54,8 @@ export const RoughLink = ({
       href={href}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onTouchStart={handleMouseEnter}
+      onTouchEnd={handleMouseLeave}
     >
       {children}
     </a>
