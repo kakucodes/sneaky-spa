@@ -12,7 +12,7 @@ export const LargeCollectionDisplay = ({ collection, nfts }: Props) => {
   console.log({ nfts });
   return (
     <div className="row">
-      <div className="col-4 col-xxl-3 col-xl-3 col-lg-3 col-md-5 col-xs-12">
+      <div className="col-12 col-xxl-3 col-xl-3 col-lg-3 col-md-5 col-sm-6 col-xs-12">
         <DecoratedCollectionImage
           collection={collection}
           ownedCount={false}
@@ -20,7 +20,7 @@ export const LargeCollectionDisplay = ({ collection, nfts }: Props) => {
         />
       </div>
 
-      <div className="row col-8 col-xxl-9 col-xl-9 col-lg-9 col-md-7 col-sm-12 col-xs-12 mb-2 border-bottom gx-1 ">
+      <div className="row col-12 col-xxl-9 col-xl-9 col-lg-9 col-md-7 col-sm-6 col-xs-12 mb-2 border-bottom gx-1 ">
         {nfts.length > 0 ? (
           nfts.map((nft) => (
             <div
@@ -36,6 +36,7 @@ export const LargeCollectionDisplay = ({ collection, nfts }: Props) => {
         ) : (
           <div
             style={{
+              width: "100%",
               border: "5px dashed gray",
               borderRadius: "15px",
               maxHeight: "97%",
