@@ -1,10 +1,14 @@
+import { useEffect } from "react";
 import { STARGAZE_POOL } from "../config";
-import { usePrefetchCollections } from "./useQueryCollections/useQueryCollections";
+import { useQueryCollections } from "./useQueryCollections/useQueryCollections";
 import { usePrefetchOsmosisToken } from "./useQueryOsmosisToken";
 import { useQueryStardexSneakyPairInfo } from "./useQueryStardexPoolPair";
 
 export const usePrefetchQueries = () => {
-  useQueryStardexSneakyPairInfo(STARGAZE_POOL);
-  usePrefetchCollections();
+  const { isFetched: areStardexPairsFetched } =
+    useQueryStardexSneakyPairInfo(STARGAZE_POOL);
+  const { isFetched: areCollectionsFetched } = useQueryCollections();
   usePrefetchOsmosisToken("SNEAKY");
+
+  return { isFetched: areStardexPairsFetched && areCollectionsFetched };
 };

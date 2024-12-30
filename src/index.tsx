@@ -10,6 +10,8 @@ import { WalletModalContextProvider } from "./components/WalletConnectionModal/C
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+const initialLoader = document.getElementById("initial-loader");
+
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={new QueryClient()}>
@@ -84,7 +86,9 @@ root.render(
         }}
       >
         <WalletModalContextProvider>
-          <App />
+          <App
+            onPrefetchComplete={() => initialLoader && initialLoader.remove()}
+          />
         </WalletModalContextProvider>
       </GrazProvider>
     </QueryClientProvider>
