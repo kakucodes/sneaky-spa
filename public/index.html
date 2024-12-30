@@ -71,10 +71,10 @@
         overflow: hidden;
       }
 
-      .sneaky-bus {
+      .walking-bus {
         position: absolute;
         width: 250px;
-        animation: drive 6s linear infinite;
+        animation: pigWalk 6s linear infinite;
         z-index: 11;
       }
 
@@ -94,12 +94,12 @@
         text-align: center;
       }
 
-      @keyframes drive {
+      @keyframes pigWalk {
         from {
-          transform: translateX(calc(50vw + 50%));
+          transform: translateX(calc(-50vw - 50%));
         }
         to {
-          transform: translateX(calc(-50vw - 50%));
+          transform: translateX(calc(50vw + 50%));
         }
       }
 
@@ -131,9 +131,9 @@
         class="sneaky-logo"
       />
       <img
-        src="%PUBLIC_URL%/sneakybus.png"
-        alt="Magic Sneak Bus"
-        class="sneaky-bus"
+        src="%PUBLIC_URL%/walkingpig.gif"
+        alt="Walking Happy Pig"
+        class="walking-bus"
       />
     </div>
     <div id="root"></div>
