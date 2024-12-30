@@ -45,7 +45,8 @@ h6 {
 
 /* Custom Button (Paper Look) */
 button,
-.btn {
+.btn,
+.btn-style {
   font-family: "Dokdo", system-ui;
   border-bottom-left-radius: 15px 255px;
   border-bottom-right-radius: 225px 15px;

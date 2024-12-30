@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { STARGAZE_POOL } from "../config";
 import { useQueryCollections } from "./useQueryCollections/useQueryCollections";
 import { usePrefetchOsmosisToken } from "./useQueryOsmosisToken";
