@@ -1,7 +1,7 @@
 import { CollectionInfo } from "../../hooks/useQueryCollections/useQueryCollections";
 import { NftInfo } from "../../hooks/useQueryNfts/useQueryUserNfts";
 import { DecoratedCollectionImage } from "../DecoratedCollectionImage/DecoratedCollectionImage";
-import { Nft } from "../Main/Nft/Nft";
+import { Nft } from "../Dashboard/Nft/Nft";
 
 type Props = {
   collection: CollectionInfo;

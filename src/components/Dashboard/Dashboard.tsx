@@ -15,7 +15,7 @@ import { LoadingPorfolioStats } from "../PortfolioStats/LoadingPortfolioStats";
 import { HorizontalCollectionRoll } from "../HorizontalCollectionRoll/HorizontalCollectionRoll";
 import { LargeCollectionDisplay } from "../LargeCollectionDisplay/LargeCollectionDIsplay";
 
-export const Main = () => {
+export const Dashboard = () => {
   const { data: userNfts } = useQueryNfts();
   const { data: sneakyBalance, areAnyLoading: isSneakyBalanceLoading } =
     useQuerySneakyTokens();
