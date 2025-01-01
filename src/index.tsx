@@ -5,11 +5,7 @@ import reportWebVitals from "./reportWebVitals";
 import { GrazProvider } from "graz";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WalletModalContextProvider } from "./components/WalletConnectionModal/ConnectionModalProvider";
-import {
-  RouterProvider,
-  createBrowserHistory,
-  createRouter,
-} from "@tanstack/react-router";
+import { RouterProvider, createRouter } from "@tanstack/react-router";
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen";
 
