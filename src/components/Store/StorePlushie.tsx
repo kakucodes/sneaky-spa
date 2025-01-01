@@ -84,15 +84,13 @@ export const StorePlushie = ({
         )}
         {note && <p className="small">{note}</p>}
         <div className="dropdown-center">
-          <a
+          <button
             className="btn btn-dark dropdown-toggle"
-            href="#"
-            role="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
             Buy
-          </a>
+          </button>
           <ul className="dropdown-menu text-center">
             <li>
               <a

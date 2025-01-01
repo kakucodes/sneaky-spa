@@ -1,16 +1,33 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { GrazProvider } from "graz";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WalletModalContextProvider } from "./components/WalletConnectionModal/ConnectionModalProvider";
+import {
+  RouterProvider,
+  createBrowserHistory,
+  createRouter,
+} from "@tanstack/react-router";
+// Import the generated route tree
+import { routeTree } from "./routeTree.gen";
+
+// Create a new router instance
+const router = createRouter({
+  routeTree,
+  basepath: "/sneaky-spa",
+});
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
-const initialLoader = document.getElementById("initial-loader");
+
+declare module "@tanstack/react-router" {
+  interface Register {
+    router: typeof router;
+  }
+}
 
 root.render(
   <React.StrictMode>
@@ -86,9 +103,7 @@ root.render(
         }}
       >
         <WalletModalContextProvider>
-          <App
-            onPrefetchComplete={() => initialLoader && initialLoader.remove()}
-          />
+          <RouterProvider router={router} />
         </WalletModalContextProvider>
       </GrazProvider>
     </QueryClientProvider>

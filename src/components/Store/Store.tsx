@@ -42,10 +42,7 @@ export const Store = () => {
   return (
     <div className="container-fluid">
       <div className="row text-center">
-        <h4 className="text-uppercase fw-bold my-4">
-          Sneaky Shop <span className="badge text-bg-secondary">Alfa</span>
-        </h4>
-        <div className="alert alert-info py-1 pt-2" role="alert">
+        <div className="alert alert-info py-1 pt-2 mt-4" role="alert">
           <p className="small mb-0">
             <b>Note: </b>Prices incl. shipping and handling but <b>not</b>{" "}
             import duties or taxes. Regions vary.

@@ -1,5 +1,7 @@
 // import { AudioPlayer } from "../AudioPlayer/AudioPlayer";
 
+import { Link } from "@tanstack/react-router";
+
 export const Footer = () => {
   return (
     <footer className="fixed-bottom">
@@ -21,7 +23,7 @@ export const Footer = () => {
                 href="https://x.com/SneakyProds"
                 target="_blank"
                 rel="noreferrer"
-                className="text-truncate text-decoration-none text-center d-flex flex-column align-items-center"
+                className=" disabled text-truncate text-decoration-none text-center d-flex flex-column align-items-center"
               >
                 <img
                   height={35}
@@ -34,10 +36,11 @@ export const Footer = () => {
               </a>
             </div>
             <div className="col text-center">
-              <a
-                href="https://x.com/SneakyProds"
-                target="_blank"
-                rel="noreferrer"
+              <Link
+                to="/shop"
+                // href="https://x.com/SneakyProds"
+                // target="_blank"
+                // rel="noreferrer"
                 className="text-truncate text-decoration-none text-center d-flex flex-column align-items-center"
               >
                 <img
@@ -48,7 +51,7 @@ export const Footer = () => {
                   className="img-fluid"
                 />
                 Shop
-              </a>
+              </Link>
             </div>
             <div className="col text-center">
               <a
