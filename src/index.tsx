@@ -9,6 +9,15 @@ import { RouterProvider, createRouter } from "@tanstack/react-router";
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen";
 
+export type RouterContext = {
+  headerTitle: string;
+  meta: {
+    title: string;
+    description: string;
+    image: string;
+  };
+};
+
 // Create a new router instance
 const router = createRouter({
   routeTree,

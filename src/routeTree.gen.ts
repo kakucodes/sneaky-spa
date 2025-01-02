@@ -8,37 +8,32 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { createFileRoute } from '@tanstack/react-router'
-
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-
-// Create Virtual Routes
-
-const ShopLazyImport = createFileRoute('/shop')()
-const DashboardLazyImport = createFileRoute('/dashboard')()
-const IndexLazyImport = createFileRoute('/')()
+import { Route as ShopImport } from './routes/shop'
+import { Route as DashboardImport } from './routes/dashboard'
+import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
 
-const ShopLazyRoute = ShopLazyImport.update({
+const ShopRoute = ShopImport.update({
   id: '/shop',
   path: '/shop',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/shop.lazy').then((d) => d.Route))
+} as any)
 
-const DashboardLazyRoute = DashboardLazyImport.update({
+const DashboardRoute = DashboardImport.update({
   id: '/dashboard',
   path: '/dashboard',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/dashboard.lazy').then((d) => d.Route))
+} as any)
 
-const IndexLazyRoute = IndexLazyImport.update({
+const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+} as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -48,21 +43,21 @@ declare module '@tanstack/react-router' {
       id: '/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexLazyImport
+      preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
     '/dashboard': {
       id: '/dashboard'
       path: '/dashboard'
       fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardLazyImport
+      preLoaderRoute: typeof DashboardImport
       parentRoute: typeof rootRoute
     }
     '/shop': {
       id: '/shop'
       path: '/shop'
       fullPath: '/shop'
-      preLoaderRoute: typeof ShopLazyImport
+      preLoaderRoute: typeof ShopImport
       parentRoute: typeof rootRoute
     }
   }
@@ -71,22 +66,22 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexLazyRoute
-  '/dashboard': typeof DashboardLazyRoute
-  '/shop': typeof ShopLazyRoute
+  '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
+  '/shop': typeof ShopRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexLazyRoute
-  '/dashboard': typeof DashboardLazyRoute
-  '/shop': typeof ShopLazyRoute
+  '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
+  '/shop': typeof ShopRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/': typeof IndexLazyRoute
-  '/dashboard': typeof DashboardLazyRoute
-  '/shop': typeof ShopLazyRoute
+  '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
+  '/shop': typeof ShopRoute
 }
 
 export interface FileRouteTypes {
@@ -99,15 +94,15 @@ export interface FileRouteTypes {
 }
 
 export interface RootRouteChildren {
-  IndexLazyRoute: typeof IndexLazyRoute
-  DashboardLazyRoute: typeof DashboardLazyRoute
-  ShopLazyRoute: typeof ShopLazyRoute
+  IndexRoute: typeof IndexRoute
+  DashboardRoute: typeof DashboardRoute
+  ShopRoute: typeof ShopRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexLazyRoute: IndexLazyRoute,
-  DashboardLazyRoute: DashboardLazyRoute,
-  ShopLazyRoute: ShopLazyRoute,
+  IndexRoute: IndexRoute,
+  DashboardRoute: DashboardRoute,
+  ShopRoute: ShopRoute,
 }
 
 export const routeTree = rootRoute
@@ -126,13 +121,13 @@ export const routeTree = rootRoute
       ]
     },
     "/": {
-      "filePath": "index.lazy.tsx"
+      "filePath": "index.tsx"
     },
     "/dashboard": {
-      "filePath": "dashboard.lazy.tsx"
+      "filePath": "dashboard.tsx"
     },
     "/shop": {
-      "filePath": "shop.lazy.tsx"
+      "filePath": "shop.tsx"
     }
   }
 }
