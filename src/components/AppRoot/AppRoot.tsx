@@ -6,6 +6,7 @@ import { Footer } from "../Footer/Footer";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "../../App.css";
+import { Navigation } from "../Navigation/Navigation";
 
 const initialLoader = document.getElementById("initial-loader");
 
@@ -24,6 +25,7 @@ export const AppRoot = () => {
       {/* <Dashboard /> */}
       {/* <Store /> */}
       <Outlet />
+
       <Footer />
     </div>
   ) : (
