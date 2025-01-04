@@ -85,32 +85,6 @@ export const loadSheetData = async <T extends z.ZodType>(
   }
 };
 
-const validateRow = <T extends z.ZodType>(
-  schema: T,
-  rowData: Record<string, string>,
-  rowIndex: number
-): { item?: z.infer<T>; error?: ValidationError } => {
-  try {
-    const item = schema.parse(rowData);
-    return { item };
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      return {
-        error: {
-          row: rowIndex,
-          message: error.errors.map((e) => e.message).join(", "),
-        },
-      };
-    }
-    return {
-      error: {
-        row: rowIndex,
-        message: "Unknown validation error",
-      },
-    };
-  }
-};
-
 const rowToObject = (headers: string[], row: string[]) =>
   headers.reduce(
     (obj, header, index) => ({
