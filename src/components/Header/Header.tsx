@@ -2,8 +2,12 @@ import { useAccount, useDisconnect } from "graz";
 import { useWalletConnectModal } from "../WalletConnectionModal/ConnectionModalProvider";
 import { Link, useMatchRoute } from "@tanstack/react-router";
 import { ChevronDown } from "lucide-react";
+import { useState } from "react";
+import { match } from "ts-pattern";
+import { connect } from "http2";
 
 export const Header = () => {
+  const [isNavOpen, setIsNavOpen] = useState(false);
   const { openModal } = useWalletConnectModal();
   const { isConnected } = useAccount();
   const { disconnect } = useDisconnect();
@@ -16,7 +20,7 @@ export const Header = () => {
   };
 
   const pages = [
-    { name: "Dash", path: "/dashboard" },
+    { name: "Dash(board)", path: "/dashboard" },
     { name: "Shop", path: "/shop" },
     { name: "Prods", path: "/" },
   ];
@@ -36,9 +40,14 @@ export const Header = () => {
                   className="me-2"
                 />
                 Sneaky{" "}
-                <div className="dropdown d-inline-block">
+                <div
+                  className="dropdown d-inline-block"
+                  onMouseEnter={() => setIsNavOpen(true)}
+                  onMouseLeave={() => setIsNavOpen(false)}
+                  onTouchStart={() => setIsNavOpen(!isNavOpen)}
+                >
                   <button
-                    className="btn nav-btn btn-outline-dark text-dark text-decoration-none p-0 d-inline-flex align-items-center fs-3 fw-bold"
+                    className="btn btn-link shadow-none text-dark p-0 d-inline-flex align-items-center fs-3 fw-bold"
                     data-bs-toggle="dropdown"
                     data-bs-auto-close="outside"
                     aria-expanded="false"
@@ -47,7 +56,7 @@ export const Header = () => {
                     {getCurrentPage()}
                     <ChevronDown className="ms-1" size={20} />
                   </button>
-                  <ul className="dropdown-menu">
+                  <ul className={`dropdown-menu ${isNavOpen ? "show" : ""}`}>
                     {pages
                       .filter((page) => page.name !== getCurrentPage())
                       .map((page) => (
@@ -63,23 +72,40 @@ export const Header = () => {
             </h1>
           </div>
           <div className="col-4 text-end">
-            {isConnected ? (
-              <button
-                type="button"
-                className="btn btn-outline-dark"
-                onClick={() => disconnect()}
-              >
-                Disconnect
-              </button>
-            ) : (
-              <button
-                type="button"
-                onClick={openModal}
-                className="btn btn-outline-dark"
-              >
-                Connect
-              </button>
-            )}
+            {match([isConnected, getCurrentPage() === "Dash"] as const)
+              .with([false, false], () => (
+                <Link
+                  to="/dashboard"
+                  onClick={openModal}
+                  className="btn btn-outline-dark"
+                >
+                  Go to Dash
+                </Link>
+              ))
+              .with([true, false], () => (
+                <Link to="/dashboard" className="btn btn-outline-dark">
+                  Go to Dash
+                </Link>
+              ))
+              .with([true, true], () => (
+                <button
+                  type="button"
+                  className="btn btn-outline-dark"
+                  onClick={() => disconnect()}
+                >
+                  Disconnect
+                </button>
+              ))
+              .with([false, true], () => (
+                <button
+                  type="button"
+                  onClick={openModal}
+                  className="btn btn-outline-dark"
+                >
+                  Connect
+                </button>
+              ))
+              .exhaustive()}
           </div>
         </div>
       </div>
