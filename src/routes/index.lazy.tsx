@@ -1,18 +1,18 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createLazyFileRoute } from "@tanstack/react-router";
 import { useEffect } from "react";
 import AOS from "aos";
 
-export const Route = createFileRoute("/")({
+export const Route = createLazyFileRoute("/")({
   component: Index,
-  head: () => ({
-    meta: [
-      {
-        title: "Sneaky Productions",
-        description: "All things sneaky",
-        // image: `${process.env.PUBLIC_URL}/wenmoon.png`,
-      },
-    ],
-  }),
+  // head: () => ({
+  //   meta: [
+  //     {
+  //       title: 'Sneaky Productions',
+  //       description: 'All things sneaky',
+  //       // image: `${process.env.PUBLIC_URL}/wenmoon.png`,
+  //     },
+  //   ],
+  // }),
   //   context: {
   //     headerTitle: "Sneaky Prods",
   //     meta: {
