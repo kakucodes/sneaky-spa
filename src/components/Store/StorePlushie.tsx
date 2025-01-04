@@ -1,5 +1,5 @@
 import { match } from "ts-pattern";
-import { StoreItem } from "../../config";
+import { StoreItem } from "../../utils/storeItems";
 
 const monthAndDateFormatter = new Intl.DateTimeFormat("en-US", {
   month: "long", // 'long' gives you the full month name

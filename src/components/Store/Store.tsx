@@ -1,6 +1,6 @@
 import { useMemo } from "react";
-import { STORE_PLUSHIES } from "../../config";
 import { StorePlushie } from "./StorePlushie";
+import { useQueryPlushies } from "./useQueryPlushies";
 
 const gridLabels: ("horizontal" | "horizontal-reverse" | "vertical")[] = [
   "vertical",
@@ -15,7 +15,15 @@ const getLabel = (cellIndex: number) =>
   gridLabels[cellIndex % gridLabels.length];
 
 export const Store = () => {
-  const StoreItems = STORE_PLUSHIES.map((plushieInfo, i) => {
+  const { data: plushies } = useQueryPlushies();
+
+  console.log("plushies", plushies);
+
+  const StoreItems = (
+    plushies && typeof plushies === "object" && plushies.success
+      ? plushies.items
+      : []
+  ).map((plushieInfo, i) => {
     const layout = getLabel(i);
     return (
       <div

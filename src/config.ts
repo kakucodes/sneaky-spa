@@ -1,3 +1,5 @@
+import { SheetConfig } from "./utils/sheetsHelpers";
+
 export const STARGAZE_ENDPOINT =
   "https://graphql.mainnet.stargaze-apis.com/graphql";
 
@@ -102,74 +104,8 @@ export const isOECollectionAddress = (
 ): address is OpenEditionCollectionAddr =>
   OPEN_EDITION_COLLECTION_ADDRS.includes(address as OpenEditionCollectionAddr);
 
-export type StoreItem = {
-  image: string;
-  name: string;
-  // which nft it's based on. e.g. Celestine Sloth #884 or Sneaky Animals #818 + #303
-  basedOn: string;
-  isBundleDeal: boolean;
-  shippingStart?: Date;
-  // if this date is in the future we will show the item as presale
-  presaleUntil?: Date;
-  // if this is set, we will show a link to the buy the product via crypto
-  stargazeLink?: string;
-  // if this is set, we will show a link to the buy the product via stripe
-  stripeLink?: string;
-  note?: string;
+export const SHOP_SHEETS_CONFIG: SheetConfig = {
+  apiKey: process.env.REACT_APP_STORE_SHEET_KEY!,
+  spreadsheetId: process.env.REACT_APP_STORE_SHEET_ID!,
+  range: "Plushies!A1:I100",
 };
-
-export const STORE_PLUSHIES: StoreItem[] = [
-  {
-    image: `${process.env.PUBLIC_URL}/store/sloth.png`,
-    name: "Celestine Sloth Plushie",
-    basedOn: "Celestine Sloth #884",
-    isBundleDeal: false,
-    stripeLink: "https://buy.stripe.com/eVa3eN5mc8CMgoMfZ5",
-    stargazeLink:
-      "https://www.stargaze.zone/l/stars1yrrhhz9k5tg9g76pfzu3px49urhyh7kn3tgp39n337chz29cpqqqqcaqcp",
-    shippingStart: new Date("2024-12-31"),
-    presaleUntil: new Date("2024-10-23"),
-    note: "(Includes hands and feet. 😝)",
-  },
-  {
-    image: `${process.env.PUBLIC_URL}/store/mad-scientist.png`,
-    name: "Mad Scientist",
-    basedOn: "Mad Scientist NFTs",
-    isBundleDeal: false,
-    stripeLink: "https://buy.stripe.com/14k2aJg0QcT2egE3cl",
-    stargazeLink:
-      "https://www.stargaze.zone/l/stars18vf62p06ku5wzwqe2lr2jmzglhfvhdyal4p98emxf7x6q5v7u3cq5fxn23",
-  },
-  {
-    image: `${process.env.PUBLIC_URL}/store/happy-pig.png`,
-    name: "Happy Pig",
-    basedOn: "Sneaky Animals #818",
-    isBundleDeal: false,
-    stargazeLink: "https://www.stargaze.zone/l/happypig",
-    stripeLink: "https://buy.stripe.com/eVa2aJ9Cs06g7Sg145",
-  },
-  {
-    image: `${process.env.PUBLIC_URL}/store/bitgirl.png`,
-    name: "Bitgirl",
-    basedOn: "Sneaky Transformation #103",
-    isBundleDeal: false,
-    stargazeLink: "https://www.stargaze.zone/l/bitgirl",
-    stripeLink: "https://buy.stripe.com/fZe3eN01SbOYa0o146",
-  },
-  {
-    image: `${process.env.PUBLIC_URL}/store/jack.png`,
-    name: "Jack Penguin Plushie",
-    basedOn: "Sneaky Animals #300",
-    isBundleDeal: false,
-    stargazeLink:
-      "https://www.stargaze.zone/l/stars1ej3e2nhjgwhtmlsec3vkzw49566syyccl3f75ujr8m6t22ue07sqwz4vmp",
-    stripeLink: "https://buy.stripe.com/bIY02BdSI6uEfkIbIM",
-  },
-  {
-    image: `${process.env.PUBLIC_URL}/store/jack-and-happy-pig.png`,
-    name: "Jack Penguin & Happy Pig Bundle",
-    basedOn: "Sneaky Animals #300 & #818",
-    isBundleDeal: true,
-    stripeLink: "https://buy.stripe.com/8wM2aJg0QdX66OccMR",
-  },
-];
