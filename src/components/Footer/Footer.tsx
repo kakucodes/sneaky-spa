@@ -1,6 +1,3 @@
-// import { AudioPlayer } from "../AudioPlayer/AudioPlayer";
-
-import { Link } from "@tanstack/react-router";
 import { AudioPlayer } from "../AudioPlayer/AudioPlayer";
 
 export const Footer = () => {

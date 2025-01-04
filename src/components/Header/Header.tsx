@@ -4,7 +4,6 @@ import { Link, useMatchRoute } from "@tanstack/react-router";
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { match } from "ts-pattern";
-import { connect } from "http2";
 
 export const Header = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
