@@ -71,7 +71,7 @@ export const Header = () => {
               </Link>
             </h1>
           </div>
-          <div className="col-4 text-end">
+          <div className="col-4 text-end d-flex align-items-center justify-content-end">
             {match([isConnected, getCurrentPage() === "Dash"] as const)
               .with([false, false], () => (
                 <Link
