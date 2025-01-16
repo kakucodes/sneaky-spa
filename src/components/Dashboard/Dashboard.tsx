@@ -4,26 +4,36 @@ import {
   MAIN_COLLECTION_ADDRS,
   PLUSHIE_COLLECTION_ADDRS,
 } from "../../config";
-import { PortfolioStats } from "../PortfolioStats/PortfolioStats";
-import { useQueryNfts } from "../../hooks/useQueryNfts/useQueryUserNfts";
 import { useAccount } from "graz";
-import { useQueryCollections } from "../../hooks/useQueryCollections/useQueryCollections";
-import { ConnectionModal } from "../WalletConnectionModal/ConnectionModal";
+import { useQueryNfts } from "../../hooks/useQueryNfts/useQueryUserNfts";
 import { useQuerySneakyTokens } from "../../hooks/useQuerySneakyTokens";
-import { DisconnectedDashboard } from "../DisconnectedDashboard/DisconnectedDashboard";
+import { useQueryCollections } from "../../hooks/useQueryCollections/useQueryCollections";
+
+import { ConnectionModal } from "../WalletConnectionModal/ConnectionModal";
+import { DisconnectedDashboard } from "../Dashboard/DisconnectedDashboard";
+
+import { PortfolioStats } from "../PortfolioStats/PortfolioStats";
 import { LoadingPorfolioStats } from "../PortfolioStats/LoadingPortfolioStats";
 import { HorizontalCollectionRoll } from "../HorizontalCollectionRoll/HorizontalCollectionRoll";
 import { LargeCollectionDisplay } from "../LargeCollectionDisplay/LargeCollectionDIsplay";
 
-export const Dashboard = () => {
-  const { data: userNfts } = useQueryNfts();
-  const { data: sneakyBalance, areAnyLoading: isSneakyBalanceLoading } =
-    useQuerySneakyTokens();
+import { CollectionInfo } from "../../hooks/useQueryCollections/useQueryCollections";
+import { NftInfo } from "../../hooks/useQueryNfts/useQueryUserNfts";
 
-  console.log("sneaky balance: ", sneakyBalance);
+type Props = {
+  collection: CollectionInfo;
+  nfts: NftInfo[];
+};
 
-  const { data: collectionsData } = useQueryCollections();
+export const Dashboard = ({ collection, nfts }: Props) => {
+
+  // Wallet Connection
   const { isDisconnected, isConnected } = useAccount();
+
+  // User Asset Data
+  const { data: userNfts } = useQueryNfts();
+  const { data: sneakyBalance, areAnyLoading: isSneakyBalanceLoading } = useQuerySneakyTokens();
+  const { data: collectionsData } = useQueryCollections();
 
   const collections =
     userNfts &&
@@ -58,33 +68,23 @@ export const Dashboard = () => {
       PLUSHIE_COLLECTION_ADDRS.includes(contractAddress)
   );
 
+  // Debugging
+  console.log("userNfts: ", userNfts);
+  console.log("collections: ", collections);
+  console.log("collectionsData: ", collectionsData);
+  console.log("sneakyBalance: ", sneakyBalance);
+
   return (
     <main>
       <ConnectionModal />
-      {/* Can show the portfolio value when the sneaky token info is all finished loading and so is the user's nfts */}
       {isConnected && userNfts && !isSneakyBalanceLoading && sneakyBalance ? (
         <PortfolioStats tokens={userNfts} sneakyBalance={sneakyBalance} />
       ) : (
         isConnected && <LoadingPorfolioStats />
       )}
-      {/* Can show the user's nfts when all the nfts and the collections are loaded */}
       {userNfts && collections ? (
-        <div className="row gy-5 pt-1">
-          <h3 className="h3">Main Collections</h3>
-          {/* <h3 className="h1 text-center fw-bold mb-2">Collections</h3>
-          <div className="col-1" />
-          <p className="mb-5 text-center col-10 mt-0">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maiores
-            fugiat vel rem necessitatibus qui sequi nostrum unde. Error iusto
-            consectetur corrupti voluptates quam. Ullam, velit maiores dolorem
-            culpa doloribus necessitatibus.
-          </p> */}
+        <>
           {mainCollections.map(({ collectionInfo, nfts }) => (
-            // <Collection
-            //   key={collectionInfo.contractAddress}
-            //   collection={collectionInfo}
-            //   nfts={nfts}
-            // />
             <LargeCollectionDisplay
               key={collectionInfo.contractAddress}
               collection={collectionInfo}
@@ -101,14 +101,12 @@ export const Dashboard = () => {
             collections={plushieCollections}
             makeCollectionImagesSquare
           />
-        </div>
+          {/* <pre>{JSON.stringify(userNfts, null, 2)}</pre> */}
+        </>
       ) : isDisconnected ? (
         <DisconnectedDashboard />
       ) : (
-        <div
-          className="d-flex flex-column justify-content-center align-items-center text-center"
-          style={{ height: "100vh" }}
-        >
+        <div className="d-flex flex-column justify-content-center align-items-center text-center vh-100">
           <div className="spinner-border" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>

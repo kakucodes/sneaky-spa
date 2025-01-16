@@ -7,16 +7,18 @@ export const DisconnectedDashboard = () => {
 
   return (
     <div
-      className="d-flex flex-column justify-content-center align-items-center text-center pt-4"
-      style={{ height: "100vh" }}
-    >
+      className="d-flex flex-column justify-content-center align-items-center text-center pt-4 vh-100">
       <h2 className="text-uppercase display-3 text-nowrap fw-bold mb-0">
-        <span>Sneaky</span> <br />
-        <span>Dashboard</span>
+        <span data-aos="fade" data-aos-delay="350">Sneaky</span> <br />
+        <span data-aos="fade" data-aos-delay="400">Dashboard</span>
         <br />
       </h2>
-      <p><strong>All</strong> your Sneaky assets, <br />all in one place.</p>
+      <p data-aos="fade" data-aos-delay="450">
+        <strong>All</strong> your Sneaky assets, <br />
+        all in one place.
+      </p>
       <button
+        data-aos="fade" data-aos-delay="500"
         type="button"
         className={`btn ${
           isConnected ? "btn-outline-dark" : "btn-outline-dark"

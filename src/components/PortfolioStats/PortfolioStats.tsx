@@ -3,7 +3,10 @@ import { formatUsd } from "../../utils/format";
 import { queryNfts } from "../../hooks/useQueryNfts/useQueryUserNfts";
 import { nftsValueSummary, sneakyTokensSummary } from "./portfolioHelpers";
 import { StatsBreakdown } from "./StatsBreakdown";
-import { useState } from "react";
+/* import { useState } from "react"; */
+import { useAccount } from "graz";
+import { useDisconnect } from "graz";
+import { useWalletConnectModal } from "../WalletConnectionModal/ConnectionModalProvider";
 
 type Props = {
   tokens: NonNullable<Awaited<ReturnType<typeof queryNfts>>> | undefined;
@@ -11,7 +14,7 @@ type Props = {
 };
 
 export const PortfolioStats = ({ tokens, sneakyBalance }: Props) => {
-  const [showBreakdown, setShowBreakdown] = useState(false);
+
   const tokenSummary = sneakyTokensSummary(sneakyBalance);
 
   const totalNftsCount = tokens?.length || 0;
@@ -29,22 +32,28 @@ export const PortfolioStats = ({ tokens, sneakyBalance }: Props) => {
   const osmosisBalance = sneakyBalance?.chainBalances["osmosis-1"];
   const stargazeBalance = sneakyBalance?.chainBalances["stargaze-1"];
 
+  const { openModal } = useWalletConnectModal();
+  const { isConnected } = useAccount();
+  const { disconnect } = useDisconnect();
+
   return (
-    <div className={`border-bottom ${showBreakdown ? "pb-4" : ""} mb-5`}>
-      <div className="d-flex justify-content-end align-items-center py-1 px-3">
-        <span
-          className="link-primary cursor"
-          onClick={() => setShowBreakdown(!showBreakdown)}
-        >
-          ↻ {showBreakdown ? "Less" : "More"} Deets
-        </span>
-      </div>
+    <>
       <div
         className="d-flex flex-column justify-content-center align-items-center text-center "
-        style={{ height: "25vh" }}
+        style={{ height: "100vh" }}
       >
-        <h3 className="text-uppercase fw-bold h4 mb-2">Sneaky Portfolio</h3>
-        <p className="dokdo display-1 lh-1 mb-2">
+        <h3
+          data-aos="fade"
+          data-aos-delay="350"
+          className="text-uppercase fw-bold h4 mb-2"
+        >
+          Portfolio
+        </h3>
+        <p
+          data-aos="fade"
+          data-aos-delay="400"
+          className="dokdo display-1 lh-1 mb-2"
+        >
           <span className="display-6">
             <small>&asymp;</small>
           </span>
@@ -54,11 +63,37 @@ export const PortfolioStats = ({ tokens, sneakyBalance }: Props) => {
           </span>
           <span className="fs-2 bg-dark rounded-3 text-light px-2">USD</span>
         </p>
-        <p className="dokdo text-uppercase fw-bold fs-4">Total</p>
-      </div>
-
-      <div>
-        {showBreakdown && osmosisBalance && stargazeBalance && (
+        <p
+          data-aos="fade"
+          data-aos-delay="450"
+          className="dokdo text-uppercase fw-bold fs-4"
+        >
+          Total Value
+        </p>
+        <p data-aos="fade" data-aos-delay="500">
+          <a
+            className="link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-50-hover"
+            href="#"
+            onClick={(e) => {
+              e.preventDefault(); // Prevent default link behavior
+              disconnect(); // Call the disconnect function
+            }}
+          >
+            Disconnect
+          </a>
+          <span>&nbsp;|&nbsp;</span>
+          <a
+            className="link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-50-hover"
+            data-bs-toggle="collapse"
+            href="#collapseExample"
+            role="button"
+            aria-expanded="false"
+            aria-controls="collapseExample"
+          >
+            <span>Breakdown</span>
+          </a>
+        </p>
+        <div className="collapse" id="collapseExample">
           <StatsBreakdown
             {...{
               ...tokenSummary,
@@ -70,8 +105,8 @@ export const PortfolioStats = ({ tokens, sneakyBalance }: Props) => {
               totalFormattedAmount: sneakyBalance.totalFormattedAmount,
             }}
           />
-        )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };

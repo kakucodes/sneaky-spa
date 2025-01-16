@@ -15,7 +15,7 @@ export const AudioPlayer = () => {
 
   return (
     <div
-      className="audio-player border p-2"
+      className="audio-player border border-dark p-2"
       style={{ width: "200px", position: "relative" }}
       onMouseEnter={() => setShowArtwork(true)}
       onMouseLeave={() => setShowArtwork(false)}
@@ -35,11 +35,11 @@ export const AudioPlayer = () => {
         <img
           style={{
             objectFit: "contain",
-            backgroundColor: "black",
+            backgroundColor: "transparent",
             position: "absolute",
             bottom: "100%",
             left: 0,
-            marginBottom: "10px",
+            marginBottom: "",
           }}
           height={125}
           width={200}
@@ -48,8 +48,13 @@ export const AudioPlayer = () => {
         />
       )}
       <div>
-        <MarqueeText pauseOnHover direction="right">
-          {currentlyPlaying.title} by Tasukete
+        <MarqueeText
+          pauseOnHover
+          direction="right"
+          duration={5}
+          textSpacing="0.5rem"
+        >
+          <span>{currentlyPlaying.title} by Tasukete</span>
         </MarqueeText>
       </div>
 

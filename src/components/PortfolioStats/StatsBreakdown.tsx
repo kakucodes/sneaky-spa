@@ -35,9 +35,7 @@ export const StatsBreakdown = ({
   allNftsUsd,
 }: Props) => {
   return (
-    <div className="container">
-      <div className="row gy-5 justify-content-center">
-        <div className="col-12 col-md-4 col-xl-3 pt-3">
+      <>
           <h4 className="fw-bold">Sneaky NFTs</h4>
           <p>Owned: {totalNftsCount}</p>
           <p>
@@ -50,8 +48,6 @@ export const StatsBreakdown = ({
             STARS
           </p>
           <p>USD Value: {allNftsUsd}</p>
-        </div>
-        <div className="col-12 col-md-4 col-xl-3 border-start pt-3">
           <h4 className="fw-bold">$SNEAKY Token</h4>
           <p>
             Stargaze: {formatTokenAmount(stargazeBalance.formattedAmount)}{" "}
@@ -61,8 +57,6 @@ export const StatsBreakdown = ({
             Osmosis: {formatTokenAmount(osmosisBalance.formattedAmount)} SNEAKY
           </p>
           <p>USD Value: {sneakyTokenUsdFormatted}</p>
-        </div>
-      </div>
-    </div>
+      </>
   );
 };

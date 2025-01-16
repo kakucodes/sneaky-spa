@@ -1,75 +1,87 @@
+import { Link } from "@tanstack/react-router";
+/* import { useMatchRoute } from "@tanstack/react-router";
 import { useAccount, useDisconnect } from "graz";
 import { useWalletConnectModal } from "../WalletConnectionModal/ConnectionModalProvider";
-import { Link, useMatchRoute } from "@tanstack/react-router";
-import { ChevronDown } from "lucide-react";
 import { useState } from "react";
-import { match } from "ts-pattern";
+import { match } from "ts-pattern"; */
 
 export const Header = () => {
-  const [isNavOpen, setIsNavOpen] = useState(false);
+/*   const [isNavOpen, setIsNavOpen] = useState(false);
   const { openModal } = useWalletConnectModal();
   const { isConnected } = useAccount();
   const { disconnect } = useDisconnect();
-  const matchRoute = useMatchRoute();
+  const matchRoute = useMatchRoute(); */
 
-  const getCurrentPage = () => {
-    if (matchRoute({ to: "/dashboard" })) return "Dash";
+/*   const getCurrentPage = () => {
+    if (matchRoute({ to: "/dashboard" })) return "Dashboard";
     if (matchRoute({ to: "/shop" })) return "Shop";
-    return "Prods";
-  };
+    return "Home";
+  }; */
 
   const pages = [
-    { name: "Dash(board)", path: "/dashboard" },
+    { name: "Home", path: "/" },
+    { name: "Dashboard", path: "/dashboard" },
     { name: "Shop", path: "/shop" },
-    { name: "Prods", path: "/" },
   ];
 
+  // Collapse Navbar On Click
+  const handleClick = () => {
+    const navbarCollapse = document.querySelector(".navbar-collapse");
+    if (navbarCollapse) {
+      navbarCollapse.classList.remove("show");
+    }
+  };
+
   return (
-    <header className="border-bottom py-2">
-      <div className="container-xxl ">
-        <div className="row">
+    <header className="fixed-top">
+      <nav className="navbar navbar-expand-sm">
+        <div className="container-xxl">
+          <a className="navbar-brand dokdo fw-bold text-uppercase" href="/">
+            <img src={`${process.env.PUBLIC_URL}/pignose.svg`} alt="Bootstrap" width="30" height="24" />
+          </a>
+          <button className="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarNav">
+            <ul className="navbar-nav ms-auto">
+              {pages.map((page) => (
+                <li key={page.path} className="nav-item">
+                  <Link to={page.path} className="dokdo text-uppercase nav-link fw-bold fs-4" data-bs-target=".navbar-collapse.show" onClick={handleClick}>
+                    {page.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </nav>
+        {/* <div className="row">
+          Title/Menu
           <div className="col-8">
-            <h1 className="fw-bold fs-3 pt-2 lh-1">
-              <Link to="/" className="text-decoration-none text-dark">
+            <h1 className="fw-bold fs-3 pt-2 text-nowrap lh-1">
+              <Link to="/" className="text-decoration-none text-dark d-inline-flex align-items-center">
                 <img
                   src={`${process.env.PUBLIC_URL}/pignose.svg`}
-                  height={"25px"}
-                  width={"25px"}
-                  alt="Sneaky Dash Logo"
+                  height="25px"
+                  width="25px"
+                  alt="Logo"
                   className="me-2"
                 />
-                Sneaky{" "}
-                <div
-                  className="dropdown d-inline-block"
-                  onMouseEnter={() => setIsNavOpen(true)}
-                  onMouseLeave={() => setIsNavOpen(false)}
-                  onTouchStart={() => setIsNavOpen(!isNavOpen)}
-                >
-                  <button
-                    className="btn btn-link shadow-none text-dark p-0 d-inline-flex align-items-center fs-3 fw-bold"
-                    data-bs-toggle="dropdown"
-                    data-bs-auto-close="outside"
-                    aria-expanded="false"
-                    type="button"
-                  >
-                    {getCurrentPage()}
-                    <ChevronDown className="ms-1" size={20} />
-                  </button>
-                  <ul className={`dropdown-menu ${isNavOpen ? "show" : ""}`}>
-                    {pages
-                      .filter((page) => page.name !== getCurrentPage())
-                      .map((page) => (
-                        <li key={page.path}>
-                          <Link to={page.path} className="dropdown-item">
-                            <h1>{page.name}</h1>
-                          </Link>
-                        </li>
-                      ))}
-                  </ul>
-                </div>
+                <span>Sneaky Productions</span>
               </Link>
             </h1>
+            <ul className="list-unstyled list-inline mt-2">
+              {pages.map((page) => (
+                <li key={page.path} className="list-inline-item py-1">
+                  <Link to={page.path} className="text-decoration-none text-dark fw-bold fs-5">
+                    {page.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
+          */}
+          {/* Header Button
           <div className="col-4 text-end d-flex align-items-center justify-content-end">
             {match([isConnected, getCurrentPage() === "Dash"] as const)
               .with([false, false], () => (
@@ -78,12 +90,12 @@ export const Header = () => {
                   onClick={openModal}
                   className="btn btn-outline-dark"
                 >
-                  Go to Dash
+                  <span>Dashboard</span>
                 </Link>
               ))
               .with([true, false], () => (
                 <Link to="/dashboard" className="btn btn-outline-dark">
-                  Go to Dash
+                  <span>Dashboard</span>
                 </Link>
               ))
               .with([true, true], () => (
@@ -92,7 +104,7 @@ export const Header = () => {
                   className="btn btn-outline-dark"
                   onClick={() => disconnect()}
                 >
-                  Disconnect
+                  <span>Disconnect</span>
                 </button>
               ))
               .with([false, true], () => (
@@ -101,13 +113,13 @@ export const Header = () => {
                   onClick={openModal}
                   className="btn btn-outline-dark"
                 >
-                  Connect
+                  <span>Connect</span>
                 </button>
               ))
               .exhaustive()}
           </div>
         </div>
-      </div>
+        */}
     </header>
   );
 };
