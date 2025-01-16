@@ -4,9 +4,9 @@ import { queryNfts } from "../../hooks/useQueryNfts/useQueryUserNfts";
 import { nftsValueSummary, sneakyTokensSummary } from "./portfolioHelpers";
 import { StatsBreakdown } from "./StatsBreakdown";
 /* import { useState } from "react"; */
-import { useAccount } from "graz";
+/* import { useAccount } from "graz"; */
 import { useDisconnect } from "graz";
-import { useWalletConnectModal } from "../WalletConnectionModal/ConnectionModalProvider";
+/* import { useWalletConnectModal } from "../WalletConnectionModal/ConnectionModalProvider"; */
 
 type Props = {
   tokens: NonNullable<Awaited<ReturnType<typeof queryNfts>>> | undefined;
@@ -32,8 +32,8 @@ export const PortfolioStats = ({ tokens, sneakyBalance }: Props) => {
   const osmosisBalance = sneakyBalance?.chainBalances["osmosis-1"];
   const stargazeBalance = sneakyBalance?.chainBalances["stargaze-1"];
 
-  const { openModal } = useWalletConnectModal();
-  const { isConnected } = useAccount();
+/*   const { openModal } = useWalletConnectModal();
+  const { isConnected } = useAccount(); */
   const { disconnect } = useDisconnect();
 
   return (
@@ -73,7 +73,7 @@ export const PortfolioStats = ({ tokens, sneakyBalance }: Props) => {
         <p data-aos="fade" data-aos-delay="500">
           <a
             className="link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-50-hover"
-            href="#"
+            href="/"
             onClick={(e) => {
               e.preventDefault(); // Prevent default link behavior
               disconnect(); // Call the disconnect function
