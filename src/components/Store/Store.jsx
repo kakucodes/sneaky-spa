@@ -25,7 +25,7 @@ export const Store = () => {
       </div>
       <div className="row gy-5">
         {plushies &&
-          plushies.items.map((item, index) => (
+          plushies?.items?.map((item, index) => (
             <div key={index} className="col-12 col-md-6 col-xxl-4">
               <div className="plushie-item text-center">
                 <img
