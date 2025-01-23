@@ -1,8 +1,0 @@
-query StargazeNameQuery($ownerAddr: String) {
-  names(ownerAddr: $ownerAddr) {
-    names {
-      name
-      associatedAddr
-    }
-  }
-}
