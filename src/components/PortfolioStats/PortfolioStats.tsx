@@ -42,13 +42,13 @@ export const PortfolioStats = ({ tokens, sneakyBalance }: Props) => {
         className="d-flex flex-column justify-content-center align-items-center text-center "
         style={{ height: "100vh" }}
       >
-        <h3
+        <h1
           data-aos="fade"
           data-aos-delay="350"
           className="text-uppercase fw-bold h4 mb-2"
         >
           Portfolio
-        </h3>
+        </h1>
         <p
           data-aos="fade"
           data-aos-delay="400"
@@ -85,15 +85,15 @@ export const PortfolioStats = ({ tokens, sneakyBalance }: Props) => {
           <a
             className="link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-50-hover"
             data-bs-toggle="collapse"
-            href="#collapseExample"
+            href="#statsList"
             role="button"
             aria-expanded="false"
-            aria-controls="collapseExample"
+            aria-controls="statsList"
           >
             <span>Breakdown</span>
           </a>
         </p>
-        <div className="collapse" id="collapseExample">
+        <div className="collapse" id="statsList">
           <StatsBreakdown
             {...{
               ...tokenSummary,

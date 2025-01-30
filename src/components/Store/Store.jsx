@@ -8,7 +8,7 @@ export const Store = () => {
   return (
     <main>
       <div className="d-flex flex-column justify-content-center align-items-center text-center vh-100">
-        <h2 className="text-uppercase display-3 text-nowrap fw-bold mb-0">
+        <h1 className="text-uppercase display-3 text-nowrap fw-bold mb-0">
           <span data-aos="fade" data-aos-delay="350">
             Sneaky
           </span>{" "}
@@ -17,15 +17,15 @@ export const Store = () => {
             Bazaar
           </span>
           <br />
-        </h2>
+        </h1>
         <p data-aos="fade" data-aos-delay="450">
           Where sneaky dreams <br />
           come true.
         </p>
       </div>
-      <div className="row gy-5">
-        {plushies &&
-          plushies?.items?.map((item, index) => (
+      <div className="row gy-5" style={{ paddingBottom: '12rem' }}>
+        {plushies?.items?.length ? (
+          plushies.items.map((item, index) => (
             <div key={index} className="col-12 col-md-6 col-xxl-4">
               <div className="plushie-item text-center">
                 <img
@@ -36,20 +36,6 @@ export const Store = () => {
                 />
                 <h2 className="mb-0">{item.name}</h2>
                 <p className="small mb-4">Based On: {item.basedOn}</p>
-                {/*{item.isBundleDeal && <p>Bundle Deal</p>}
-                  {item.shippingStart && (
-                    <p>
-                      Shipping Starts:{" "}
-                      {new Date(item.shippingStart).toLocaleDateString()}
-                    </p>
-                  )}
-                  {item.presaleUntil && (
-                    <p>
-                      Presale Until:{" "}
-                      {new Date(item.presaleUntil).toLocaleDateString()}
-                    </p>
-                  )}
-                  {item.note && <p>Note: {item.note}</p>} */}
                 <p className="mb-2">Buy on</p>
                 <p>
                   {item.stargazeLink && (
@@ -76,7 +62,10 @@ export const Store = () => {
                 </p>
               </div>
             </div>
-          ))}
+          ))
+        ) : (
+          <p>Loading plushies...</p>
+        )}
       </div>
     </main>
   );

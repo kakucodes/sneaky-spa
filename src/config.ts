@@ -15,12 +15,10 @@ export const SNEAKY_TOKEN_CHAINS = {
 export const MAIN_COLLECTION_ADDRS = [
   // Sneaky Animals
   "stars1429tk3pj6nrta2y34gx0njrm8zum53v05dyjawlsk6w84wqugsnshf2n3x",
-  // Sneaky Transformation
-  "stars1axa9hddj5p5vr4agt9ftr957fkxl2accss4e0x70u3882rc2zt5q97gvxs",
   // Sneaky Stuff
   "stars1luw5em4jmprng78v2jrzp7p66lzetugdvvq38d9t0gylsut23dpqe686z3",
-  // Sneaky Food
-  "stars10s9s7hvup5j5e243fgtlp2zwtvshyhwg865gplhp9u096p4ver0qncx8lt",
+  // Sneaky Transformation
+  "stars1axa9hddj5p5vr4agt9ftr957fkxl2accss4e0x70u3882rc2zt5q97gvxs",
 ];
 
 export const OPEN_EDITION_COLLECTION_ADDRS = [
@@ -34,6 +32,8 @@ export const OPEN_EDITION_COLLECTION_ADDRS = [
   "stars1fpyg089fandugsvc6yhv3dlqtuhk2prh6f3xmxydj7mhdacaqv5svngnlk",
   // Sneaky Hell
   "stars18ahxl5x0pmzg6hsrjy5d7kam9azxf53chm69pqn3trzx5as920vq20ts87",
+  // Sneaky Food
+  "stars10s9s7hvup5j5e243fgtlp2zwtvshyhwg865gplhp9u096p4ver0qncx8lt",
 ] as const;
 
 export type OpenEditionCollectionAddr =
@@ -65,6 +65,7 @@ export const OE_ASSET_URLS: Record<OpenEditionCollectionAddr, string> = {
   stars1n4vuu7kr5cv793jh8t0htnr5wvkjywg452yp6y03f7q6w3747aaqxfkjch: `${process.env.PUBLIC_URL}/oe/sneakyriddler-asset.jpg`,
   stars1fpyg089fandugsvc6yhv3dlqtuhk2prh6f3xmxydj7mhdacaqv5svngnlk: `${process.env.PUBLIC_URL}/oe/sneakyheaven-asset.jpg`,
   stars18ahxl5x0pmzg6hsrjy5d7kam9azxf53chm69pqn3trzx5as920vq20ts87: `${process.env.PUBLIC_URL}/oe/sneakyhell-asset.jpg`,
+  stars10s9s7hvup5j5e243fgtlp2zwtvshyhwg865gplhp9u096p4ver0qncx8lt: `${process.env.PUBLIC_URL}/oe/sneakyhell-asset.jpg`,
 };
 
 export const SNEAKY_RADIO_TRACKS: {

@@ -45,10 +45,10 @@ h4,
 h5,
 h6 {
   font-family: "Dokdo", system-ui;
-  font-weight: 400;
+  font-weight: 900;
   font-style: normal;
   line-height: 0.8 !important;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.08em;
 }
 @-moz-document url-prefix() {
   .dokdo,
@@ -59,6 +59,13 @@ h6 {
   h5,
   h6 {
     letter-spacing: -0.1em;
+  }
+  h1 {
+    text-shadow: 
+        -0.03rem -0.03rem 0 black,
+        0.03rem -0.03rem 0 black,
+        -0.03rem 0.03rem 0 black,
+        0.03rem 0.03rem 0 black;
   }
 }
 .shantell {
@@ -73,9 +80,21 @@ h5,
 h6 {
   text-transform: uppercase;
 }
-.text-stroke {
+
+mark, .mark {
+  background-color:rgba(0, 0, 0, 0.1);
+  font-weight: 600;
+  padding: 0.1em 0.2em 0.1em 0.2em;
+}
+
+.text-stroke-black {
   text-shadow: 1px 1px 0 black, -1px 1px 0 black, 1px -1px 0 black,
     -1px -1px 0 black;
+}
+
+.text-stroke-white {
+  text-shadow: 2px 2px 0 rgb(255, 255, 255), -2px 2px 0 rgb(255, 255, 255), 2px -2px 0 rgb(255, 255, 255),
+  -2px -2px 0 rgb(255, 255, 255);
 }
 
 .grayscale {
@@ -138,6 +157,22 @@ button:active,
   transition: none;
 } */
 
+
+@media (min-width: 400px) and (min-height: 720px) {
+  .intro-bg {
+    background-image: url('/public/intro-bg.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;
+  }
+}
+
+/* Dynamic Viewport Height */
+.dvh-100 {
+	min-height: 100vh;
+	min-height: 100svh;
+}
+
 .custom-border {
   border-bottom-left-radius: 6px 50px;
   border-bottom-right-radius: 50px 6px;
@@ -146,6 +181,8 @@ button:active,
   box-shadow: 2px 8px 8px -5px rgba(0, 0, 0, 0.2);
   border-style: solid;
   border-width: 2px;
+  border-right-width: 4px;
+  border-bottom-width: 4px;
 }
 
 .custom-border-width {
@@ -195,4 +232,20 @@ button:active,
 .offcanvas-footer {
   height: 120px;
   background-color: rgba(255, 255, 255, 0);
+}
+
+.nft {
+  top: 90% !important;
+}
+
+/**********************************/
+/******** SELECTION COLORS ********/
+/**********************************/
+::selection {
+  background: #000000; /* Background color for the selection */
+  color: #FFFFFF; /* Text color for the selection */
+}
+::-moz-selection {
+  background: #000000;
+  color: #FFFFFF;
 }

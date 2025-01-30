@@ -14,29 +14,19 @@ import { DisconnectedDashboard } from "../Dashboard/DisconnectedDashboard";
 
 import { PortfolioStats } from "../PortfolioStats/PortfolioStats";
 import { LoadingPorfolioStats } from "../PortfolioStats/LoadingPortfolioStats";
-import { HorizontalCollectionRoll } from "../HorizontalCollectionRoll/HorizontalCollectionRoll";
-import { LargeCollectionDisplay } from "../LargeCollectionDisplay/LargeCollectionDIsplay";
 
-import { CollectionInfo } from "../../hooks/useQueryCollections/useQueryCollections";
-import { NftInfo } from "../../hooks/useQueryNfts/useQueryUserNfts";
-
-type Props = {
-  collection: CollectionInfo;
-  nfts: NftInfo[];
-};
-
-export const Dashboard = ({ collection, nfts }: Props) => {
-
+export const Dashboard = () => {
   // Wallet Connection
-  const { isDisconnected, isConnected } = useAccount();
+  const account = useAccount();
+  const { isDisconnected, isConnected } = account ?? {};
 
   // User Asset Data
   const { data: userNfts } = useQueryNfts();
-  const { data: sneakyBalance, areAnyLoading: isSneakyBalanceLoading } = useQuerySneakyTokens();
+  const { data: sneakyBalance, areAnyLoading: isSneakyBalanceLoading } =
+    useQuerySneakyTokens();
   const { data: collectionsData } = useQueryCollections();
 
   const collections =
-    userNfts &&
     COLLECTION_ADDRS.flatMap((collectionAddr) => {
       const collectionInfo = collectionsData?.find(
         ({ contractAddress }) => contractAddress === collectionAddr
@@ -44,35 +34,33 @@ export const Dashboard = ({ collection, nfts }: Props) => {
       const nfts =
         userNfts?.filter(
           ({ collection }) => collection?.contractAddress === collectionAddr
-        ) || [];
+        ) ?? [];
 
       return collectionInfo ? [{ collectionInfo, nfts }] : [];
-    }).sort(
+    })?.sort(
       (a, b) =>
-        (b.collectionInfo.floor?.amountUsd || 0) -
-        (a.collectionInfo.floor?.amountUsd || 0)
-    );
+        (b.collectionInfo.floor?.amountUsd ?? 0) -
+        (a.collectionInfo.floor?.amountUsd ?? 0)
+    ) ?? [];
 
-  const mainCollections = (collections || []).filter(
-    ({ collectionInfo: { contractAddress } }) =>
-      MAIN_COLLECTION_ADDRS.includes(contractAddress)
-  );
+  const mainCollections =
+    collections?.filter(({ collectionInfo: { contractAddress } }) =>
+      MAIN_COLLECTION_ADDRS.includes?.(contractAddress)
+    ) ?? [];
 
-  const oeCollections = (collections || []).filter(
-    ({ collectionInfo: { contractAddress } }) =>
-      isOECollectionAddress(contractAddress)
-  );
+  const oeCollections =
+    collections?.filter(({ collectionInfo: { contractAddress } }) =>
+      isOECollectionAddress?.(contractAddress)
+    ) ?? [];
 
-  const plushieCollections = (collections || []).filter(
-    ({ collectionInfo: { contractAddress } }) =>
-      PLUSHIE_COLLECTION_ADDRS.includes(contractAddress)
-  );
+  const plushieCollections =
+    collections?.filter(({ collectionInfo: { contractAddress } }) =>
+      PLUSHIE_COLLECTION_ADDRS.includes?.(contractAddress)
+    ) ?? [];
 
-  // Debugging
-  console.log("userNfts: ", userNfts);
-  console.log("collections: ", collections);
-  console.log("collectionsData: ", collectionsData);
-  console.log("sneakyBalance: ", sneakyBalance);
+  console.log("Main Collections:", mainCollections);
+  console.log("OE Collections:", oeCollections);
+  console.log("Plushie Collections:", plushieCollections);
 
   return (
     <main>
@@ -84,24 +72,55 @@ export const Dashboard = ({ collection, nfts }: Props) => {
       )}
       {userNfts && collections ? (
         <>
-          {mainCollections.map(({ collectionInfo, nfts }) => (
-            <LargeCollectionDisplay
-              key={collectionInfo.contractAddress}
-              collection={collectionInfo}
-              nfts={nfts}
-            />
+          <div className="row gy-4" style={{ paddingBottom: '12rem' }}>
+            {[
+              ...mainCollections,
+              ...oeCollections,
+              ...plushieCollections,
+            ]
+              .flatMap((collection: any) =>
+                collection.nfts.map((nft: any) => ({
+                  nft,
+                  collection,
+                }))
+              )
+              .map(({ nft, collection }: any, nftIndex: any) => (
+                <div key={nftIndex} className="col-12 col-sm-6 col-lg-4 mx-auto px-3">
+
+                      <div className="ratio ratio-1x1 mb-2">
+                      <img
+                        src={
+                          nft.metadata.image?.replace(
+                            "ipfs://",
+                            "https://ipfs.io/ipfs/"
+                          ) || ""
+                        }
+                        alt={`${nft.metadata.name ?? "NFT"} Image`}
+                        className="img-fluid object-fit-cover custom-border"
+                      />
+                      </div>
+                      <p className="text-center fw-bold mb-0">{nft.metadata.name}</p>
+                      <p className="text-center small mb-0">{collection.collectionInfo.name} #{nft.tokenId}</p>
+
+                </div>
+              ))}
+          </div>
+          {/* 
+          {mainCollections.map((collection: any, index: any) => (
+            <div key={index}>
+              <img src={collection.collectionInfo.media?.fallbackUrl} alt={`${collection.collectionInfo.name} Preview`} className="img-fluid" />
+              <>
+                {collection.nfts.map((nft: any, nftIndex: any) => (
+                  <div key={nftIndex}>
+                      <div className="ratio ratio-1x1">
+                        <img src={nft.metadata.image?.replace("ipfs://", "https://ipfs.io/ipfs/") || "" } alt={`${nft.metadata.name ?? "NFT"} Image`} className="img-fluid object-fit-cover w-100 h-100" />
+                      </div>
+                  </div>
+                ))}
+              </>
+            </div>
           ))}
-          <HorizontalCollectionRoll
-            title="Open Editions"
-            collections={oeCollections}
-            showCollectionTitles={false}
-          />
-          <HorizontalCollectionRoll
-            title="Plushies"
-            collections={plushieCollections}
-            makeCollectionImagesSquare
-          />
-          {/* <pre>{JSON.stringify(userNfts, null, 2)}</pre> */}
+          */}
         </>
       ) : isDisconnected ? (
         <DisconnectedDashboard />
