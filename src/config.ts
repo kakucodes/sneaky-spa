@@ -105,8 +105,14 @@ export const isOECollectionAddress = (
 ): address is OpenEditionCollectionAddr =>
   OPEN_EDITION_COLLECTION_ADDRS.includes(address as OpenEditionCollectionAddr);
 
-export const SHOP_SHEETS_CONFIG: SheetConfig = {
+export const SHOP_PLUSHIES_SHEETS_CONFIG: SheetConfig = {
   apiKey: process.env.REACT_APP_STORE_SHEET_KEY!,
   spreadsheetId: process.env.REACT_APP_STORE_SHEET_ID!,
   range: "Plushies!A1:I100",
+};
+
+export const SHOP_CARDS_SHEETS_CONFIG: SheetConfig = {
+  apiKey: process.env.REACT_APP_STORE_SHEET_KEY!,
+  spreadsheetId: process.env.REACT_APP_STORE_SHEET_ID!,
+  range: "Cards!A1:I100",
 };

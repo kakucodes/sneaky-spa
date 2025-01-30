@@ -173,7 +173,7 @@ const useQuerySneakyPools = (address: string | undefined) =>
 
 const useQuerySkipBalances = (addresses: UserSneakyAddresses | undefined) =>
   useQuery({
-    queryKey: ["skipBalances"],
+    queryKey: ["skipBalances", addresses],
     queryFn: () =>
       fetch("https://api.skip.build/v2/info/balances", {
         method: "POST",

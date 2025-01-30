@@ -1,9 +1,13 @@
-import { useQueryPlushies } from "./useQueryPlushies";
+import { useQueryPlushies, useQueryCards } from "./useQueryPlushies";
 
 export const Store = () => {
   const { data: plushies } = useQueryPlushies();
+  const { data: cards } = useQueryCards();
 
   console.log("plushies", plushies);
+  console.log("cards", cards);
+
+  const storeItems = [...(plushies?.items || []), ...(cards?.items || [])];
 
   return (
     <main>
@@ -23,9 +27,10 @@ export const Store = () => {
           come true.
         </p>
       </div>
-      <div className="row gy-5" style={{ paddingBottom: '12rem' }}>
-        {plushies?.items?.length ? (
-          plushies.items.map((item, index) => (
+
+      <div className="row gy-5">
+        {storeItems &&
+          storeItems.map((item, index) => (
             <div key={index} className="col-12 col-md-6 col-xxl-4">
               <div className="plushie-item text-center">
                 <img
@@ -36,6 +41,25 @@ export const Store = () => {
                 />
                 <h2 className="mb-0">{item.name}</h2>
                 <p className="small mb-4">Based On: {item.basedOn}</p>
+
+                {item.basedOn && (
+                  <p className="small mb-4">Based On: {item.basedOn}</p>
+                )}
+                {/*{item.isBundleDeal && <p>Bundle Deal</p>}
+                  {item.shippingStart && (
+                    <p>
+                      Shipping Starts:{" "}
+                      {new Date(item.shippingStart).toLocaleDateString()}
+                    </p>
+                  )}
+                  {item.presaleUntil && (
+                    <p>
+                      Presale Until:{" "}
+                      {new Date(item.presaleUntil).toLocaleDateString()}
+                    </p>
+                  )}
+                  {item.note && <p>Note: {item.note}</p>} */}
+
                 <p className="mb-2">Buy on</p>
                 <p>
                   {item.stargazeLink && (
