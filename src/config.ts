@@ -60,11 +60,11 @@ export const COLLECTION_ADDRS = [
 ];
 
 export const OE_ASSET_URLS: Record<OpenEditionCollectionAddr, string> = {
-  stars1jfpej6sts325ww78u4m5g8gxdwuuw08rcspr707c43784jcrlqjs75ftxk: `${process.env.PUBLIC_URL}/oe/unluckypig-asset.jpg`,
-  stars1zyh20slfdscdxdxqxmfhjnt3zdeh3hmv0zhlmtrp7p5zvntturasdhw057: `${process.env.PUBLIC_URL}/oe/sneakyworld-asset.jpg`,
-  stars1n4vuu7kr5cv793jh8t0htnr5wvkjywg452yp6y03f7q6w3747aaqxfkjch: `${process.env.PUBLIC_URL}/oe/sneakyriddler-asset.jpg`,
-  stars1fpyg089fandugsvc6yhv3dlqtuhk2prh6f3xmxydj7mhdacaqv5svngnlk: `${process.env.PUBLIC_URL}/oe/sneakyheaven-asset.jpg`,
-  stars18ahxl5x0pmzg6hsrjy5d7kam9azxf53chm69pqn3trzx5as920vq20ts87: `${process.env.PUBLIC_URL}/oe/sneakyhell-asset.jpg`,
+  stars1jfpej6sts325ww78u4m5g8gxdwuuw08rcspr707c43784jcrlqjs75ftxk: `/oe/unluckypig-asset.jpg`,
+  stars1zyh20slfdscdxdxqxmfhjnt3zdeh3hmv0zhlmtrp7p5zvntturasdhw057: `/oe/sneakyworld-asset.jpg`,
+  stars1n4vuu7kr5cv793jh8t0htnr5wvkjywg452yp6y03f7q6w3747aaqxfkjch: `/oe/sneakyriddler-asset.jpg`,
+  stars1fpyg089fandugsvc6yhv3dlqtuhk2prh6f3xmxydj7mhdacaqv5svngnlk: `/oe/sneakyheaven-asset.jpg`,
+  stars18ahxl5x0pmzg6hsrjy5d7kam9azxf53chm69pqn3trzx5as920vq20ts87: `/oe/sneakyhell-asset.jpg`,
 };
 
 export const SNEAKY_RADIO_TRACKS: {
