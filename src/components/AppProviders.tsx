@@ -14,7 +14,8 @@ export const AppProviders = ({ children }: { children: React.ReactNode }) => {
   //   }, [isFetched]);
 
   useEffect(() => {
-    require("bootstrap/dist/js/bootstrap.bundle.min.js");
+    // @ts-expect-error import bootstrap js
+    import("bootstrap/dist/js/bootstrap.bundle.min.js");
   }, []);
 
   useEffect(() => {
