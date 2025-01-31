@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useGetSgCWClient } from "./useGetCWClient";
 import { CosmWasmClient } from "@cosmjs/cosmwasm-stargate";
 import { contracts as stardexContracts } from "@stargazezone/stardex-client";
-import { SNEAKY_TOKEN_CHAINS, STARGAZE_POOL } from "../config";
+import { SNEAKY_TOKEN_CHAINS, STARGAZE_POOL } from "@/config";
 import { useAccount } from "graz";
 import { coin } from "@cosmjs/stargate";
 

@@ -1,3 +1,4 @@
+"use client";
 import { useQueryPlushies, useQueryCards } from "./useQueryPlushies";
 
 export const Store = () => {
@@ -7,6 +8,7 @@ export const Store = () => {
   console.log("plushies", plushies);
   console.log("cards", cards);
 
+  // @ts-ignore
   const storeItems = [...(plushies?.items || []), ...(cards?.items || [])];
 
   return (
@@ -34,7 +36,7 @@ export const Store = () => {
               <div className="plushie-item text-center">
                 <img
                   src={item.image}
-                  style={{ maxWidth: "300" }}
+                  style={{ maxWidth: "300", margin: "auto" }}
                   alt={item.name}
                   className="img-fluid mb-4"
                 />

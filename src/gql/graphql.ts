@@ -53,10 +53,12 @@ export enum ActivityType {
   RemoveTokenOffer = 'REMOVE_TOKEN_OFFER',
   RoyaltyPayout = 'ROYALTY_PAYOUT',
   Sale = 'SALE',
+  TokenBought = 'TOKEN_BOUGHT',
   TokenEscrow = 'TOKEN_ESCROW',
   TokenList = 'TOKEN_LIST',
   TokenMint = 'TOKEN_MINT',
   TokenOffer = 'TOKEN_OFFER',
+  TokenSold = 'TOKEN_SOLD',
   TokenTransfer = 'TOKEN_TRANSFER',
   Unlist = 'UNLIST',
   UpdateCollectionOffer = 'UPDATE_COLLECTION_OFFER'
@@ -794,6 +796,9 @@ export type LiveAuction = {
 
 export type Media = {
   __typename?: 'Media';
+  /** Animated version of this visual asset. */
+  animationUrl?: Maybe<Scalars['String']['output']>;
+  /** URL of the fallback image for this media, resized for compatibility. */
   fallbackUrl?: Maybe<Scalars['String']['output']>;
   /** @deprecated No longer supported */
   fileExtension?: Maybe<Scalars['String']['output']>;
@@ -804,11 +809,12 @@ export type Media = {
   image?: Maybe<Image>;
   /** @deprecated No longer supported */
   isPixel?: Maybe<Scalars['Boolean']['output']>;
-  /** @deprecated No longer supported */
+  /** Original source URL of the media. */
   originalUrl?: Maybe<Scalars['String']['output']>;
   type?: Maybe<MediaType>;
   /** @deprecated Use visualAssets instead. */
   url?: Maybe<Scalars['String']['output']>;
+  /** @deprecated Use visualAssets instead. */
   urls?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   visualAssets?: Maybe<SizedVisualAssets>;
   width?: Maybe<Scalars['Int']['output']>;
@@ -852,6 +858,7 @@ export type MintStage = {
   presaleType?: Maybe<PresaleType>;
   proofs?: Maybe<Array<Scalars['String']['output']>>;
   salePrice?: Maybe<CoinAmount>;
+  stageCounts?: Maybe<StageCounts>;
   startTime?: Maybe<Scalars['UnixNanoseconds']['output']>;
   status?: Maybe<MintStageStatus>;
   type?: Maybe<MintStageType>;
@@ -1280,6 +1287,8 @@ export type QueryWalletArgs = {
 
 export type QueryWalletActivityArgs = {
   address: Scalars['String']['input'];
+  collectionAddr?: InputMaybe<Scalars['String']['input']>;
+  filterByActivity?: InputMaybe<Array<ActivityType>>;
   pagination?: InputMaybe<CursorPaginationInput>;
 };
 
@@ -1331,6 +1340,13 @@ export type SizedVisualAssets = {
   xs?: Maybe<VisualAsset>;
 };
 
+export type StageCounts = {
+  __typename?: 'StageCounts';
+  limit?: Maybe<Scalars['Int']['output']>;
+  mintable?: Maybe<Scalars['Int']['output']>;
+  minted?: Maybe<Scalars['Int']['output']>;
+};
+
 export type TimeSeriesSelectionInput = {
   filterByDatePreset?: InputMaybe<DatePreset>;
   filterByDateRange?: InputMaybe<DateRange>;
@@ -1375,7 +1391,10 @@ export type Token = {
   media?: Maybe<Media>;
   /** Metadata associated with the token. */
   metadata?: Maybe<Scalars['JSONObject']['output']>;
-  /** Price at which the token was minted. */
+  /**
+   * Price at which the token was minted.
+   * @deprecated Use tokenMintPrice for denom support.
+   */
   mintPrice?: Maybe<Scalars['MicroAmount']['output']>;
   /** Date when the token was minted. */
   mintedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -1402,6 +1421,8 @@ export type Token = {
   saleType?: Maybe<SaleType>;
   /** Per-collection unique token ID. */
   tokenId: Scalars['String']['output'];
+  /** Price at which the token was minted. */
+  tokenMintPrice?: Maybe<CoinAmount>;
   /** URI for token data. */
   tokenUri?: Maybe<Scalars['String']['output']>;
   /** List of token traits. */
@@ -1553,6 +1574,10 @@ export enum TokenSort {
   AcquiredDesc = 'ACQUIRED_DESC',
   /** Sort tokens by collection address and token ID in ascending order. */
   CollectionAddrTokenIdAsc = 'COLLECTION_ADDR_TOKEN_ID_ASC',
+  /** Sort tokens by floor price value in ascending order. */
+  FloorPriceAsc = 'FLOOR_PRICE_ASC',
+  /** Sort tokens by floor price value in descending order. */
+  FloorPriceDesc = 'FLOOR_PRICE_DESC',
   /** Sort tokens by their listing date/time in ascending order. */
   ListedAsc = 'LISTED_ASC',
   /** Sort tokens by their listing date/time in descending order. */
@@ -1575,7 +1600,9 @@ export enum TokenSort {
   PriceAsc = 'PRICE_ASC',
   /** Sort tokens by price in descending order. */
   PriceDesc = 'PRICE_DESC',
+  /** Sort tokens by USD value in ascending order. */
   PriceUsdAsc = 'PRICE_USD_ASC',
+  /** Sort tokens by USD value in descending order. */
   PriceUsdDesc = 'PRICE_USD_DESC',
   /** Sort tokens by rarity in ascending order. */
   RarityAsc = 'RARITY_ASC',
@@ -1633,6 +1660,7 @@ export type VisualAsset = {
 
 export type WalletAccount = {
   __typename?: 'WalletAccount';
+  /** @deprecated Use walletActivity instead */
   activity?: Maybe<WalletActivityResult>;
   address: Scalars['ID']['output'];
   name?: Maybe<Name>;
@@ -1846,6 +1874,12 @@ export enum WhitelistType {
   Regular = 'REGULAR'
 }
 
+export type NftCollectionFragment = { __typename?: 'Collection', contractAddress: string, name?: string | null, description?: string | null, mintStatus?: CollectionMintStatus | null, floor?: { __typename?: 'CoinAmount', amount?: any | null, amountUsd?: number | null, denom?: string | null, symbol?: string | null } | null, highestOffer?: { __typename?: 'Offer', offerPrice: { __typename?: 'CoinAmount', amountUsd?: number | null, amount?: any | null, denom?: string | null, symbol?: string | null } } | null, minter?: { __typename?: 'Minter', publicSale?: { __typename?: 'MinterPublicSale', endTime?: any | null } | null } | null, media?: { __typename?: 'Media', fallbackUrl?: string | null, height?: number | null, type?: MediaType | null, urls?: Array<string | null> | null, width?: number | null, visualAssets?: { __typename?: 'SizedVisualAssets', sm?: { __typename?: 'VisualAsset', staticUrl?: string | null, type?: MediaType | null, url?: string | null, webpUrl?: string | null, width?: number | null, height?: number | null } | null } | null } | null } & { ' $fragmentName'?: 'NftCollectionFragment' };
+
+export type NftFragment = { __typename?: 'Token', name?: string | null, description?: string | null, metadata?: any | null, rarityScore?: number | null, tokenId: string, collection: { __typename?: 'Collection', contractAddress: string } } & { ' $fragmentName'?: 'NftFragment' };
+
+export type UserNftCollectionFragment = { __typename?: 'Collection', contractAddress: string, name?: string | null, description?: string | null, mintStatus?: CollectionMintStatus | null, floor?: { __typename?: 'CoinAmount', amount?: any | null, amountUsd?: number | null, denom?: string | null, symbol?: string | null } | null, highestOffer?: { __typename?: 'Offer', offerPrice: { __typename?: 'CoinAmount', amountUsd?: number | null, amount?: any | null, denom?: string | null, symbol?: string | null } } | null, minter?: { __typename?: 'Minter', publicSale?: { __typename?: 'MinterPublicSale', endTime?: any | null } | null } | null, media?: { __typename?: 'Media', fallbackUrl?: string | null, height?: number | null, type?: MediaType | null, urls?: Array<string | null> | null, width?: number | null, visualAssets?: { __typename?: 'SizedVisualAssets', sm?: { __typename?: 'VisualAsset', staticUrl?: string | null, type?: MediaType | null, url?: string | null, webpUrl?: string | null, width?: number | null, height?: number | null } | null } | null } | null } & { ' $fragmentName'?: 'UserNftCollectionFragment' };
+
 export type OeCollectionNftAssetQueryQueryVariables = Exact<{
   collectionAddr: Scalars['String']['input'];
   tokenId: Scalars['String']['input'];
@@ -1853,12 +1887,6 @@ export type OeCollectionNftAssetQueryQueryVariables = Exact<{
 
 
 export type OeCollectionNftAssetQueryQuery = { __typename?: 'Query', token?: { __typename?: 'Token', metadata?: any | null } | null };
-
-export type NftCollectionFragment = { __typename?: 'Collection', contractAddress: string, name?: string | null, description?: string | null, mintStatus?: CollectionMintStatus | null, floor?: { __typename?: 'CoinAmount', amount?: any | null, amountUsd?: number | null, denom?: string | null, symbol?: string | null } | null, highestOffer?: { __typename?: 'Offer', offerPrice: { __typename?: 'CoinAmount', amountUsd?: number | null, amount?: any | null, denom?: string | null, symbol?: string | null } } | null, minter?: { __typename?: 'Minter', publicSale?: { __typename?: 'MinterPublicSale', endTime?: any | null } | null } | null, media?: { __typename?: 'Media', fallbackUrl?: string | null, height?: number | null, type?: MediaType | null, urls?: Array<string | null> | null, width?: number | null, visualAssets?: { __typename?: 'SizedVisualAssets', sm?: { __typename?: 'VisualAsset', staticUrl?: string | null, type?: MediaType | null, url?: string | null, webpUrl?: string | null, width?: number | null, height?: number | null } | null } | null } | null } & { ' $fragmentName'?: 'NftCollectionFragment' };
-
-export type NftFragment = { __typename?: 'Token', name?: string | null, description?: string | null, metadata?: any | null, rarityScore?: number | null, tokenId: string, collection: { __typename?: 'Collection', contractAddress: string } } & { ' $fragmentName'?: 'NftFragment' };
-
-export type UserNftCollectionFragment = { __typename?: 'Collection', contractAddress: string, name?: string | null, description?: string | null, mintStatus?: CollectionMintStatus | null, floor?: { __typename?: 'CoinAmount', amount?: any | null, amountUsd?: number | null, denom?: string | null, symbol?: string | null } | null, highestOffer?: { __typename?: 'Offer', offerPrice: { __typename?: 'CoinAmount', amountUsd?: number | null, amount?: any | null, denom?: string | null, symbol?: string | null } } | null, minter?: { __typename?: 'Minter', publicSale?: { __typename?: 'MinterPublicSale', endTime?: any | null } | null } | null, media?: { __typename?: 'Media', fallbackUrl?: string | null, height?: number | null, type?: MediaType | null, urls?: Array<string | null> | null, width?: number | null, visualAssets?: { __typename?: 'SizedVisualAssets', sm?: { __typename?: 'VisualAsset', staticUrl?: string | null, type?: MediaType | null, url?: string | null, webpUrl?: string | null, width?: number | null, height?: number | null } | null } | null } | null } & { ' $fragmentName'?: 'UserNftCollectionFragment' };
 
 export type CollectionsQueryQueryVariables = Exact<{
   filtersByAddrs?: InputMaybe<Array<Scalars['String']['input']> | Scalars['String']['input']>;

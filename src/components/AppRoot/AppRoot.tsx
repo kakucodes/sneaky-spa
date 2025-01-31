@@ -1,16 +1,15 @@
-import { useEffect } from "react";
+import { JSX, useEffect } from "react";
 import { usePrefetchQueries } from "../../hooks/usePrefetchQueries";
 import { Header } from "../Header/Header";
-import { Outlet } from "@tanstack/react-router";
 import { Footer } from "../Footer/Footer";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import "../../App.css";
+// import "../../App.css";
 import AOS from "aos";
 
 const initialLoader = document.getElementById("initial-loader");
 
-export const AppRoot = () => {
+export const AppRoot = ({ children }: { children: JSX.Element }) => {
   const { isFetched } = usePrefetchQueries();
 
   useEffect(() => {
@@ -46,9 +45,7 @@ export const AppRoot = () => {
       <Header />
       {/* <Dashboard /> */}
       {/* <Store /> */}
-      <div className="mb-5">
-        <Outlet />
-      </div>
+      <div className="mb-5">{children}</div>
       <Footer />
     </>
   ) : (

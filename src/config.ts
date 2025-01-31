@@ -73,28 +73,28 @@ export const SNEAKY_RADIO_TRACKS: {
   title: string;
 }[] = [
   {
-    src: `${process.env.PUBLIC_URL}/music/unicornqueen.aac`,
-    cover: `${process.env.PUBLIC_URL}/music/unicornqueen.jpg`,
-    title: "🎶Unicorn Queen🎶",
-  },
-  {
-    src: `${process.env.PUBLIC_URL}/music/thegrandescape.aac`,
-    cover: `${process.env.PUBLIC_URL}/music/thegrandescape.jpg`,
-    title: "🎵The Grand Escape🎵",
-  },
-  {
-    src: `${process.env.PUBLIC_URL}/music/animalechoes.aac`,
-    cover: `${process.env.PUBLIC_URL}/music/animalechoes.jpg`,
-    title: "🎶Animal Echoes🎶",
-  },
-  {
-    src: `${process.env.PUBLIC_URL}/music/smokersclub.aac`,
-    cover: `${process.env.PUBLIC_URL}/music/smokersclub.jpg`,
+    src: `/music/smokersclub.aac`,
+    cover: `/music/smokersclub.jpg`,
     title: "🎶Smokers Club🎶",
   },
   {
-    src: `${process.env.PUBLIC_URL}/music/dremmettbrown.aac`,
-    cover: `${process.env.PUBLIC_URL}/music/dremmettbrown.jpg`,
+    src: `/music/thegrandescape.aac`,
+    cover: `/music/thegrandescape.jpg`,
+    title: "🎵The Grand Escape🎵",
+  },
+  {
+    src: `/music/animalechoes.aac`,
+    cover: `/music/animalechoes.jpg`,
+    title: "🎶Animal Echoes🎶",
+  },
+  {
+    src: `/music/unicornqueen.aac`,
+    cover: `/music/unicornqueen.jpg`,
+    title: "🎶Unicorn Queen🎶",
+  },
+  {
+    src: `/music/dremmettbrown.aac`,
+    cover: `/music/dremmettbrown.jpg`,
     title: "🎶Dr. Emmett Brown🎶",
   },
 ];
@@ -105,13 +105,15 @@ export const isOECollectionAddress = (
   OPEN_EDITION_COLLECTION_ADDRS.includes(address as OpenEditionCollectionAddr);
 
 export const SHOP_PLUSHIES_SHEETS_CONFIG: SheetConfig = {
-  apiKey: process.env.REACT_APP_STORE_SHEET_KEY!,
-  spreadsheetId: process.env.REACT_APP_STORE_SHEET_ID!,
+  apiKey: process.env.NEXT_PUBLIC_STORE_SHEET_KEY!,
+  spreadsheetId: process.env.NEXT_PUBLIC_STORE_SHEET_ID!,
   range: "Plushies!A1:I100",
 };
 
 export const SHOP_CARDS_SHEETS_CONFIG: SheetConfig = {
-  apiKey: process.env.REACT_APP_STORE_SHEET_KEY!,
-  spreadsheetId: process.env.REACT_APP_STORE_SHEET_ID!,
+  apiKey: process.env.NEXT_PUBLIC_STORE_SHEET_KEY!,
+  spreadsheetId: process.env.NEXT_PUBLIC_STORE_SHEET_ID!,
   range: "Cards!A1:I100",
 };
+
+console.log({ SHOP_CARDS_SHEETS_CONFIG, SHOP_PLUSHIES_SHEETS_CONFIG });

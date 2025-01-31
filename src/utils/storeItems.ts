@@ -3,7 +3,7 @@ import { loadSheetData, ValidationError } from "./sheetsHelpers";
 import {
   SHOP_CARDS_SHEETS_CONFIG,
   SHOP_PLUSHIES_SHEETS_CONFIG,
-} from "../config";
+} from "@/config";
 
 const StoreItemSchema = z.object({
   image: z.string().min(1, "Image URL is required"),

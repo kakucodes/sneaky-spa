@@ -1,4 +1,6 @@
 import { AudioPlayer } from "../AudioPlayer/AudioPlayer";
+import Image from "next/image";
+import Link from "next/link";
 
 export const Footer = () => {
   return (
@@ -6,22 +8,23 @@ export const Footer = () => {
       <div className="container-xxl pb-2">
         <div className="d-flex justify-content-between justify-content-md-evenly">
           <div>
-            <a
+            <Link
               href="https://x.com/SneakyProds"
               target="_blank"
               rel="noreferrer"
               className="d-flex flex-column align-items-center link-dark link-underline link-underline-opacity-0 p-1 px-2"
             >
-              <img
+              <Image
                 width={32}
-                src={`${process.env.PUBLIC_URL}/x-logo.png`}
+                height={32}
+                src={`/x-logo.png`}
                 alt="X logo"
                 className="user-select-none"
               />
               <span className="text-uppercase fw-bold mb-0 small">
                 <small>Follow</small>
               </span>
-            </a>
+            </Link>
           </div>
 
           <div>
@@ -32,10 +35,10 @@ export const Footer = () => {
               data-bs-target="#offcanvasResponsive"
               aria-controls="offcanvasResponsive"
             >
-              <img
+              <Image
                 height={32}
                 width={32}
-                src={`${process.env.PUBLIC_URL}/sneakybox.smol.png`}
+                src={`/sneakybox.smol.png`}
                 alt="Sneaky Radio logo"
                 className="img-fluid"
               />
@@ -50,10 +53,10 @@ export const Footer = () => {
               id="offcanvasResponsive"
               aria-labelledby="offcanvasResponsiveLabel"
             >
-              <div className="offcanvas-body bg-white">
+              <div className="offcanvas-body ">
                 <AudioPlayer />
               </div>
-              <div className="offcanvas-footer text-center pt-4">
+              <div className="offcanvas-footer text-center  pt-1">
                 <button
                   type="button"
                   className="btn-close"
@@ -66,22 +69,23 @@ export const Footer = () => {
           </div>
 
           <div>
-            <a
+            <Link
               href="https://discord.com/invite/PF52wHyDe4"
               target="_blank"
               rel="noreferrer"
               className="d-flex flex-column align-items-center link-dark link-underline link-underline-opacity-0 p-1 px-2"
             >
-              <img
+              <Image
+                height={32}
                 width={32}
-                src={`${process.env.PUBLIC_URL}/discord-logo.png`}
+                src={`/discord-logo.png`}
                 alt="Discord logo"
                 className="user-select-none"
               />
               <span className="text-uppercase fw-bold mb-0 small">
                 <small>Discord</small>
               </span>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

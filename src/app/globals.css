@@ -1,9 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-shantell-sans), Helvetica, sans-serif;
+}
+
+/* Initial Loading Styles */
+body {
+  overflow-y: hidden;
+}
+
+#initial-loader {
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow-y: hidden;
+}
+
+.walking-pig {
+  /* Disable User Select */
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  user-select: none !important;
+
+  margin-bottom: 1rem;
+  animation: pigWalk 8s linear infinite;
+}
+
+@keyframes pigWalk {
+  from {
+    transform: translateX(calc(-50vw - 50%));
+  }
+  to {
+    transform: translateX(calc(50vw + 50%));
+  }
+}
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 :root {
   --bg-pattern: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' rgba='(0, 0, 0, 0)' width='16' height='16' %3E%3Cpath d='M1.6 1.1a.4.4 0 1 1-.7 0 .4.4 0 0 1 .7 0Zm13.6 11a.3.3 0 1 1-.6 0 .3.3 0 0 1 .6 0ZM2.9 4.4a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Zm11.6 3.7a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM5 10.6a.2.2 0 1 1-.5 0 .2.2 0 0 1 .5 0Zm4.9-4a.5.5 0 1 1-1.1 0 .5.5 0 0 1 1 0Zm-4 .1a.3.3 0 1 1-.6 0 .3.3 0 0 1 .6 0Zm7 6.6a.9.9 0 1 1-1.8 0 .9.9 0 0 1 1.8 0ZM14.4 1a.2.2 0 0 1-.5 0 .2.2 0 0 1 .5 0ZM1.8 14.2a.2.2 0 1 1-.5 0 .2.2 0 0 1 .5 0Zm13.7 1.2a.2.2 0 1 1-.4 0 .2.2 0 0 1 .4 0ZM13.9 4a.8.8 0 1 1-1.6 0 .8.8 0 0 1 1.6 0ZM2.6 8.7a.8.8 0 1 1-1.6 0 .8.8 0 0 1 1.6 0ZM10.8 2a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM8 14.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Zm0-4.7a.3.3 0 1 1-.6 0 .3.3 0 0 1 .6 0Zm2.2 1.2-.2.2a.2.2 0 1 1 .2-.2Zm1.5-2a.3.3 0 1 1-.6 0 .3.3 0 0 1 .6 0ZM6.9 2.2a1 1 0 1 1-1.8 0 1 1 0 0 1 1.8 0ZM5.3 13.1a.7.7 0 1 1-1.5 0 .7.7 0 0 1 1.5 0Zm3.4-8.6a.2.2 0 1 1-.4 0 .2.2 0 0 1 .4 0Z' /%3E%3C/svg%3E");
 }
 
 body {
-
   font-family: "Shantell Sans", cursive;
   letter-spacing: 0.01em;
   font-weight: 100;
@@ -29,7 +101,6 @@ body {
   background-attachment: fixed, scroll;
 
   overflow-y: scroll;
-
 }
 .nav-btn:hover,
 .nav-btn:active,
@@ -74,7 +145,10 @@ h6 {
   text-transform: uppercase;
 }
 .text-stroke {
-  text-shadow: 1px 1px 0 black, -1px 1px 0 black, 1px -1px 0 black,
+  text-shadow:
+    1px 1px 0 black,
+    -1px 1px 0 black,
+    1px -1px 0 black,
     -1px -1px 0 black;
 }
 
@@ -84,59 +158,18 @@ h6 {
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar-track {
-	background: transparent;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-	background: rgba(0, 0, 0, 0.8);
-	border-radius: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar {
-	width: 8px;
-	height: 10px;
+  width: 8px;
+  height: 10px;
 }
-
-/* Custom Button (Paper Look) */
-/* button,
-.btn,
-.btn-style {
-  font-family: "Dokdo", system-ui;
-  border-bottom-left-radius: 15px 255px;
-  border-bottom-right-radius: 225px 15px;
-  border-top-left-radius: 255px 15px;
-  border-top-right-radius: 15px 225px;
-  transition: all 235ms ease 0s;
-  box-shadow: 2px 8px 8px -5px rgba(0, 0, 0, 0.1);
-  transition: all 235ms ease-in-out 0s;
-  border-style: solid;
-  border-width: 1px;
-  border-right-width: 3px;
-  border-bottom-width: 2px;
-  text-transform: uppercase;
-  font-weight: 500;
-  padding-bottom: 0.2em;
-}
-button:hover,
-.paper-btn:hover,
-[type="button"]:hover {
-  transform: translate3d(0, 2px, 0);
-  box-shadow: 2px 8px 8px -5px rgba(0, 0, 0, 0.3);
-}
-button:focus,
-.paper-btn:focus,
-[type="button"]:focus {
-  border-style: solid;
-  border-width: 1px;
-  border-right-width: 3px;
-  border-bottom-width: 2px;
-  box-shadow: 2px 8px 4px -6px rgba(0, 0, 0, 0.3);
-}
-button:active,
-.paper-btn:active,
-[type="button"]:active {
-  transition: none;
-} */
 
 .custom-border {
   border-bottom-left-radius: 6px 50px;

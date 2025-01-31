@@ -1,9 +1,10 @@
+"use client";
 import {
   COLLECTION_ADDRS,
   isOECollectionAddress,
   MAIN_COLLECTION_ADDRS,
   PLUSHIE_COLLECTION_ADDRS,
-} from "../../config";
+} from "@/config";
 import { useAccount } from "graz";
 import { useQueryNfts } from "../../hooks/useQueryNfts/useQueryUserNfts";
 import { useQuerySneakyTokens } from "../../hooks/useQuerySneakyTokens";
@@ -25,14 +26,14 @@ type Props = {
   nfts: NftInfo[];
 };
 
-export const Dashboard = ({ collection, nfts }: Props) => {
-
+export const Dashboard = () => {
   // Wallet Connection
   const { isDisconnected, isConnected } = useAccount();
 
   // User Asset Data
   const { data: userNfts } = useQueryNfts();
-  const { data: sneakyBalance, areAnyLoading: isSneakyBalanceLoading } = useQuerySneakyTokens();
+  const { data: sneakyBalance, areAnyLoading: isSneakyBalanceLoading } =
+    useQuerySneakyTokens();
   const { data: collectionsData } = useQueryCollections();
 
   const collections =

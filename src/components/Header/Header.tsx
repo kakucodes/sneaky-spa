@@ -1,18 +1,20 @@
-import { Link } from "@tanstack/react-router";
+// import { Link } from "@tanstack/react-router";
 /* import { useMatchRoute } from "@tanstack/react-router";
 import { useAccount, useDisconnect } from "graz";
 import { useWalletConnectModal } from "../WalletConnectionModal/ConnectionModalProvider";
 import { useState } from "react";
 import { match } from "ts-pattern"; */
+import Link from "next/link";
+import Image from "next/image";
 
 export const Header = () => {
-/*   const [isNavOpen, setIsNavOpen] = useState(false);
+  /*   const [isNavOpen, setIsNavOpen] = useState(false);
   const { openModal } = useWalletConnectModal();
   const { isConnected } = useAccount();
   const { disconnect } = useDisconnect();
   const matchRoute = useMatchRoute(); */
 
-/*   const getCurrentPage = () => {
+  /*   const getCurrentPage = () => {
     if (matchRoute({ to: "/dashboard" })) return "Dashboard";
     if (matchRoute({ to: "/shop" })) return "Shop";
     return "Home";
@@ -36,26 +38,44 @@ export const Header = () => {
     <header className="fixed-top">
       <nav className="navbar navbar-expand-sm">
         <div className="container-xxl">
-          <a className="navbar-brand dokdo fw-bold text-uppercase" href="/">
-            <img src={`${process.env.PUBLIC_URL}/pignose.svg`} alt="Bootstrap" width="30" height="24" />
-          </a>
-          <button className="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <Link className="navbar-brand dokdo fw-bold text-uppercase" href="/">
+            <Image
+              src={`/pignose.svg`}
+              alt="Sneaky Productions Logo"
+              width="30"
+              height="24"
+            />
+          </Link>
+          <button
+            className="navbar-toggler border-0"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav ms-auto">
-              {pages.map((page) => (
-                <li key={page.path} className="nav-item">
-                  <Link to={page.path} className="dokdo text-uppercase nav-link fw-bold fs-4" data-bs-target=".navbar-collapse.show" onClick={handleClick}>
-                    {page.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* <div className="collapse navbar-collapse" id="navbarNav"> */}
+          <ul className="navbar-nav ms-auto">
+            {pages.map((page) => (
+              <li key={page.path} className="nav-item">
+                <Link
+                  href={page.path}
+                  className="dokdo text-uppercase nav-link fw-bold fs-4"
+                  data-bs-target=".navbar-collapse.show"
+                  // onClick={handleClick}
+                >
+                  {page.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          {/* </div> */}
         </div>
       </nav>
-        {/* <div className="row">
+      {/* <div className="row">
           Title/Menu
           <div className="col-8">
             <h1 className="fw-bold fs-3 pt-2 text-nowrap lh-1">
@@ -81,7 +101,7 @@ export const Header = () => {
             </ul>
           </div>
           */}
-          {/* Header Button
+      {/* Header Button
           <div className="col-4 text-end d-flex align-items-center justify-content-end">
             {match([isConnected, getCurrentPage() === "Dash"] as const)
               .with([false, false], () => (
