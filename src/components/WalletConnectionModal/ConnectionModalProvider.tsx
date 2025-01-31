@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, JSX, useContext, useState } from "react";
 import { ConnectionModal } from "./ConnectionModal";
 
 const WalletModalContext = createContext<{

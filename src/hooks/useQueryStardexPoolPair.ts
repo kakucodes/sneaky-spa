@@ -17,7 +17,7 @@ export const useQueryStardexPoolPair = (
         throw new Error("Client not found");
       }
       return new stardexContracts.StardexPair.StardexPairQueryClient(
-        // @ts-ignore - stardex wants a different version of the CosmwasmClient
+        // @ts-expect-error cosmjs client versions don't match
         client,
         poolContractAddress
       ).pool();

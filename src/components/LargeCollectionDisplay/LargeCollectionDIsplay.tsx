@@ -28,7 +28,7 @@ export const LargeCollectionDisplay = ({ collection, nfts }: Props) => {
               className="d-flex flex-column align-items-center col-4 col-xxl-3 col-lg-4 col-md-6 col-sm-6"
             >
               <Nft
-                // @ts-ignore
+                // @ts-expect-error nft should match up enough
                 token={nft}
               />
             </div>
@@ -49,7 +49,7 @@ export const LargeCollectionDisplay = ({ collection, nfts }: Props) => {
             }}
             className="border-4 border-gray-400 border-dashed rounded-lg p-8 max-w-sm mx-auto text-center flex flex-col items-center gap-2"
           >
-            <div>You don't own any</div>
+            <div>You don&apos;t own any</div>
             <div>{collection.name?.toUpperCase()}</div>
             <div>:&apos;&#40;</div>
           </div>

@@ -13,6 +13,7 @@
     "codegen": "npm run codegen:graphql && npm run codegen:graz"
   },
   "dependencies": {
+    "@cosmjs/amino": "^0.33.0",
     "@cosmjs/cosmwasm-stargate": "^0.33.0",
     "@cosmjs/launchpad": "^0.27.1",
     "@cosmjs/proto-signing": "^0.33.0",

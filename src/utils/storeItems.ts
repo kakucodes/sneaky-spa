@@ -57,7 +57,7 @@ export const getStorePlushies = async (): Promise<
   | "Failed to load items"
 > => {
   try {
-    let storeItems = await loadSheetData(
+    const storeItems = await loadSheetData(
       SHOP_PLUSHIES_SHEETS_CONFIG,
       StoreItemSchema
     );
@@ -80,7 +80,7 @@ export const getStoreCards = async (): Promise<
   | "Failed to load items"
 > => {
   try {
-    let storeItems = await loadSheetData(
+    const storeItems = await loadSheetData(
       SHOP_CARDS_SHEETS_CONFIG,
       StoreItemSchema
     );

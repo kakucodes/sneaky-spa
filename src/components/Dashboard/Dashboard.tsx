@@ -9,22 +9,12 @@ import { useAccount } from "graz";
 import { useQueryNfts } from "../../hooks/useQueryNfts/useQueryUserNfts";
 import { useQuerySneakyTokens } from "../../hooks/useQuerySneakyTokens";
 import { useQueryCollections } from "../../hooks/useQueryCollections/useQueryCollections";
-
 import { ConnectionModal } from "../WalletConnectionModal/ConnectionModal";
 import { DisconnectedDashboard } from "../Dashboard/DisconnectedDashboard";
-
 import { PortfolioStats } from "../PortfolioStats/PortfolioStats";
 import { LoadingPorfolioStats } from "../PortfolioStats/LoadingPortfolioStats";
 import { HorizontalCollectionRoll } from "../HorizontalCollectionRoll/HorizontalCollectionRoll";
 import { LargeCollectionDisplay } from "../LargeCollectionDisplay/LargeCollectionDIsplay";
-
-import { CollectionInfo } from "../../hooks/useQueryCollections/useQueryCollections";
-import { NftInfo } from "../../hooks/useQueryNfts/useQueryUserNfts";
-
-type Props = {
-  collection: CollectionInfo;
-  nfts: NftInfo[];
-};
 
 export const Dashboard = () => {
   // Wallet Connection

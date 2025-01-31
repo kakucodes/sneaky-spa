@@ -5,7 +5,9 @@ import {
   NftFragment,
 } from "../../../gql/graphql";
 import { Nft } from "../Nft/Nft";
-import { formatTokenAmount, formatUsd } from "../../../utils/format";
+import { formatTokenAmount } from "../../../utils/format";
+import Image from "next/image";
+import Link from "next/link";
 
 type Props = {
   collection: NftCollectionFragment;
@@ -18,8 +20,8 @@ export const Collection = ({ collection, nfts }: Props) => {
     `${formatTokenAmount(collection.floor.amount, 6)} ${
       collection.floor.symbol
     }`;
-  const collectionFloorUsd =
-    collection.floor?.amountUsd && formatUsd(collection.floor.amountUsd);
+  // const collectionFloorUsd =
+  //   collection.floor?.amountUsd && formatUsd(collection.floor.amountUsd);
 
   const MintInfo = match([
     collection.mintStatus,
@@ -42,7 +44,7 @@ export const Collection = ({ collection, nfts }: Props) => {
       () => "Mint Finished"
     )
     .with([CollectionMintStatus.Minting, P._], () => (
-      <a
+      <Link
         className="link-offset-2 link-underline-opacity-0 link-dark"
         target="_blank"
         referrerPolicy="no-referrer"
@@ -50,23 +52,26 @@ export const Collection = ({ collection, nfts }: Props) => {
         href={`https://www.stargaze.zone/l/${collection.contractAddress}`}
       >
         <span>Mint Now!</span>
-      </a>
+      </Link>
     ))
     .with([CollectionMintStatus.Upcoming, P._], () => "Coming Soon")
     .exhaustive();
 
   // Group NFTs by name and count duplicates
-  const groupedNfts = nfts.reduce((acc, nft) => {
-    const { name } = nft;
-    if (name) {
-      if (!acc[name]) {
-        acc[name] = { ...nft, count: 1 };
-      } else {
-        acc[name].count += 1;
+  const groupedNfts = nfts.reduce(
+    (acc, nft) => {
+      const { name } = nft;
+      if (name) {
+        if (!acc[name]) {
+          acc[name] = { ...nft, count: 1 };
+        } else {
+          acc[name].count += 1;
+        }
       }
-    }
-    return acc;
-  }, {} as Record<string, NftFragment & { count: number }>);
+      return acc;
+    },
+    {} as Record<string, NftFragment & { count: number }>
+  );
 
   // Convert the grouped NFTs into an array, and sort.
   const nftArray = Object.values(groupedNfts).sort((a, b) => b.count - a.count);
@@ -87,16 +92,20 @@ export const Collection = ({ collection, nfts }: Props) => {
   return (
     <>
       <div className="col-12 col-md-6 col-xl-4">
-        <div className={`d-flex flex-column align-items-center mt-md-${randomNumber}`}>
-          <h3 className={`h5 bg-white bg-opacity-75 fw-bold text-dark border border-dark custom-border custom-border-width text-nowrap test p-1 px-2 z-3 title-rotate-${randomNumber}`}>
+        <div
+          className={`d-flex flex-column align-items-center mt-md-${randomNumber}`}
+        >
+          <h3
+            className={`h5 bg-white bg-opacity-75 fw-bold text-dark border border-dark custom-border custom-border-width text-nowrap test p-1 px-2 z-3 title-rotate-${randomNumber}`}
+          >
             {collection.name}
           </h3>
           <div className={`mb-4 rotate-${randomNumber}`}>
             <div className="position-relative d-inline-block">
               {
-                <img
+                <Image
                   className="img-fluid custom-border custom-border-width"
-                  alt={""}
+                  alt={`${collection.name} nft art asset`}
                   src={
                     collection.media?.visualAssets?.sm?.webpUrl ||
                     collection.media?.fallbackUrl ||
@@ -126,7 +135,9 @@ export const Collection = ({ collection, nfts }: Props) => {
               <span>View</span>
             </button>
             <p className="">
-              {collection.description} Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus placeat aperiam, quibusdam quia hic eligendi adipisci ut veniam consequuntur.
+              {collection.description} Lorem ipsum dolor sit amet consectetur
+              adipisicing elit. Voluptatibus placeat aperiam, quibusdam quia hic
+              eligendi adipisci ut veniam consequuntur.
             </p>
           </div>
           <div className="modal fade" id={`nfts-${sanitizedId}`}>

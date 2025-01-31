@@ -23,40 +23,33 @@ type Props = {
 };
 
 export const StatsBreakdown = ({
-  stargazePoolSneakyFormatted,
   sneakyTokenUsdFormatted,
-  pool1403SneakyFormatted,
-  pool1910SneakyFormatted,
   totalNftsCount,
   osmosisBalance,
   stargazeBalance,
-  totalFormattedAmount,
   tokenFloors,
   allNftsUsd,
 }: Props) => {
   return (
-      <>
-          <h4 className="fw-bold">Sneaky NFTs</h4>
-          <p>Owned: {totalNftsCount}</p>
-          <p>
-            Token Value:{" "}
-            {(tokenFloors &&
-              Object.values(tokenFloors)
-                .map(({ amount }) => ` ${formatTokenAmount(amount, 6)}`)
-                .join(", ")) ||
-              0}{" "}
-            STARS
-          </p>
-          <p>USD Value: {allNftsUsd}</p>
-          <h4 className="fw-bold">$SNEAKY Token</h4>
-          <p>
-            Stargaze: {formatTokenAmount(stargazeBalance.formattedAmount)}{" "}
-            SNEAKY
-          </p>
-          <p>
-            Osmosis: {formatTokenAmount(osmosisBalance.formattedAmount)} SNEAKY
-          </p>
-          <p>USD Value: {sneakyTokenUsdFormatted}</p>
-      </>
+    <>
+      <h4 className="fw-bold">Sneaky NFTs</h4>
+      <p>Owned: {totalNftsCount}</p>
+      <p>
+        Token Value:{" "}
+        {(tokenFloors &&
+          Object.values(tokenFloors)
+            .map(({ amount }) => ` ${formatTokenAmount(amount, 6)}`)
+            .join(", ")) ||
+          0}{" "}
+        STARS
+      </p>
+      <p>USD Value: {allNftsUsd}</p>
+      <h4 className="fw-bold">$SNEAKY Token</h4>
+      <p>
+        Stargaze: {formatTokenAmount(stargazeBalance.formattedAmount)} SNEAKY
+      </p>
+      <p>Osmosis: {formatTokenAmount(osmosisBalance.formattedAmount)} SNEAKY</p>
+      <p>USD Value: {sneakyTokenUsdFormatted}</p>
+    </>
   );
 };

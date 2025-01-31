@@ -2,19 +2,18 @@ import { JSX, useEffect } from "react";
 import { usePrefetchQueries } from "../../hooks/usePrefetchQueries";
 import { Header } from "../Header/Header";
 import { Footer } from "../Footer/Footer";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
+// import "bootstrap/dist/js/bootstrap.bundle.min.js";
 // import "../../App.css";
 import AOS from "aos";
 
-const initialLoader = document.getElementById("initial-loader");
+// const initialLoader = document.getElementById("initial-loader");
 
 export const AppRoot = ({ children }: { children: JSX.Element }) => {
   const { isFetched } = usePrefetchQueries();
 
   useEffect(() => {
     if (isFetched) {
-      initialLoader && initialLoader.remove();
+      // initialLoader && initialLoader.remove();
     }
   }, [isFetched]);
 

@@ -1,5 +1,6 @@
 "use client";
 import { useQueryPlushies, useQueryCards } from "./useQueryPlushies";
+import Image from "next/image";
 
 export const Store = () => {
   const { data: plushies } = useQueryPlushies();
@@ -8,7 +9,7 @@ export const Store = () => {
   console.log("plushies", plushies);
   console.log("cards", cards);
 
-  // @ts-ignore
+  // @ts-expect-error items exists
   const storeItems = [...(plushies?.items || []), ...(cards?.items || [])];
 
   return (
@@ -34,11 +35,14 @@ export const Store = () => {
           storeItems.map((item, index) => (
             <div key={index} className="col-12 col-md-6 col-xxl-4">
               <div className="plushie-item text-center">
-                <img
+                <Image
                   src={item.image}
                   style={{ maxWidth: "300", margin: "auto" }}
                   alt={item.name}
                   className="img-fluid mb-4"
+                  width={300}
+                  objectFit="contain"
+                  height={300}
                 />
                 <h2 className="mb-0">{item.name}</h2>
                 {item.basedOn && (
@@ -89,3 +93,5 @@ export const Store = () => {
     </main>
   );
 };
+
+export default Store;

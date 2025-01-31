@@ -65,7 +65,7 @@ export const Header = () => {
                   href={page.path}
                   className="dokdo text-uppercase nav-link fw-bold fs-4"
                   data-bs-target=".navbar-collapse.show"
-                  // onClick={handleClick}
+                  onClick={handleClick}
                 >
                   {page.name}
                 </Link>

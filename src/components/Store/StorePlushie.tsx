@@ -1,5 +1,6 @@
 import { match } from "ts-pattern";
 import { StoreItem } from "../../utils/storeItems";
+import Image from "next/image";
 
 const monthAndDateFormatter = new Intl.DateTimeFormat("en-US", {
   month: "long", // 'long' gives you the full month name
@@ -31,11 +32,13 @@ export const StorePlushie = ({
     <div
       className={layout === "vertical" ? "col-12" : "col-12 col-lg-6 ps-lg-5"}
     >
-      <img
-        style={{ width: "250px", height: "250px", objectFit: "contain" }}
+      <Image
         src={image}
         className="img-fluid "
         alt={`Plushie based on ${basedOn}`}
+        width={250}
+        height={250}
+        objectFit="contain"
       />
     </div>
   );

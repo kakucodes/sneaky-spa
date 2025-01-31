@@ -1,4 +1,3 @@
-import { Dashboard } from "@/components/Dashboard/Dashboard";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -153,11 +152,11 @@ export default function Home() {
                 Sneaky Stuff
               </h3>
               <p className="text-center">
-                “
+                &quot;
                 <span className="fst-italic">
                   What the f*** is <b>that</b>?!
                 </span>
-                ”
+                &quot;
               </p>
             </div>
           </div>
@@ -233,11 +232,11 @@ export default function Home() {
                 Sneaky Transformation
               </h3>
               <p className="lead fs-6 text-center">
-                “
+                &quot;
                 <span className="fst-italic">
                   From real-life, to real f***ed-up
                 </span>
-                !”
+                !&quot;
               </p>
             </div>
           </div>
@@ -259,11 +258,11 @@ export default function Home() {
             >
               <h4 className="fw-bold mb-0">Introduction</h4>
               <p className="fs-6 mb-5">
-                Imagine anything your twisted mind can conjure up, and we'll
-                bring it to life with a sneaky twist - within reason, of course!
-                A limited collection of user-requested and community approved
-                pieces that can feature anybody, from Jimi Hendrix to The
-                Teletubbies.
+                Imagine anything your twisted mind can conjure up, and
+                we&apos;ll bring it to life with a sneaky twist - within reason,
+                of course! A limited collection of user-requested and community
+                approved pieces that can feature anybody, from Jimi Hendrix to
+                The Teletubbies.
               </p>
               <h5 className="fw-bold mb-0">Traits</h5>
               <p className="lead fs-6">
@@ -390,11 +389,11 @@ export default function Home() {
                 Sneaky Plushies
               </h3>
               <p className="lead fs-6 text-center">
-                “
+                &quot;
                 <span className="fst-italic">
                   From drawing, to NFT, to RWA - the circle of life.
                 </span>
-                ”
+                &quot;
               </p>
             </div>
           </div>
@@ -439,8 +438,8 @@ export default function Home() {
 
               <p className="lead fs-6">
                 Other NFTs can be summoned into the real world by their holders,
-                through our ingenious "Plush Fund" program. Be sure to join our
-                Discord to learn more about that.
+                through our ingenious &quot;Plush Fund&quot; program. Be sure to
+                join our Discord to learn more about that.
               </p>
             </div>
           </div>

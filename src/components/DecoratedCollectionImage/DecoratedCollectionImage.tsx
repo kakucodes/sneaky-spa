@@ -4,7 +4,7 @@ import { formatTokenAmount } from "../../utils/format";
 import { CollectionMintStatus } from "../../gql/graphql";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip, { TooltipProps } from "react-bootstrap/Tooltip";
-
+import Image from "next/image";
 import { useMemo } from "react";
 import { isOECollectionAddress, OE_ASSET_URLS } from "../../config";
 import { RoughLink } from "../RoughLink/RoughLink";
@@ -76,17 +76,27 @@ export const DecoratedCollectionImage = ({
 
   const renderTooltip = (props: TooltipProps) => (
     <Tooltip id="button-tooltip" {...props}>
-      <p>
-        <strong>{collection.name}</strong> - {collection.description}
-      </p>
-      {isOECollectionAddress(collection.contractAddress) && (
-        <img
-          alt={`${collection.name} nft art asset`}
-          width="100px"
-          className="mb-1"
-          src={OE_ASSET_URLS[collection.contractAddress]}
-        />
-      )}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <p>
+          <strong>{collection.name}</strong> - {collection.description}
+        </p>
+        {isOECollectionAddress(collection.contractAddress) && (
+          <Image
+            alt={`${collection.name} nft art asset`}
+            width={100}
+            height={100}
+            objectFit="cover"
+            className="mb-1"
+            src={OE_ASSET_URLS[collection.contractAddress]}
+          />
+        )}
+      </div>
     </Tooltip>
   );
 
@@ -114,13 +124,16 @@ export const DecoratedCollectionImage = ({
           <div className={`mb-4 rotate-${randomNumber}`}>
             <div className="position-relative d-inline-block">
               {
-                <img
+                <Image
                   style={{
                     ...(makeCollectionImageSquare
                       ? { objectFit: "cover", height: "260px" }
                       : {}),
                     width: "260px",
                   }}
+                  height={260}
+                  objectFit="cover"
+                  width={260}
                   className="img-fluid custom-border custom-border-width"
                   alt={""}
                   src={

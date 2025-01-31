@@ -7,6 +7,7 @@ import { StatsBreakdown } from "./StatsBreakdown";
 /* import { useAccount } from "graz"; */
 import { useDisconnect } from "graz";
 /* import { useWalletConnectModal } from "../WalletConnectionModal/ConnectionModalProvider"; */
+import Link from "next/link";
 
 type Props = {
   tokens: NonNullable<Awaited<ReturnType<typeof queryNfts>>> | undefined;
@@ -14,7 +15,6 @@ type Props = {
 };
 
 export const PortfolioStats = ({ tokens, sneakyBalance }: Props) => {
-
   const tokenSummary = sneakyTokensSummary(sneakyBalance);
 
   const totalNftsCount = tokens?.length || 0;
@@ -32,7 +32,7 @@ export const PortfolioStats = ({ tokens, sneakyBalance }: Props) => {
   const osmosisBalance = sneakyBalance?.chainBalances["osmosis-1"];
   const stargazeBalance = sneakyBalance?.chainBalances["stargaze-1"];
 
-/*   const { openModal } = useWalletConnectModal();
+  /*   const { openModal } = useWalletConnectModal();
   const { isConnected } = useAccount(); */
   const { disconnect } = useDisconnect();
 
@@ -71,7 +71,7 @@ export const PortfolioStats = ({ tokens, sneakyBalance }: Props) => {
           Total Value
         </p>
         <p data-aos="fade" data-aos-delay="500">
-          <a
+          <Link
             className="link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-50-hover"
             href="/"
             onClick={(e) => {
@@ -80,7 +80,7 @@ export const PortfolioStats = ({ tokens, sneakyBalance }: Props) => {
             }}
           >
             Disconnect
-          </a>
+          </Link>
           <span>&nbsp;|&nbsp;</span>
           <a
             className="link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-50-hover"

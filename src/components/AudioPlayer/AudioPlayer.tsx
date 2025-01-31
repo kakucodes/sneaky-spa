@@ -10,7 +10,7 @@ export const AudioPlayer = () => {
   const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(0);
-  const [showArtwork, setShowArtwork] = useState(true);
+  const [showArtwork, _] = useState(true);
 
   const currentlyPlaying = SNEAKY_RADIO_TRACKS[currentTrack];
 

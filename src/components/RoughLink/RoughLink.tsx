@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, JSX } from "react";
 import { annotate } from "rough-notation";
 import { RoughAnnotation } from "rough-notation/lib/model";
 
