@@ -17,11 +17,15 @@ export const MAIN_COLLECTION_ADDRS = [
   "stars1429tk3pj6nrta2y34gx0njrm8zum53v05dyjawlsk6w84wqugsnshf2n3x",
   // Sneaky Transformation
   "stars1axa9hddj5p5vr4agt9ftr957fkxl2accss4e0x70u3882rc2zt5q97gvxs",
+  // Sneaky People
+  "stars1m3yl67vexemvlkwfshy9szyv9ppkz96z40rf0g",
   // Sneaky Stuff
   "stars1luw5em4jmprng78v2jrzp7p66lzetugdvvq38d9t0gylsut23dpqe686z3",
   // Sneaky Food
   "stars10s9s7hvup5j5e243fgtlp2zwtvshyhwg865gplhp9u096p4ver0qncx8lt",
 ];
+
+console.log({ MAIN_COLLECTION_ADDRS });
 
 export const OPEN_EDITION_COLLECTION_ADDRS = [
   // Unlucky Pig 1
