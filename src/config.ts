@@ -18,7 +18,7 @@ export const MAIN_COLLECTION_ADDRS = [
   // Sneaky Transformation
   "stars1axa9hddj5p5vr4agt9ftr957fkxl2accss4e0x70u3882rc2zt5q97gvxs",
   // Sneaky People
-  "stars1m3yl67vexemvlkwfshy9szyv9ppkz96z40rf0g",
+  "stars1f9y38ccy9xfc3rklfvhuvt5kcerkh8qgagtxp70y9chr6namvz2qa9q65w",
   // Sneaky Stuff
   "stars1luw5em4jmprng78v2jrzp7p66lzetugdvvq38d9t0gylsut23dpqe686z3",
   // Sneaky Food
