@@ -10,7 +10,7 @@ export const Store = () => {
   console.log("cards", cards);
 
   // @ts-expect-error items exists
-  const storeItems = [...(plushies?.items || []), ...(cards?.items || [])];
+  const storeItems = [...(cards?.items || []), ...(plushies?.items || [])];
 
   return (
     <main>
