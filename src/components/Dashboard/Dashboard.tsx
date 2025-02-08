@@ -15,6 +15,7 @@ import { PortfolioStats } from "../PortfolioStats/PortfolioStats";
 import { LoadingPorfolioStats } from "../PortfolioStats/LoadingPortfolioStats";
 import { HorizontalCollectionRoll } from "../HorizontalCollectionRoll/HorizontalCollectionRoll";
 import { LargeCollectionDisplay } from "../LargeCollectionDisplay/LargeCollectionDIsplay";
+import { Container } from "react-bootstrap";
 
 export const Dashboard = () => {
   // Wallet Connection
@@ -67,42 +68,46 @@ export const Dashboard = () => {
 
   return (
     <main>
-      <ConnectionModal />
-      {isConnected && userNfts && !isSneakyBalanceLoading && sneakyBalance ? (
-        <PortfolioStats tokens={userNfts} sneakyBalance={sneakyBalance} />
-      ) : (
-        isConnected && <LoadingPorfolioStats />
-      )}
-      {userNfts && collections ? (
-        <>
-          {mainCollections.map(({ collectionInfo, nfts }) => (
-            <LargeCollectionDisplay
-              key={collectionInfo.contractAddress}
-              collection={collectionInfo}
-              nfts={nfts}
-            />
-          ))}
-          <HorizontalCollectionRoll
-            title="Open Editions"
-            collections={oeCollections}
-            showCollectionTitles={false}
-          />
-          <HorizontalCollectionRoll
-            title="Plushies"
-            collections={plushieCollections}
-            makeCollectionImagesSquare
-          />
-          {/* <pre>{JSON.stringify(userNfts, null, 2)}</pre> */}
-        </>
-      ) : isDisconnected ? (
-        <DisconnectedDashboard />
-      ) : (
-        <div className="d-flex flex-column justify-content-center align-items-center text-center vh-100">
-          <div className="spinner-border" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
+      <Container fluid="xxl">
+        <ConnectionModal />
+        {isConnected && userNfts && !isSneakyBalanceLoading && sneakyBalance ? (
+          <PortfolioStats tokens={userNfts} sneakyBalance={sneakyBalance} />
+        ) : (
+          isConnected && <LoadingPorfolioStats />
+        )}
+        <div style={{ maxWidth: "100vw" }}>
+          {userNfts && collections ? (
+            <>
+              {mainCollections.map(({ collectionInfo, nfts }) => (
+                <LargeCollectionDisplay
+                  key={collectionInfo.contractAddress}
+                  collection={collectionInfo}
+                  nfts={nfts}
+                />
+              ))}
+              <HorizontalCollectionRoll
+                title="Open Editions"
+                collections={oeCollections}
+                showCollectionTitles={false}
+              />
+              <HorizontalCollectionRoll
+                title="Plushies"
+                collections={plushieCollections}
+                makeCollectionImagesSquare
+              />
+              {/* <pre>{JSON.stringify(userNfts, null, 2)}</pre> */}
+            </>
+          ) : isDisconnected ? (
+            <DisconnectedDashboard />
+          ) : (
+            <div className="d-flex flex-column justify-content-center align-items-center text-center vh-100">
+              <div className="spinner-border" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            </div>
+          )}
         </div>
-      )}
+      </Container>
     </main>
   );
 };

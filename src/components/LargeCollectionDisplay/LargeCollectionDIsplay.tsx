@@ -11,7 +11,7 @@ type Props = {
 export const LargeCollectionDisplay = ({ collection, nfts }: Props) => {
   console.log({ nfts });
   return (
-    <div className="row">
+    <div className="row" style={{ maxWidth: "100vw" }}>
       <div className="col-12 col-xxl-3 col-xl-3 col-lg-3 col-md-5 col-sm-6 col-xs-12">
         <DecoratedCollectionImage
           collection={collection}

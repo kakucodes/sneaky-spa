@@ -8,6 +8,7 @@ import { StatsBreakdown } from "./StatsBreakdown";
 import { useDisconnect } from "graz";
 /* import { useWalletConnectModal } from "../WalletConnectionModal/ConnectionModalProvider"; */
 import Link from "next/link";
+import { useState } from "react";
 
 type Props = {
   tokens: NonNullable<Awaited<ReturnType<typeof queryNfts>>> | undefined;
@@ -15,6 +16,7 @@ type Props = {
 };
 
 export const PortfolioStats = ({ tokens, sneakyBalance }: Props) => {
+  const [isBreakdownOpen, setIsBreakdownOpen] = useState(false);
   const tokenSummary = sneakyTokensSummary(sneakyBalance);
 
   const totalNftsCount = tokens?.length || 0;
@@ -84,16 +86,20 @@ export const PortfolioStats = ({ tokens, sneakyBalance }: Props) => {
           <span>&nbsp;|&nbsp;</span>
           <a
             className="link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-50-hover"
-            data-bs-toggle="collapse"
-            href="#collapseExample"
+            // data-bs-toggle="collapse"
+            // href="#collapseExample"
+            onClick={() =>
+              setIsBreakdownOpen((isBreakdownOpen) => !isBreakdownOpen)
+            }
             role="button"
-            aria-expanded="false"
-            aria-controls="collapseExample"
+            // aria-expanded="false"
+            // aria-controls="stats-breakdown"
           >
             <span>Breakdown</span>
           </a>
         </p>
-        <div className="collapse" id="collapseExample">
+
+        {isBreakdownOpen && (
           <StatsBreakdown
             {...{
               ...tokenSummary,
@@ -105,7 +111,7 @@ export const PortfolioStats = ({ tokens, sneakyBalance }: Props) => {
               totalFormattedAmount: sneakyBalance.totalFormattedAmount,
             }}
           />
-        </div>
+        )}
       </div>
     </>
   );

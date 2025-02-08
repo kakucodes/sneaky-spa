@@ -6,6 +6,7 @@ import { useState } from "react";
 import { match } from "ts-pattern"; */
 import Link from "next/link";
 import Image from "next/image";
+import { Navbar, Container, Nav } from "react-bootstrap";
 
 export const Header = () => {
   /*   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -21,60 +22,50 @@ export const Header = () => {
   }; */
 
   const pages = [
-    { name: "Home", path: "/" },
+    // { name: "Home", path: "/" },
     { name: "Dashboard", path: "/dashboard" },
     { name: "Shop", path: "/shop" },
   ];
 
-  // Collapse Navbar On Click
-  const handleClick = () => {
-    const navbarCollapse = document.querySelector(".navbar-collapse");
-    if (navbarCollapse) {
-      navbarCollapse.classList.remove("show");
-    }
-  };
-
   return (
     <header className="fixed-top">
-      <nav className="navbar navbar-expand-sm">
-        <div className="container-xxl">
-          <Link className="navbar-brand dokdo fw-bold text-uppercase" href="/">
-            <Image
-              src={`/pignose.svg`}
-              alt="Sneaky Productions Logo"
-              width="30"
-              height="24"
-            />
-          </Link>
-          <button
-            className="navbar-toggler border-0"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
+      <Navbar expand="sm">
+        <Container fluid="xxl">
+          <Navbar.Brand
+            as={Link}
+            href="/"
+            className="dokdo fw-bold text-uppercase"
           >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          {/* <div className="collapse navbar-collapse" id="navbarNav"> */}
-          <ul className="navbar-nav ms-auto">
-            {pages.map((page) => (
-              <li key={page.path} className="nav-item">
-                <Link
-                  href={page.path}
-                  className="dokdo text-uppercase nav-link fw-bold fs-4"
-                  data-bs-target=".navbar-collapse.show"
-                  onClick={handleClick}
-                >
-                  {page.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          {/* </div> */}
-        </div>
-      </nav>
+            <Image
+              src="/pignose.svg"
+              alt="Sneaky Productions Logo"
+              width={30}
+              height={24}
+            />
+          </Navbar.Brand>
+          {/* <Navbar.Toggle
+            aria-controls="basic-navbar-nav"
+            className="border-0"
+          /> */}
+          {/* <Navbar.Collapse id="basic-navbar-nav"> */}
+          <Nav>
+            <div className="d-flex flex-row">
+              {pages.map((page) => (
+                <Nav.Item key={page.path} className="px-2 px-sm-0">
+                  <Nav.Link
+                    as={Link}
+                    href={page.path}
+                    className="dokdo text-uppercase fw-bold fs-4"
+                  >
+                    {page.name}
+                  </Nav.Link>
+                </Nav.Item>
+              ))}
+            </div>
+          </Nav>
+          {/* </Navbar.Collapse> */}
+        </Container>
+      </Navbar>
       {/* <div className="row">
           Title/Menu
           <div className="col-8">

@@ -30,7 +30,7 @@ export const Store = () => {
           come true.
         </p>
       </div>
-      <div className="row gy-5">
+      <div className="row gy-5" style={{ maxWidth: "100vw" }}>
         {storeItems &&
           storeItems.map((item, index) => (
             <div key={index} className="col-12 col-md-6 col-xxl-4">

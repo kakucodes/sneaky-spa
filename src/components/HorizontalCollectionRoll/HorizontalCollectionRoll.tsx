@@ -17,7 +17,7 @@ export const HorizontalCollectionRoll = ({
   showCollectionTitles = true,
 }: Props) => {
   return (
-    <div>
+    <div style={{ maxWidth: "100vw" }}>
       <h2 className="h3">{title}</h2>
 
       <div className="row flex-nowrap overflow-auto py-1">
