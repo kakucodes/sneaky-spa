@@ -44,6 +44,8 @@ export type OpenEditionCollectionAddr =
   (typeof OPEN_EDITION_COLLECTION_ADDRS)[number];
 
 export const PLUSHIE_COLLECTION_ADDRS = [
+  // Cards
+  "stars1mexsys34p8ef2jv30cm6gkwd9as7usf2d3mwuz85mqgw8tpra64sdxtpyd",
   // Sneaky Plushies - Happy Pig
   "stars134kzejtqk2hpfzvzfh8lz9dreuf40lyz2ucz3qpls6mmczr2dwlqx3t0t8",
   // Sneaky Plushies - Bitgirl
