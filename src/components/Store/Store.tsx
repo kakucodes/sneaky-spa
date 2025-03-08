@@ -62,7 +62,7 @@ export const Store = () => {
                     </p>
                   )}
                   {item.note && <p>Note: {item.note}</p>} */}
-                <p className="mb-2">Buy on</p>
+                <p className="mb-2">Buy with</p>
                 <p>
                   {item.stargazeLink && (
                     <a
@@ -71,7 +71,7 @@ export const Store = () => {
                       rel="noopener noreferrer"
                       className="btn btn-outline-dark"
                     >
-                      Stargaze
+                      Crypto
                     </a>
                   )}
                   <span>&nbsp;</span>
@@ -82,7 +82,7 @@ export const Store = () => {
                       rel="noopener noreferrer"
                       className="btn btn-outline-dark"
                     >
-                      Stripe
+                      Card
                     </a>
                   )}
                 </p>
