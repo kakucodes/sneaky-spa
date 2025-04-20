@@ -90,6 +90,18 @@ export const Store = () => {
             </div>
           ))}
       </div>
+
+      {/* Shipping and Import Tariffs Footnote */}
+      <div className="container mt-5 mb-5">
+        <div className="row mb-5">
+          <div className="col-12">
+            <p className="text-center text-muted small fst-italic">
+              * All prices include shipping. Buyer is responsible for any import
+              tariffs or customs fees that may apply.
+            </p>
+          </div>
+        </div>
+      </div>
     </main>
   );
 };
