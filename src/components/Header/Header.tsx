@@ -23,6 +23,7 @@ export const Header = () => {
 
   const pages = [
     // { name: "Home", path: "/" },
+    { name: "Sneakypedia", path: "https://lore.sneaky.productions" },
     { name: "Dashboard", path: "/dashboard" },
     { name: "Shop", path: "/shop" },
   ];
